@@ -62,6 +62,15 @@
                 />
 
                 @break
+            @case ($customization::DESIGNER_COVER)
+                <!-- Product Carousel -->
+                <x-shop::designer-cover
+                    :title="$data['title'] ?? ''"
+                    :src="route('shop.api.products.index', $data['filters'] ?? [])"
+                    :navigation-link="route('shop.search.index', $data['filters'] ?? [])"
+                />
+
+                @break
         @endswitch
     @endforeach
 </x-shop::layouts>

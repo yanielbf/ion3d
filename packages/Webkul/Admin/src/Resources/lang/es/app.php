@@ -2812,6 +2812,7 @@ return [
                 'title'      => 'Crear Tema',
 
                 'type' => [
+                    'designer-cover' => 'Diseñador de funda',
                     'category-carousel' => 'Carrusel de Categoría',
                     'footer-links'      => 'Enlaces del Pie de Página',
                     'image-carousel'    => 'Carrusel de imágenes',

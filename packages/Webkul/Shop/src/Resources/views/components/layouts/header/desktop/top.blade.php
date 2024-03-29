@@ -31,9 +31,9 @@
 
     {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.after') !!}
 
-    <p class="text-xs font-medium">
+    {{-- <p class="text-xs font-medium">
         Get UPTO 40% OFF on your 1st order <a href="{{ route('shop.home.index') }}" class="underline">SHOP NOW</a>
-    </p>
+    </p> --}}
 
     {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.locale_switcher.before') !!}
 

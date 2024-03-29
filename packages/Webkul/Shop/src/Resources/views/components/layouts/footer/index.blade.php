@@ -18,12 +18,12 @@
     ]);
 @endphp
 
-<footer class="mt-9 bg-lightOrange max-sm:mt-8">
-    <div class="flex gap-x-6 gap-y-8 justify-between p-[60px] max-1060:flex-wrap max-1060:flex-col-reverse max-sm:px-4">
-        <div class="flex gap-24 items-start flex-wrap max-1180:gap-6 max-1060:justify-between">
+<footer class="mt-9 bg-gradient-to-r from-slate-900 to-slate-700 max-sm:mt-8">
+    <div class="flex gap-x-6 gap-y-8 justify-center p-4 max-1060:flex-wrap max-1060:flex-col-reverse max-sm:px-4">
+        <div class="flex gap-24 items-start flex-wrap max-1180:gap-6 max-1060:justify-center">
             @if ($customization?->options)
                 @foreach ($customization->options as $footerLinkSection)
-                    <ul class="grid gap-5 text-sm">
+                    <ul class="flex flex-wrap justify-center gap-5 text-sm">
                         @php
                             usort($footerLinkSection, function ($a, $b) {
                                 return $a['sort_order'] - $b['sort_order'];
@@ -32,7 +32,7 @@
 
                         @foreach ($footerLinkSection as $link)
                             <li>
-                                <a href="{{ $link['url'] }}">
+                                <a class="text-white hover:text-slate-200" href="{{ $link['url'] }}">
                                     {{ $link['title'] }}
                                 </a>
                             </li>
@@ -90,10 +90,10 @@
         {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
     </div>
 
-    <div class="flex justify-between  px-[60px] py-3.5 bg-[#F1EADF]">
+    <div class="flex justify-center py-3.5 bg-gradient-to-r from-slate-900 to-slate-700">
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.before') !!}
 
-        <p class="text-sm text-[#4D4D4D]">
+        <p class="text-sm text-white text-center">
             @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
         </p>
 

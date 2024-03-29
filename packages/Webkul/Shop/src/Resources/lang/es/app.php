@@ -8,7 +8,7 @@ return [
             'bagisto'              => 'Bagisto',
             'email'                => 'Correo electrónico',
             'email-not-exist'      => 'No podemos encontrar un usuario con esa dirección de correo electrónico.',
-            'footer'               => '© Derechos de autor 2010 - :current_year, Webkul Software (Registrado en India). Todos los derechos reservados.',
+            'footer'               => '© Derechos de autor 2022 - :current_year, Ion3D. Todos los derechos reservados.',
             'forgot-password-text' => 'Si olvidó su contraseña, recupérela ingresando su dirección de correo electrónico.',
             'page-title'           => '¿Olvidó su contraseña?',
             'reset-link-sent'      => 'Hemos enviado por correo electrónico el enlace para restablecer su contraseña.',
@@ -22,7 +22,7 @@ return [
             'bagisto'          => 'Bagisto',
             'confirm-password' => 'Confirmar Contraseña',
             'email'            => 'Correo Electrónico Registrado',
-            'footer'           => '© Derechos de autor 2010 - :current_year, Webkul Software (Registrada en India). Todos los derechos reservados.',
+            'footer'           => '© Derechos de autor 2022 - :current_year, Ion3D. Todos los derechos reservados.',
             'password'         => 'Contraseña',
             'submit-btn-title' => 'Restablecer Contraseña',
             'title'            => 'Restablecer Contraseña',
@@ -33,7 +33,7 @@ return [
             'button-title'        => 'Iniciar Sesión',
             'create-your-account' => 'Crea tu cuenta',
             'email'               => 'Correo Electrónico',
-            'footer'              => '© Derechos de autor 2010 - :current_year, Webkul Software (Registrada en India). Todos los derechos reservados.',
+            'footer'              => '© Derechos de autor 2022 - :current_year, Ion3D. Todos los derechos reservados.',
             'forgot-pass'         => '¿Olvidaste tu Contraseña?',
             'form-login-text'     => 'Si tienes una cuenta, inicia sesión con tu dirección de correo electrónico.',
             'invalid-credentials' => 'Por favor, verifica tus credenciales e inténtalo de nuevo.',
@@ -53,7 +53,7 @@ return [
             'confirm-pass'                => 'Confirmar Contraseña',
             'email'                       => 'Correo Electrónico',
             'first-name'                  => 'Nombre',
-            'footer'                      => '© Derechos de autor 2010 - :current_year, Webkul Software (Registrada en India). Todos los derechos reservados.',
+            'footer'                      => '© Derechos de autor 2022 - :current_year, Ion3D. Todos los derechos reservados.',
             'form-signup-text'            => 'Si eres nuevo en nuestra tienda, estamos encantados de tenerte como miembro.',
             'last-name'                   => 'Apellido',
             'page-title'                  => 'Convertirse en Usuario',
@@ -316,100 +316,100 @@ return [
             'default-content' => 'Contenido predeterminado',
             'default-header'  => 'Encabezado predeterminado',
         ],
-
+    
         'drawer' => [
             'default-toggle' => 'Alternar predeterminado',
         ],
-
+    
         'media' => [
             'add-attachments' => 'Agregar adjuntos',
         ],
-
+    
         'layouts' => [
             'header' => [
-                'account'           => 'Konto',
+                'account'           => 'Cuenta',
                 'bagisto'           => 'Bagisto',
-                'cart'              => 'Warenkorb',
-                'compare'           => 'Vergleichen',
-                'dropdown-text'     => 'Warenkorb, Bestellungen & Wunschliste verwalten',
-                'logout'            => 'Abmelden',
+                'cart'              => 'Carrito',
+                'compare'           => 'Comparar',
+                'dropdown-text'     => 'Gestionar carrito, pedidos y lista de deseos',
+                'logout'            => 'Cerrar sesión',
                 'no-category-found' => 'No se encontró categoría.',
-                'orders'            => 'Bestellungen',
-                'profile'           => 'Profil',
-                'search'            => 'Suchen',
-                'search-text'       => 'Produkte hier suchen',
-                'sign-in'           => 'Anmelden',
-                'sign-up'           => 'Registrieren',
-                'title'             => 'Konto',
-                'welcome'           => 'Willkommen',
-                'welcome-guest'     => 'Willkommen Gast',
-                'wishlist'          => 'Wunschliste',
+                'orders'            => 'Pedidos',
+                'profile'           => 'Perfil',
+                'search'            => 'Buscar',
+                'search-text'       => 'Buscar productos aquí',
+                'sign-in'           => 'Iniciar sesión',
+                'sign-up'           => 'Registrarse',
+                'title'             => 'Cuenta',
+                'welcome'           => 'Bienvenido',
+                'welcome-guest'     => 'Bienvenido, Invitado',
+                'wishlist'          => 'Lista de deseos',
             ],
-
+    
             'footer' => [
-                'about-us'               => 'Über uns',
-                'contact-us'             => 'Kontakt',
-                'currency'               => 'Währung',
-                'customer-service'       => 'Kundendienst',
+                'about-us'               => 'Sobre nosotros',
+                'contact-us'             => 'Contacto',
+                'currency'               => 'Moneda',
+                'customer-service'       => 'Servicio al Cliente',
                 'email'                  => 'Correo Electrónico',
-                'footer-text'            => '© Derechos de autor 2010 - :current_year, Webkul Software (registrada en India). Todos los derechos reservados.',
-                'locale'                 => 'Sprache',
-                'newsletter-text'        => 'Bereiten Sie sich auf unseren unterhaltsamen Newsletter vor!',
-                'order-return'           => 'Bestellung und Rückgabe',
-                'payment-policy'         => 'Zahlungsrichtlinie',
-                'privacy-cookies-policy' => 'Datenschutz- und Cookie-Richtlinie',
-                'shipping-policy'        => 'Versandrichtlinie',
-                'subscribe'              => 'Abonnieren',
-                'subscribe-newsletter'   => 'Newsletter abonnieren',
-                'subscribe-stay-touch'   => 'Abonnieren Sie, um in Kontakt zu bleiben.',
-                'whats-new'              => 'Neuheiten',
+                'footer-text'            => '© Derechos de autor 2022 - :current_year, Ion3D. Todos los derechos reservados.',
+                'locale'                 => 'Idioma',
+                'newsletter-text'        => '¡Prepárate para nuestro entretenido boletín!',
+                'order-return'           => 'Pedido y devolución',
+                'payment-policy'         => 'Política de pago',
+                'privacy-cookies-policy' => 'Política de privacidad y cookies',
+                'shipping-policy'        => 'Política de envío',
+                'subscribe'              => 'Suscribirse a',
+                'subscribe-newsletter'   => 'Suscríbete al boletín',
+                'subscribe-stay-touch'   => 'Suscríbete para mantenerte en contacto.',
+                'whats-new'              => 'Novedades',
             ],
         ],
-
+    
         'datagrid' => [
             'toolbar' => [
                 'mass-actions' => [
-                    'select-action' => 'Aktion auswählen',
-                    'select-option' => 'Option auswählen',
-                    'submit'        => 'Absenden',
+                    'select-action' => 'Seleccionar acción',
+                    'select-option' => 'Seleccionar opción',
+                    'submit'        => 'Enviar',
                 ],
-
+    
                 'filter' => [
-                    'title' => 'Filter',
+                    'title' => 'Filtro',
                 ],
-
+    
                 'search' => [
-                    'title' => 'Suchen',
+                    'title' => 'Buscar',
                 ],
             ],
-
+    
             'filters' => [
-                'title' => 'Filter anwenden',
-
+                'title' => 'Aplicar filtro',
+    
                 'dropdown' => [
                     'searchable' => [
                         'atleast-two-chars' => 'Escribe al menos 2 caracteres...',
                         'no-results'        => 'No se encontraron resultados...',
                     ],
                 ],
-
+    
                 'custom-filters' => [
-                    'clear-all' => 'Alle löschen',
-                    'title'     => 'Benutzerdefinierte Filter',
+                    'clear-all' => 'Limpiar todo',
+                    'title'     => 'Filtros personalizados',
                 ],
-
+    
                 'date-options' => [
-                    'last-month'        => 'Letzter Monat',
-                    'last-six-months'   => 'Letzte 6 Monate',
-                    'last-three-months' => 'Letzte 3 Monate',
-                    'this-month'        => 'Diesen Monat',
-                    'this-week'         => 'Diese Woche',
-                    'this-year'         => 'Dieses Jahr',
-                    'today'             => 'Heute',
-                    'yesterday'         => 'Gestern',
+                    'last-month'        => 'Mes pasado',
+                    'last-six-months'   => 'Últimos 6 meses',
+                    'last-three-months' => 'Últimos 3 meses',
+                    'this-month'        => 'Este mes',
+                    'this-week'         => 'Esta semana',
+                    'this-year'         => 'Este año',
+                    'today'             => 'Hoy',
+                    'yesterday'         => 'Ayer',
                 ],
             ],
-
+    
             'table' => [
                 'actions'              => 'Acciones',
                 'next-page'            => 'Siguiente página',
@@ -419,11 +419,11 @@ return [
                 'previous-page'        => 'Página anterior',
             ],
         ],
-
+    
         'modal' => [
             'default-content' => 'Contenido predeterminado',
             'default-header'  => 'Encabezado predeterminado',
-
+    
             'confirm' => [
                 'agree-btn'    => 'Aceptar',
                 'disagree-btn' => 'No estar de acuerdo',
@@ -431,7 +431,7 @@ return [
                 'title'        => '¿Estás seguro?',
             ],
         ],
-
+    
         'products' => [
             'card' => [
                 'add-to-cart'            => 'Agregar al carrito',
@@ -443,26 +443,26 @@ return [
                 'review-description'     => 'Sé el primero en revisar este producto',
                 'sale'                   => 'Venta',
             ],
-
+    
             'carousel' => [
                 'next'     => 'Siguiente',
                 'previous' => 'Anterior',
                 'view-all' => 'Ver todo',
             ],
         ],
-
+    
         'range-slider' => [
             'max-range' => 'Rango máximo',
             'min-range' => 'Rango mínimo',
             'range'     => 'Rango:',
         ],
-
+    
         'carousel' => [
             'image-slide' => 'Diapositiva de imagen',
             'next'        => 'Siguiente',
             'previous'    => 'Anterior',
         ],
-
+    
         'quantity-changer' => [
             'decrease-quantity' => 'Disminuir cantidad',
             'increase-quantity' => 'Aumentar cantidad',
@@ -474,43 +474,43 @@ return [
             'grouped' => [
                 'starting-at' => 'A partir de',
             ],
-
+    
             'configurable' => [
                 'as-low-as' => 'Desde',
             ],
         ],
-
+    
         'sort-by' => [
             'title'   => 'Ordenar por',
         ],
-
+    
         'view' => [
             'type' => [
                 'configurable' => [
                     'select-options'       => 'Por favor, seleccione una opción',
                     'select-above-options' => 'Por favor, seleccione las opciones anteriores',
                 ],
-
+    
                 'bundle' => [
                     'none' => 'Ninguno',
                 ],
-
+    
                 'downloadable' => [
                     'links'   => 'Enlaces',
                     'samples' => 'Muestras',
                     'sample'  => 'Muestra',
                 ],
-
+    
                 'grouped' => [
                     'name' => 'Nombre',
                 ],
             ],
-
+    
             'gallery' => [
                 'product-image'   => 'Imagen del producto',
                 'thumbnail-image' => 'Imagen en miniatura',
             ],
-
+    
             'reviews' => [
                 'attachments'      => 'Adjuntos',
                 'cancel'           => 'Cancelar',
@@ -528,7 +528,7 @@ return [
                 'translating'      => 'Traduciendo...',
                 'write-a-review'   => 'Escribir una reseña',
             ],
-
+    
             'add-to-cart'            => 'Agregar al carrito',
             'add-to-compare'         => 'Producto añadido a la lista de comparación.',
             'add-to-wishlist'        => 'Agregar a la lista de deseos',
@@ -542,7 +542,7 @@ return [
             'tax-inclusive'          => 'Incluye todos los impuestos',
             'up-sell-title'          => 'Hemos encontrado otros productos que podrían gustarte.',
         ],
-
+    
         'type' => [
             'abstract' => [
                 'offers' => 'Compra :qty a :price cada uno y ahorra :discount',
@@ -552,62 +552,51 @@ return [
 
     'categories' => [
         'filters' => [
-            'clear-all' => 'Alle löschen',
-            'filter'    => 'Filter',
-            'filters'   => 'Filter:',
-            'sort'      => 'Sortieren',
+            'clear-all' => 'Limpiar todo',
+            'filter'    => 'Filtrar',
+            'filters'   => 'Filtros:',
+            'sort'      => 'Ordenar',
         ],
-
+    
         'toolbar' => [
             'grid' => 'Cuadrícula',
             'list' => 'Lista',
             'show' => 'Mostrar',
         ],
-
+    
         'view' => [
-            'empty'     => 'Keine Produkte in dieser Kategorie verfügbar',
-            'load-more' => 'Mehr laden',
+            'empty'     => 'No hay productos disponibles en esta categoría',
+            'load-more' => 'Cargar más',
         ],
     ],
+    
 
     'search' => [
-        'title'   => 'Suchergebnisse für: :query',
+        'title'   => 'Resultados de búsqueda para: :query',
         'results' => 'Resultados de búsqueda',
-
+    
         'images' => [
             'index' => [
                 'only-images-allowed'  => 'Solo se permiten imágenes (.jpeg, .jpg, .png, ..).',
-                'search'               => 'Suchen',
+                'search'               => 'Buscar',
                 'size-limit-error'     => 'Error de límite de tamaño',
                 'something-went-wrong' => 'Algo salió mal, por favor inténtelo de nuevo más tarde.',
             ],
-
+    
             'results' => [
                 'analysed-keywords' => 'Palabras clave analizadas:',
             ],
         ],
-    ],
-
-    'compare' => [
-        'already-added'      => 'Artikel wurde bereits zur Vergleichsliste hinzugefügt',
-        'delete-all'         => 'Alles löschen',
-        'empty-text'         => 'Sie haben keine Artikel in Ihrer Vergleichsliste',
-        'item-add-success'   => 'Artikel wurde erfolgreich zur Vergleichsliste hinzugefügt',
-        'product-compare'    => 'Produktvergleich',
-        'remove-all-success' => 'Alle Artikel erfolgreich entfernt.',
-        'remove-error'       => 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.',
-        'remove-success'     => 'Artikel wurde erfolgreich entfernt.',
-        'title'              => 'Produktvergleich',
-    ],
+    ],    
 
     'checkout' => [
         'success' => [
-            'info'          => 'Wir werden Ihnen Ihre Bestelldetails und Tracking-Informationen per E-Mail zusenden',
-            'order-id-info' => 'Ihre Bestellnummer lautet #:order_id',
-            'thanks'        => 'Vielen Dank für Ihre Bestellung!',
-            'title'         => 'Bestellung erfolgreich aufgegeben',
+            'info'          => 'Le enviaremos los detalles de su pedido y la información de seguimiento por correo electrónico',
+            'order-id-info' => 'Su número de pedido es #:order_id',
+            'thanks'        => '¡Gracias por su pedido!',
+            'title'         => 'Pedido realizado con éxito',
         ],
-
+    
         'cart' => [
             'continue-to-checkout'      => 'Continuar con el Pago',
             'illegal'                   => 'La cantidad no puede ser menor que uno.',
@@ -624,7 +613,7 @@ return [
             'select-hourly-duration'    => 'Selecciona una duración de una hora.',
             'success-remove'            => 'El artículo se ha eliminado correctamente del carrito.',
             'suspended-account-message' => 'Tu cuenta ha sido suspendida.',
-
+    
             'index' => [
                 'bagisto'                  => 'Bagisto',
                 'cart'                     => 'Carrito',
@@ -648,7 +637,7 @@ return [
                 'update-cart'              => 'Actualizar Carrito',
                 'view-cart'                => 'Ver Carrito',
             ],
-
+    
             'coupon' => [
                 'already-applied' => 'El código de cupón ya ha sido aplicado.',
                 'applied'         => 'Cupón aplicado',
@@ -663,12 +652,12 @@ return [
                 'remove'          => 'Eliminar Cupón',
                 'subtotal'        => 'Subtotal',
                 'success-apply'   => 'Código de cupón aplicado con éxito.',
-
+    
                 'cross-sell' => [
                     'title' => 'Más opciones',
                 ],
             ],
-
+    
             'mini-cart' => [
                 'continue-to-checkout' => 'Continuar con el Pago',
                 'empty-cart'           => 'Tu carrito está vacío',
@@ -679,7 +668,7 @@ return [
                 'subtotal'             => 'Subtotal',
                 'view-cart'            => 'Ver Carrito',
             ],
-
+    
             'summary' => [
                 'cart-summary'        => 'Resumen del Carrito',
                 'delivery-charges'    => 'Cargos de Envío',
@@ -691,7 +680,7 @@ return [
                 'tax'                 => 'Impuesto',
             ],
         ],
-
+    
         'onepage' => [
             'address' => [
                 'add-new-address'  => 'Agregar nueva dirección',
@@ -718,20 +707,20 @@ return [
                 'telephone'        => 'Teléfono',
                 'title'            => 'Dirección',
             ],
-
+    
             'index' => [
                 'checkout' => 'Realizar Pedido',
                 'home'     => 'Inicio',
             ],
-
+    
             'payment' => [
                 'payment-method' => 'Método de Pago',
             ],
-
+    
             'shipping' => [
                 'shipping-method' => 'Método de Envío',
             ],
-
+    
             'summary' => [
                 'cart-summary'     => 'Resumen del Carrito',
                 'delivery-charges' => 'Cargos de Envío',
@@ -744,172 +733,164 @@ return [
                 'tax'              => 'Impuesto',
             ],
         ],
-    ],
-
-    'home' => [
-        'index' => [
-            'offer'               => 'Erhalten Sie BIS ZU 40 % RABATT auf Ihre erste Bestellung JETZT SHOPPEN',
-            'resend-verify-email' => 'Bestätigungs-E-Mail erneut senden',
-            'verify-email'        => 'Bestätigen Sie Ihre E-Mail-Adresse',
-        ],
-    ],
+    ],    
 
     'partials' => [
         'pagination' => [
             'pagination-showing' => 'Mostrando :firstItem a :lastItem de :total entradas',
         ],
     ],
-
+    
     'errors' => [
-        'go-to-home'   => 'Zur Startseite gehen',
-
+        'go-to-home'   => 'Ir a la página de inicio',
+    
         '404' => [
-            'description' => 'Hoppla! Die Seite, nach der Sie suchen, macht gerade Urlaub. Es scheint, wir konnten nicht finden, wonach Sie gesucht haben.',
-            'title'       => '404 Seite nicht gefunden',
+            'description' => '¡Oops! La página que estás buscando está de vacaciones. Parece que no pudimos encontrar lo que buscabas.',
+            'title'       => '404 Página no encontrada',
         ],
-
+    
         '401' => [
-            'description' => 'Hoppla! Es sieht so aus, als hätten Sie keine Berechtigung, auf diese Seite zuzugreifen. Es scheint, dass Ihnen die notwendigen Zugangsdaten fehlen.',
-            'title'       => '401 Unbefugt',
+            'description' => '¡Oops! Parece que no tienes autorización para acceder a esta página. Parece que te faltan las credenciales necesarias.',
+            'title'       => '401 No autorizado',
         ],
-
+    
         '403' => [
-            'description' => 'Hoppla! Diese Seite ist tabu. Es sieht so aus, als hätten Sie nicht die erforderlichen Berechtigungen, um diesen Inhalt anzuzeigen.',
-            'title'       => '403 Verboten',
+            'description' => '¡Oops! Esta página está prohibida. Parece que no tienes los permisos necesarios para ver este contenido.',
+            'title'       => '403 Prohibido',
         ],
-
+    
         '500' => [
-            'description' => 'Hoppla! Etwas ist schiefgelaufen. Es scheint, dass wir Schwierigkeiten haben, die von Ihnen gesuchte Seite zu laden.',
-            'title'       => '500 Interner Serverfehler',
+            'description' => '¡Oops! Algo salió mal. Parece que estamos teniendo problemas para cargar la página que estabas buscando.',
+            'title'       => '500 Error interno del servidor',
         ],
-
+    
         '503' => [
-            'description' => 'Hoppla! Es sieht so aus, als wären wir vorübergehend wegen Wartungsarbeiten offline. Bitte kommen Sie später wieder.',
-            'title'       => '503 Dienst nicht verfügbar',
+            'description' => '¡Oops! Parece que estamos fuera de línea temporalmente por mantenimiento. Por favor, inténtalo de nuevo más tarde.',
+            'title'       => '503 Servicio no disponible',
         ],
     ],
-
+    
     'layouts' => [
-        'address'               => 'Adresse',
-        'downloadable-products' => 'Downloadbare Produkte',
-        'my-account'            => 'Mein Konto',
-        'orders'                => 'Bestellungen',
-        'profile'               => 'Profil',
-        'reviews'               => 'Bewertungen',
-        'wishlist'              => 'Wunschliste',
+        'address'               => 'Dirección',
+        'downloadable-products' => 'Productos descargables',
+        'my-account'            => 'Mi cuenta',
+        'orders'                => 'Órdenes',
+        'profile'               => 'Perfil',
+        'reviews'               => 'Reseñas',
+        'wishlist'              => 'Lista de deseos',
     ],
-
+    
     'subscription' => [
-        'already'             => 'Sie sind bereits für unseren Newsletter angemeldet.',
-        'subscribe-success'   => 'Sie haben sich erfolgreich für unseren Newsletter angemeldet.',
-        'unsubscribe-success' => 'Sie haben sich erfolgreich von unserem Newsletter abgemeldet.',
-    ],
+        'already'             => 'Ya estás suscrito a nuestro boletín.',
+        'subscribe-success'   => 'Te has suscrito correctamente a nuestro boletín.',
+        'unsubscribe-success' => 'Te has dado de baja correctamente de nuestro boletín.',
+    ],    
 
     'emails' => [
-        'dear'   => 'Sehr geehrte/r :customer_name',
-        'thanks' => 'Wenn Sie Hilfe benötigen, kontaktieren Sie uns bitte unter <a href=":link" style=":style">:email</a>.<br/>Vielen Dank!',
-
+        'dear'   => 'Estimado/a :customer_name',
+        'thanks' => 'Si necesita ayuda, contáctenos en <a href=":link" style=":style">:email</a>.<br/>¡Gracias!',
+    
         'customers' => [
             'registration' => [
                 'credentials-description' => 'Su cuenta ha sido creada. Los detalles de su cuenta se encuentran a continuación:',
-                'description'             => 'Ihr Konto wurde erfolgreich erstellt und Sie können sich mit Ihren E-Mail-Adresse und Passwort anmelden. Nach der Anmeldung können Sie auf weitere Dienste zugreifen, einschließlich der Überprüfung früherer Bestellungen, Wunschlisten und der Bearbeitung Ihrer Kontoinformationen.',
-                'greeting'                => 'Willkommen und vielen Dank für Ihre Registrierung bei uns!',
+                'description'             => 'Su cuenta ha sido creada correctamente y puede iniciar sesión con su dirección de correo electrónico y contraseña. Después de iniciar sesión, puede acceder a más servicios, incluida la verificación de pedidos anteriores, listas de deseos y la edición de la información de su cuenta.',
+                'greeting'                => '¡Bienvenido/a y gracias por registrarte con nosotros!',
                 'password'                => 'Contraseña',
-                'sign-in'                 => 'Anmelden',
-                'subject'                 => 'Neue Kundenregistrierung',
+                'sign-in'                 => 'Iniciar sesión',
+                'subject'                 => 'Nuevo registro de cliente',
                 'username-email'          => 'Nombre de usuario/Correo electrónico',
             ],
-
+    
             'forgot-password' => [
-                'description'    => 'Sie erhalten diese E-Mail, weil wir eine Anfrage zum Zurücksetzen des Passworts für Ihr Konto erhalten haben.',
-                'greeting'       => 'Passwort vergessen!',
-                'reset-password' => 'Passwort zurücksetzen',
-                'subject'        => 'E-Mail zum Zurücksetzen des Passworts',
+                'description'    => 'Recibe este correo electrónico porque hemos recibido una solicitud para restablecer la contraseña de su cuenta.',
+                'greeting'       => '¡Olvidaste tu contraseña!',
+                'reset-password' => 'Restablecer contraseña',
+                'subject'        => 'Correo electrónico de restablecimiento de contraseña',
             ],
-
+    
             'update-password' => [
-                'description' => 'Sie erhalten diese E-Mail, weil Sie Ihr Passwort aktualisiert haben.',
-                'greeting'    => 'Passwort aktualisiert!',
-                'subject'     => 'Passwort aktualisiert',
+                'description' => 'Recibe este correo electrónico porque ha actualizado su contraseña.',
+                'greeting'    => '¡Contraseña actualizada!',
+                'subject'     => 'Contraseña actualizada',
             ],
-
+    
             'verification' => [
-                'description'  => 'Bitte klicken Sie auf den unten stehenden Button, um Ihre E-Mail-Adresse zu bestätigen.',
-                'greeting'     => 'Willkommen!',
-                'subject'      => 'E-Mail zur Kontoüberprüfung',
-                'verify-email' => 'E-Mail-Adresse bestätigen',
+                'description'  => 'Por favor, haga clic en el botón de abajo para verificar su dirección de correo electrónico.',
+                'greeting'     => '¡Bienvenido/a!',
+                'subject'      => 'Correo electrónico de verificación de cuenta',
+                'verify-email' => 'Verificar dirección de correo electrónico',
             ],
-
+    
             'commented' => [
-                'description' => 'Notiz lautet - :note',
-                'subject'     => 'Neuer Kommentar hinzugefügt',
+                'description' => 'Nota: :note',
+                'subject'     => 'Nuevo comentario agregado',
             ],
-
+    
             'subscribed' => [
-                'description' => 'Herzlichen Glückwunsch und willkommen in unserer Newsletter-Community! Wir freuen uns, Sie an Bord zu haben und Sie mit den neuesten Nachrichten, Trends und exklusiven Angeboten auf dem Laufenden zu halten.',
-                'greeting'    => 'Willkommen bei unserem Newsletter!',
-                'subject'     => 'Sie! Abonnieren Sie unseren Newsletter',
-                'unsubscribe' => 'Abmelden',
+                'description' => '¡Felicidades y bienvenido/a a nuestra comunidad de boletines! Estamos encantados de tenerte a bordo y de mantenerte informado/a sobre las últimas noticias, tendencias y ofertas exclusivas.',
+                'greeting'    => '¡Bienvenido/a a nuestro boletín!',
+                'subject'     => '¡Tú! Suscríbete a nuestro boletín',
+                'unsubscribe' => 'Cancelar suscripción',
             ],
         ],
-
+    
         'orders' => [
             'created' => [
-                'greeting' => 'Vielen Dank für Ihre Bestellung :order_id, aufgegeben am :created_at',
-                'subject'  => 'Neue Bestellbestätigung',
-                'summary'  => 'Zusammenfassung der Bestellung',
-                'title'    => 'Bestellbestätigung!',
+                'greeting' => 'Gracias por su pedido :order_id, realizado el :created_at',
+                'subject'  => 'Nueva confirmación de pedido',
+                'summary'  => 'Resumen del pedido',
+                'title'    => '¡Confirmación de pedido!',
             ],
-
+    
             'invoiced' => [
-                'greeting' => 'Ihre Rechnung #:invoice_id für Bestellung :order_id, erstellt am :created_at',
-                'subject'  => 'Neue Rechnungsbestätigung',
-                'summary'  => 'Zusammenfassung der Rechnung',
-                'title'    => 'Rechnungsbestätigung!',
+                'greeting' => 'Su factura #:invoice_id para el pedido :order_id, creado el :created_at',
+                'subject'  => 'Nueva confirmación de factura',
+                'summary'  => 'Resumen de la factura',
+                'title'    => '¡Confirmación de factura!',
             ],
-
+    
             'shipped' => [
-                'greeting' => 'Ihre Bestellung :order_id, aufgegeben am :created_at, wurde versandt',
-                'subject'  => 'Neue Versandbestätigung',
-                'summary'  => 'Zusammenfassung des Versands',
-                'title'    => 'Bestellung versandt!',
+                'greeting' => 'Su pedido :order_id, realizado el :created_at, ha sido enviado',
+                'subject'  => 'Nueva confirmación de envío',
+                'summary'  => 'Resumen del envío',
+                'title'    => '¡Pedido enviado!',
             ],
-
+    
             'refunded' => [
-                'greeting' => 'Die Rückerstattung wurde für Bestellung :order_id, aufgegeben am :created_at, initiiert',
-                'subject'  => 'Neue Rückerstattungsbestätigung',
-                'summary'  => 'Zusammenfassung der Rückerstattung',
-                'title'    => 'Bestellung rückerstattet!',
+                'greeting' => 'El reembolso se ha iniciado para el pedido :order_id, realizado el :created_at',
+                'subject'  => 'Nueva confirmación de reembolso',
+                'summary'  => 'Resumen del reembolso',
+                'title'    => '¡Pedido reembolsado!',
             ],
-
+    
             'canceled' => [
-                'greeting' => 'Ihre Bestellung :order_id, aufgegeben am :created_at, wurde storniert',
-                'subject'  => 'Neue Bestellstornierung',
-                'summary'  => 'Zusammenfassung der Bestellung',
-                'title'    => 'Bestellung storniert!',
+                'greeting' => 'Su pedido :order_id, realizado el :created_at, ha sido cancelado',
+                'subject'  => 'Nueva cancelación de pedido',
+                'summary'  => 'Resumen del pedido',
+                'title'    => '¡Pedido cancelado!',
             ],
-
+    
             'commented' => [
-                'subject' => 'Neuer Kommentar hinzugefügt',
-                'title'   => 'Neuer Kommentar zu Ihrer Bestellung :order_id, aufgegeben am :created_at, hinzugefügt',
+                'subject' => 'Nuevo comentario agregado',
+                'title'   => 'Nuevo comentario en su pedido :order_id, realizado el :created_at',
             ],
-
-            'billing-address'   => 'Rechnungsadresse',
-            'carrier'           => 'Spediteur',
-            'contact'           => 'Kontakt',
-            'discount'          => 'Rabatt',
-            'grand-total'       => 'Gesamtsumme',
-            'name'              => 'Name',
-            'payment'           => 'Zahlung',
-            'price'             => 'Preis',
-            'qty'               => 'Menge',
-            'shipping'          => 'Versand',
-            'shipping-address'  => 'Lieferadresse',
-            'shipping-handling' => 'Versand und Bearbeitung',
+    
+            'billing-address'   => 'Dirección de facturación',
+            'carrier'           => 'Transportista',
+            'contact'           => 'Contacto',
+            'discount'          => 'Descuento',
+            'grand-total'       => 'Total',
+            'name'              => 'Nombre',
+            'payment'           => 'Pago',
+            'price'             => 'Precio',
+            'qty'               => 'Cantidad',
+            'shipping'          => 'Envío',
+            'shipping-address'  => 'Dirección de envío',
+            'shipping-handling' => 'Envío y manipulación',
             'sku'               => 'SKU',
-            'subtotal'          => 'Zwischensumme',
-            'tax'               => 'Steuer',
-            'tracking-number'   => 'Sendungsnummer: :tracking_number',
+            'subtotal'          => 'Subtotal',
+            'tax'               => 'Impuesto',
+            'tracking-number'   => 'Número de seguimiento: :tracking_number',
         ],
-    ],
+    ],    
 ];

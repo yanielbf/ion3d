@@ -142,9 +142,7 @@
             >
                 <img
                     src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
-                    alt="{{ config('app.name') }}"
-                    width="131"
-                    height="29"
+                    alt="{{ config('app.name') }}" class="h-[30px]"
                 >
             </a>
             
@@ -286,7 +284,7 @@
     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.before') !!}
 
     <!-- Serach Catalog Form -->
-    <form action="{{ route('shop.search.index') }}" class="flex items-center w-full">
+    {{-- <form action="{{ route('shop.search.index') }}" class="flex items-center w-full">
         <label 
             for="organic-search" 
             class="sr-only"
@@ -312,7 +310,7 @@
                 @include('shop::search.images.index')
             @endif
         </div>
-    </form>
+    </form> --}}
 
     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.after') !!}
 </div>

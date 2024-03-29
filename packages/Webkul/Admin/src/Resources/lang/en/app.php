@@ -2812,6 +2812,7 @@ return [
                 'title'      => 'Create Theme',
 
                 'type'       => [
+                    'designer-cover' => 'Cover designer',
                     'category-carousel' => 'Category Carousel',
                     'footer-links'      => 'Footer Links',
                     'image-carousel'    => 'Image Carousel',

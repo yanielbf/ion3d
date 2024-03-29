@@ -15,9 +15,8 @@
         >
             <img
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
-                width="131"
-                height="29"
                 alt="{{ config('app.name') }}"
+                class="h-[60px]"
             >
         </a>
 
@@ -51,7 +50,7 @@
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.before') !!}
 
         <!-- Search Bar Container -->
-        <div class="relative w-full">
+        {{-- <div class="relative w-full">
             <form
                 action="{{ route('shop.search.index') }}"
                 class="flex items-center max-w-[445px]"
@@ -83,7 +82,7 @@
                     @include('shop::search.images.index')
                 @endif
             </form>
-        </div>
+        </div> --}}
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.after') !!}
 
@@ -318,14 +317,14 @@
 
             data() {
                 return  {
-                    isLoading: true,
+                    isLoading: false,
 
                     categories: [],
                 }
             },
 
             mounted() {
-                this.get();
+                // this.get();
             },
 
             methods: {
