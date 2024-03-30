@@ -81,6 +81,8 @@ import Emitter from "./plugins/emitter";
 import Shop from "./plugins/shop";
 import VeeValidate from "./plugins/vee-validate";
 import Flatpickr from "./plugins/flatpickr";
+import Tres from '@tresjs/core'
+import DesignerCover from './components/DesignerCover.vue'
 
 [
     Axios,
@@ -88,7 +90,10 @@ import Flatpickr from "./plugins/flatpickr";
     Shop, 
     VeeValidate, 
     Flatpickr,
+    Tres
 ].forEach((plugin) => app.use(plugin));
+
+app.component('v-designer-cover', DesignerCover)
 
 /**
  * Load event, the purpose of using the event is to mount the application

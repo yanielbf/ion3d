@@ -1,9 +1,9 @@
 <v-designer-cover />
 
-@pushOnce('scripts')
+{{-- @pushOnce('scripts')
     <script type="text/x-template" id="v-designer-cover-template">
         <div class="w-full flex justify-between mt-9 px-[60px] max-1180:px-8">
-            1111
+            @lang('shop::app.components.products.card.sale')
         </div>
     </script>
 
@@ -46,4 +46,4 @@
             },
         });
     </script>
-@endPushOnce
+@endPushOnce --}}
