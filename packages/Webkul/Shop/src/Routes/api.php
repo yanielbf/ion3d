@@ -10,6 +10,7 @@ use Webkul\Shop\Http\Controllers\API\OnepageController;
 use Webkul\Shop\Http\Controllers\API\ProductController;
 use Webkul\Shop\Http\Controllers\API\ReviewController;
 use Webkul\Shop\Http\Controllers\API\WishlistController;
+use Webkul\Shop\Http\Controllers\API\DesignerCoverController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'], function () {
     Route::controller(CoreController::class)->prefix('core')->group(function () {
@@ -86,6 +87,10 @@ Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'
         Route::post('orders', 'storeOrder')->name('shop.checkout.onepage.orders.store');
 
         Route::post('check-minimum-order', 'checkMinimumOrder')->name('shop.checkout.onepage.check_minimum_order');
+    });
+
+    Route::controller(DesignerCoverController::class)->prefix('designer-cover')->group(function () {
+        Route::get('get-attributes-dc', 'get_attributes_dc')->name('shop.designer_cover.get_attributes_dc');
     });
 
     Route::group(['middleware' => ['customer'], 'prefix' => 'customer'], function () {

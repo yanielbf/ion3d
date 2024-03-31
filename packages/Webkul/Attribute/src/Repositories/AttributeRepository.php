@@ -134,6 +134,16 @@ class AttributeRepository extends Repository
     }
 
     /**
+     * Get design cover attributes.
+     *
+     * @return array
+     */
+    public function getDesignCoverAttributes()
+    {
+        return $this->model->with(['options', 'options.translations'])->where('code', 'like', 'dc_%')->orderBy('position')->get();
+    }
+
+    /**
      * Get product default attributes.
      *
      * @param  array  $codes
