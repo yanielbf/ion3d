@@ -54,7 +54,7 @@ class ThemeCustomization extends TranslatableModel implements ThemeCustomization
      *
      * @var string
      */
-    public const DESIGNER_COVER = 'designer_cover';
+    public const DESIGNER_3D = 'designer_3d';
 
     /**
      * Footer links precision.

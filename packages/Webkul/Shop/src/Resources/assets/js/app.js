@@ -81,8 +81,10 @@ import Emitter from "./plugins/emitter";
 import Shop from "./plugins/shop";
 import VeeValidate from "./plugins/vee-validate";
 import Flatpickr from "./plugins/flatpickr";
-import Tres from '@tresjs/core'
-import DesignerCover from './components/DesignerCover.vue'
+import Tres from '@tresjs/core';
+import PrimeVue from 'primevue/config';
+import Lara from './presets/lara';
+import Designer3D from './components/Designer3D.vue';
 
 [
     Axios,
@@ -93,7 +95,9 @@ import DesignerCover from './components/DesignerCover.vue'
     Tres
 ].forEach((plugin) => app.use(plugin));
 
-app.component('v-designer-cover', DesignerCover)
+app.use(PrimeVue, { unstyled: true, pt: Lara });
+
+app.component('v-designer-3d', Designer3D)
 
 /**
  * Load event, the purpose of using the event is to mount the application

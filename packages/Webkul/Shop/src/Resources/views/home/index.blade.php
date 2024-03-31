@@ -62,9 +62,9 @@
                 />
 
                 @break
-            @case ($customization::DESIGNER_COVER)
+            @case ($customization::DESIGNER_3D)
                 <!-- Product Carousel -->
-                <x-shop::designer-cover
+                <x-shop::designer-3d
                     :title="$data['title'] ?? ''"
                     :src="route('shop.api.products.index', $data['filters'] ?? [])"
                     :navigation-link="route('shop.search.index', $data['filters'] ?? [])"

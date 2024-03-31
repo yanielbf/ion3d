@@ -10,7 +10,7 @@ use Webkul\Shop\Http\Controllers\API\OnepageController;
 use Webkul\Shop\Http\Controllers\API\ProductController;
 use Webkul\Shop\Http\Controllers\API\ReviewController;
 use Webkul\Shop\Http\Controllers\API\WishlistController;
-use Webkul\Shop\Http\Controllers\API\DesignerCoverController;
+use Webkul\Shop\Http\Controllers\API\Designer3DController;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'], function () {
     Route::controller(CoreController::class)->prefix('core')->group(function () {
@@ -89,8 +89,12 @@ Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'
         Route::post('check-minimum-order', 'checkMinimumOrder')->name('shop.checkout.onepage.check_minimum_order');
     });
 
-    Route::controller(DesignerCoverController::class)->prefix('designer-cover')->group(function () {
-        Route::get('get-attributes-dc', 'get_attributes_dc')->name('shop.designer_cover.get_attributes_dc');
+    Route::controller(Designer3DController::class)->prefix('designer-3d')->group(function () {
+        Route::get('get-families-attributes', 'get_families_attributes')->name('shop.designer_3d.get_families_attributes');
+
+        Route::get('get-attributes-by-family', 'get_attributes_by_family')->name('shop.designer_3d.get_attributes_by_family');
+        
+        Route::get('get-product-by-attributes', 'get_product_by_attributes')->name('shop.designer_3d.get_product_by_attributes');
     });
 
     Route::group(['middleware' => ['customer'], 'prefix' => 'customer'], function () {

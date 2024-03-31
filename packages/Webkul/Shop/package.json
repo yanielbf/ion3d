@@ -22,6 +22,7 @@
     "html2canvas": "^1.4.1",
     "konva": "^9.3.6",
     "mitt": "^3.0.0",
+    "primevue": "^3.50.0",
     "three": "^0.163.0",
     "vee-validate": "^4.9.1",
     "vue-flatpickr": "^2.3.0",

@@ -169,7 +169,7 @@
                 data() {
                     return {
                         themeTypes: {
-                            designer_cover: "@lang('admin::app.settings.themes.create.type.designer-cover')",
+                            designer_3d: "@lang('admin::app.settings.themes.create.type.designer-cover')",
                             product_carousel: "@lang('admin::app.settings.themes.create.type.product-carousel')",
                             category_carousel: "@lang('admin::app.settings.themes.create.type.category-carousel')",
                             static_content: "@lang('admin::app.settings.themes.create.type.static-content')",

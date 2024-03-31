@@ -207,6 +207,63 @@ class ProductRepository extends Repository
      *
      * @return \Illuminate\Support\Collection
      */
+    public function getOneFromDatabaseByAttributes()
+    {
+        $params = request()->input();
+
+        $query = $this->with([
+            'images',
+            'videos',
+            'attribute_values',
+            'price_indices',
+            'inventory_indices',
+        ])->scopeQuery(function ($query) use ($params) {
+            $prefix = DB::getTablePrefix();
+
+            $qb = $query->distinct()
+                ->select('products.*')
+                ->leftJoin('products as variants', DB::raw('COALESCE('.$prefix.'variants.parent_id, '.$prefix.'variants.id)'), '=', 'products.id')
+                ->leftJoin('product_price_indices', function ($join) {
+                    $customerGroup = $this->customerRepository->getCurrentGroup();
+                    $join->on('products.id', '=', 'product_price_indices.product_id')
+                        ->where('product_price_indices.customer_group_id', $customerGroup->id);
+                });
+
+            /**
+             * Retrieve all the filterable attributes.
+             */
+            $attributes = $this->attributeRepository->getProductDefaultAttributes(array_keys($params));
+
+            /**
+             * Filter collection by required attributes.
+             */
+            foreach ($attributes as $attribute) {
+                $alias = $attribute->code.'_product_attribute_values';
+
+                $qb->leftJoin('product_attribute_values as '.$alias, 'products.id', '=', $alias.'.product_id')
+                    ->where($alias.'.attribute_id', $attribute->id);
+
+                if (is_null($params[$attribute->code])) {
+                    continue;
+                }
+
+                $qb->where($alias.'.'.$attribute->column_name, $params[$attribute->code]);
+            }
+
+            return $qb;
+        });
+        return $query->first();
+    }
+
+    /**
+     * Search product from database.
+     *
+     * To Do (@devansh-webkul): Need to reduce all the request query from this repo and provide
+     * good request parameter with an array type as an argument. Make a clean pull request for
+     * this to have track record.
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function searchFromDatabase()
     {
         $params = array_merge([

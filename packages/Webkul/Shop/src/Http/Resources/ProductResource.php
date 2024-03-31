@@ -2,6 +2,7 @@
 
 namespace Webkul\Shop\Http\Resources;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Product\Helpers\Review;
 
@@ -49,6 +50,7 @@ class ProductResource extends JsonResource
             'prices'      => $productTypeInstance->getProductPrices(),
             'price_html'  => $productTypeInstance->getPriceHtml(),
             'avg_ratings' => round($this->reviewHelper->getAverageRating($this)),
+            'design3d' => $this->design3d ? Storage::url($this->design3d) : null,
         ];
     }
 }

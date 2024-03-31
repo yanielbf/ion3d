@@ -20,7 +20,7 @@
                     </x-slot>
                 
                     <x-slot:content>
-                        <input type="hidden" name="type" value="designer_cover">
+                        <input type="hidden" name="type" value="designer_3d">
 
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="required">

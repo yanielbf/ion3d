@@ -138,9 +138,17 @@ class AttributeRepository extends Repository
      *
      * @return array
      */
-    public function getDesignCoverAttributes()
+    public function getDesign3DAttributes($familyAttribbuteId)
     {
-        return $this->model->with(['options', 'options.translations'])->where('code', 'like', 'dc_%')->orderBy('position')->get();
+        return $this->model
+            ->with(['translations', 'options', 'options.translations'])
+            ->join('attribute_group_mappings', 'attribute_group_mappings.attribute_id', '=', 'attributes.id')
+            ->join('attribute_groups', 'attribute_group_mappings.attribute_group_id', '=', 'attribute_groups.id')
+            ->where('attribute_groups.attribute_family_id', $familyAttribbuteId)
+            ->where('attribute_groups.code', 'like', '3d_%')
+            ->where('attributes.code', 'like', '3d_%')
+            ->orderBy('attribute_group_mappings.position')
+            ->get('attributes.*');
     }
 
     /**
@@ -161,10 +169,7 @@ class AttributeRepository extends Repository
             'is_configurable',
         ];
 
-        if (
-            ! is_array($codes)
-            && ! $codes
-        ) {
+        if (!is_array($codes) && !$codes) {
             return $this->findWhereIn('code', [
                 'name',
                 'description',

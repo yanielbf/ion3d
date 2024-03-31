@@ -118,7 +118,7 @@
         @includeWhen($theme->type === 'services_content', 'admin::settings.themes.edit.services-content')
 
         <!-- Designer-cover Template -->
-        @includeWhen($theme->type === 'designer_cover', 'admin::settings.themes.edit.designer-cover')
+        @includeWhen($theme->type === 'designer_3d', 'admin::settings.themes.edit.designer-cover')
 
         <!-- Parent Theme Customizer Component -->
         <script type="module">
@@ -132,7 +132,7 @@
                         componentName: 'v-image-carousel',
 
                         themeType: {
-                            designer_cover: 'v-designer-cover',
+                            designer_3d: 'v-designer-3d',
                             product_carousel: 'v-product-carousel',
                             category_carousel: 'v-category-carousel',
                             static_content: 'v-static-content',

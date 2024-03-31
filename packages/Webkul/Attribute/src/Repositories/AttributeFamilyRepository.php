@@ -164,4 +164,17 @@ class AttributeFamilyRepository extends Repository
             ->distinct()
             ->get();
     }
+
+    /**
+     * Get family attributes 3D.
+     *
+     * @return array
+     */
+    public function getFamilyAttributes3D()
+    {
+        return $this->model->where([
+            ['code', 'like', '3d_%'],
+            ['status', 1]
+        ])->get();
+    }
 }
