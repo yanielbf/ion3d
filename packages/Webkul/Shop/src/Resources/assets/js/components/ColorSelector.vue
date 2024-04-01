@@ -26,7 +26,7 @@ function handlerChangeColor(color) {
 </script>
 
 <template>
-    <div class="mb-5">
+    <div>
         <div class="mb-2">{{ props.label }}</div>
         <div class="flex flex-wrap gap-3">
             <div

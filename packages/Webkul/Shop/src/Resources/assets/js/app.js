@@ -85,6 +85,7 @@ import Tres from '@tresjs/core';
 import PrimeVue from 'primevue/config';
 import Lara from './presets/lara';
 import Designer3D from './components/Designer3D.vue';
+import 'primeicons/primeicons.css'
 
 [
     Axios,

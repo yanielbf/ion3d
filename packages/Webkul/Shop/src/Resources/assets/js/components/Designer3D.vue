@@ -2,10 +2,7 @@
 import { inject, onMounted, defineProps, toRaw, watch, reactive } from "vue";
 import Dropdown from "primevue/dropdown";
 import ProgressSpinner from "primevue/progressspinner";
-import TabView from "primevue/tabview";
-import TabPanel from "primevue/tabpanel";
-import Button from "primevue/button";
-import Checkbox from "primevue/checkbox";
+import InputText from "primevue/inputtext";
 import * as THREE from "three";
 import { TresCanvas } from "@tresjs/core";
 import { useGLTF, OrbitControls } from "@tresjs/cientos";
@@ -67,7 +64,9 @@ const state = reactive({
     pieces: [],
     materials: [],
     includeText: false,
-    activeView: 0,
+    activeSetting: 0,
+    view: '3D',
+    textSize: 20
 });
 
 function handleGetFamiliesAttributes() {
@@ -155,18 +154,32 @@ function handleChangeColor(place, item) {
     const group = new THREE.Group();
 
     Object.keys(state.pieces).forEach((key, index) => {
-        if(place == index) {
+        if (place == index) {
             let material = Object.values(state.materials)[index].clone();
             console.log(material);
             material.color.set(item.color);
             console.log(material);
-            console.log('----------------');
-            state.pieces[key].material = material; 
+            console.log("----------------");
+            state.pieces[key].material = material;
         }
         group.add(toRaw(state.pieces[key]));
     });
 
     scene.add(group);
+}
+
+function handleChangeSize(size) {
+    state.textSize = size;
+}
+
+function handleChangeSettingView() {
+    if (state.activeSetting == 0) {
+        state.activeSetting = 1;
+        state.view = '2D';
+    } else {
+        state.activeSetting = 0;
+        state.view = '3D';
+    }
 }
 
 async function init3d() {
@@ -281,29 +294,23 @@ onMounted(() => {
                     />
                 </div>
             </div>
-            <div v-if="state.product" class="grid grid-cols-2 gap-2">
-                <div id="viewer" class="border rounded-md">
-                    <div class="flex mb-2 gap-2 justify-end p-4">
-                        <Button
-                            @click="state.activeView = 0"
-                            label="3D"
-                            class="!ring-0"
-                            :class="{
-                                'bg-red-500': state.activeView == 0,
-                                'bg-gray-500': state.activeView == 1,
-                            }"
-                        />
-                        <Button
-                            @click="state.activeView = 1"
-                            label="2D"
-                            class="!ring-0"
-                            :class="{
-                                'bg-red-500': state.activeView == 1,
-                                'bg-gray-500': state.activeView == 0,
-                            }"
-                        />
+            <div v-if="state.product" class="grid grid-cols-1 gap-2">
+                <div id="viewer" class="border rounded-lg">
+                    <div class="p-3 pt-5 flex justify-center">
+                        <button
+                            type="button"
+                            class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        >
+                            Agregar al carrito
+                        </button>
+                        <button
+                            type="button"
+                            class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        >
+                            Ir a comprar
+                        </button>
                     </div>
-                    <div v-show="state.activeView == 0">
+                    <div v-show="state.view == '3D'">
                         <div v-if="state.loading3D">Cargando modelo 3D</div>
                         <div v-else-if="!state.loading3D && state.error3D">
                             {{ state.error3D }}
@@ -325,26 +332,79 @@ onMounted(() => {
                             </TresCanvas>
                         </div>
                     </div>
-                    <div v-show="state.activeView == 1" class="h-[500px] px-8">
-                        2D
+                    <div v-show="state.view == '2D'">2D</div> 
+                    <div
+                        class="px-6 py-6 border-t grid grid-cols-[1fr_4fr_1fr]"
+                    >
+                        <div class="flex justify-start items-center">
+                            <div
+                                @click="handleChangeSettingView"
+                                class="cursor-pointer"
+                            >
+                                <span
+                                    class="pi pi-arrow-circle-left hover:text-blue-500"
+                                    style="font-size: 2rem"
+                                ></span>
+                            </div>
+                        </div>
+                        <div
+                            v-show="state.activeSetting === 0"
+                            class="flex flex-col justify-center items-center"
+                        >
+                            <ColorSelector
+                                label="Parte trasera"
+                                :colors="colors.back"
+                                :place="1"
+                                @change-color="handleChangeColor"
+                            />
+                            <div class="h-5"></div>
+                            <ColorSelector
+                                label="Borde"
+                                :colors="colors.side"
+                                :place="0"
+                                @change-color="handleChangeColor"
+                            />
+                        </div>
+                        <div
+                            v-show="state.activeSetting === 1"
+                            class="flex flex-col items-center justify-center"
+                        >
+                            <div class="flex flex-col gap-2 w-1/2 mb-5">
+                                <label>Texto</label>
+                                <InputText v-model="text" />
+                            </div>
+                            <div
+                                class="mb-5 items-center gap-6 w-1/2"
+                            >
+                                <div class="mb-2">Tamaño</div>
+                                <div class="flex flex-wrap gap-3">
+                                    <div
+                                        v-for="item in [20, 25, 30]"
+                                        :key="item"
+                                        :class="{
+                                            'bg-red-400 text-white':
+                                                item === state.textSize,
+                                        }"
+                                        class="cursor-pointer rounded-xl px-2 py-1 flex justify-center items-center bg-gray-300"
+                                        @click="handleChangeSize(item)"
+                                    >
+                                        {{ fontSize[item] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <div
+                                @click="handleChangeSettingView"
+                                class="cursor-pointer"
+                            >
+                                <span
+                                    class="pi pi-arrow-circle-right hover:text-blue-500"
+                                    style="font-size: 2rem"
+                                ></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div id="settings" class="border rounded-md px-8 py-5">
-                    <div class="mb-4 font-semibold text-xl">
-                        Opciones de personalización
-                    </div>
-                    <ColorSelector
-                        label="Parte trasera"
-                        :colors="colors.back"
-                        :place="1"
-                        @change-color="handleChangeColor"
-                    />
-                    <ColorSelector
-                        label="Borde"
-                        :colors="colors.side"
-                        :place="0"
-                        @change-color="handleChangeColor"
-                    />
                 </div>
             </div>
             <div
