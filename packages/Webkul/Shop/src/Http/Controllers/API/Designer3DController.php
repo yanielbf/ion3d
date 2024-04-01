@@ -47,9 +47,9 @@ class Designer3DController extends APIController
     /**
      * Get product by attributes
      */
-    public function get_product_by_attributes(): JsonResource
+    public function get_product_by_attributes(): ?JsonResource
     {
         $product = $this->productRepository->getOneFromDatabaseByAttributes();
-        return new ProductResource($product);
+        return !is_null($product) ? new ProductResource($product) : null;
     }
 }

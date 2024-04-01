@@ -34,7 +34,7 @@ export default {
             // Colors
             {
                 'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900': !context.checked && !props.invalid,
-                'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400': context.checked
+                'border-red-500 bg-red-500 dark:border-red-400 dark:bg-red-400': context.checked
             },
 
             // Invalid State
@@ -75,6 +75,7 @@ export default {
             'rounded-md',
             'outline-none',
             'border-2 border-surface-200 dark:border-surface-700',
+            
 
             // Misc
             'appearance-none',
