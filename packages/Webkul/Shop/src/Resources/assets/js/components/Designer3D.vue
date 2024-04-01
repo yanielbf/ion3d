@@ -11,7 +11,6 @@ import {
 import Dropdown from "primevue/dropdown";
 import ProgressSpinner from "primevue/progressspinner";
 import InputText from "primevue/inputtext";
-import Slider from "primevue/slider";
 import * as THREE from "three";
 import { TresCanvas } from "@tresjs/core";
 import { useGLTF, OrbitControls } from "@tresjs/cientos";
@@ -610,14 +609,14 @@ onMounted(() => {
                     </div>
                     <div v-show="state.view == '2D'">
                         <div
-                            class="w-full h-[500px] p-5 flex justify-center items-center"
+                            class="w-full h-[500px] p-10 flex justify-center items-center"
                         >
                             <div
                                 :class="{
                                     [`border-[${state.borderColorSelected.color}]`]: true,
                                     [`bg-[${state.backColorSelected.color}]`]: true,
                                 }"
-                                class="md:w-[20%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
+                                class="md:w-[18%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
                             >
                                 <div class="flex justify-end">
                                     <div
@@ -742,17 +741,16 @@ onMounted(() => {
                 v-else
                 class="w-full flex flex-col items-center justify-center h-[500px]"
             >
-                <div class="mb-5">Personaliza tu cover</div>
-
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
                     version="1.1"
                     x="0px"
                     y="0px"
-                    viewBox="0 0 512 640"
+                    viewBox="0 0 512 540"
                     style="enable-background: new 0 0 512 512"
                     xml:space="preserve"
+                    class="w-1/5"
                 >
                     <g>
                         <path
@@ -779,6 +777,7 @@ onMounted(() => {
                         <rect x="384.5" y="412.8" width="15" height="15" />
                     </g>
                 </svg>
+                <div class="mt-2">Personaliza tu cover</div>
             </div>
         </div>
     </div>
