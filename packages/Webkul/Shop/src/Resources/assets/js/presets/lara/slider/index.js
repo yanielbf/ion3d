@@ -32,7 +32,7 @@ export default {
             },
 
             // Colors
-            'bg-primary-500 dark:bg-primary-400'
+            'bg-slate-500 dark:bg-slate-400'
         ]
     }),
     handle: ({ props }) => ({
@@ -53,7 +53,7 @@ export default {
 
             // Colors
             'bg-surface-0 dark:bg-surface-600',
-            'border-primary-500 dark:border-primary-400',
+            'border-slate-700 dark:border-slate-600',
 
             // States
             'hover:bg-primary-500 hover:border-primary-500',
@@ -86,7 +86,7 @@ export default {
 
             // Colors
             'bg-surface-0 dark:bg-surface-600',
-            'border-primary-500 dark:border-primary-400',
+            'border-slate-700 dark:border-slate-400',
 
             // States
             'hover:bg-primary-500 hover:border-primary-500',
@@ -119,7 +119,7 @@ export default {
 
             // Colors
             'bg-surface-0 dark:bg-surface-600',
-            'border-primary-500 dark:border-primary-400',
+            'border-slate-500 dark:border-slate-400',
 
             // States
             'hover:bg-primary-500 hover:border-primary-500',

@@ -11,6 +11,7 @@ import {
 import Dropdown from "primevue/dropdown";
 import ProgressSpinner from "primevue/progressspinner";
 import InputText from "primevue/inputtext";
+import Slider from "primevue/slider";
 import * as THREE from "three";
 import { TresCanvas } from "@tresjs/core";
 import { useGLTF, OrbitControls } from "@tresjs/cientos";
@@ -77,6 +78,7 @@ const state = reactive({
     view: "3D",
     text: "",
     textSize: 20,
+    quantity: 1,
 });
 
 const container = ref();
@@ -161,7 +163,7 @@ function handleGetProduct() {
     }
 }
 
-function handleChangeSettingView() {
+function handleChangeSettingView(direction) {
     if (state.activeSetting == 0) {
         state.activeSetting = 1;
         state.view = "2D";
@@ -444,7 +446,6 @@ function init2d() {
             width: container.value.clientWidth,
             height: container.value.clientHeight,
         };
-        console.log(stageConfig.value);
         const anchoCelda = stageConfig.value.width / 6;
         const altoCelda = stageConfig.value.height / 6;
         const numColumnas = 6;
@@ -546,22 +547,47 @@ onMounted(() => {
             </div>
             <div v-if="state.product" class="grid grid-cols-1 gap-2">
                 <div id="viewer" class="border rounded-lg">
-                    <div class="p-3 border-b pt-5 flex justify-center">
-                        <button
-                            type="button"
-                            class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                        >
-                            Agregar al carrito
-                        </button>
-                        <button
-                            type="button"
-                            class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                        >
-                            Ir a comprar
-                        </button>
+                    <div
+                        class="px-6 border-b py-3 flex flex-wrap gap-3 justify-between items-center"
+                    >
+                        <div>
+                            <div class="text-lg mb-2">
+                                {{ state.product.name }}
+                            </div>
+                            <div class="text-xl font-medium mb-2">
+                                {{ state.product.prices.final.formatted_price }}
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <InputText
+                                    v-model.number="state.quantity"
+                                    class="w-full mb-2"
+                                />
+                            </div>
+                            <div class="flex gap-2">
+                                <button
+                                    type="button"
+                                    class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                >
+                                    Agregar al carrito
+                                </button>
+                                <button
+                                    type="button"
+                                    class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                >
+                                    Ir a comprar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div v-show="state.view == '3D'">
-                        <div v-if="state.loading3D">Cargando modelo 3D</div>
+                        <div
+                            class="h-[500px] flex justify-center items-center"
+                            v-if="state.loading3D"
+                        >
+                            Cargando modelo 3D
+                        </div>
                         <div v-else-if="!state.loading3D && state.error3D">
                             {{ state.error3D }}
                         </div>
@@ -634,6 +660,9 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
+                    <div v-show="state.view == 'Images'">
+                        <img :src="state.product.images[0].medium_image_url" />
+                    </div>
                     <div
                         class="px-6 py-6 border-t grid grid-cols-[1fr_4fr_1fr]"
                     >
@@ -643,7 +672,7 @@ onMounted(() => {
                                 class="cursor-pointer"
                             >
                                 <span
-                                    class="pi pi-arrow-circle-left hover:text-blue-500"
+                                    class="pi pi-arrow-circle-left text-slate-700 hover:text-slate-500"
                                     style="font-size: 2rem"
                                 ></span>
                             </div>
@@ -701,7 +730,7 @@ onMounted(() => {
                                 class="cursor-pointer"
                             >
                                 <span
-                                    class="pi pi-arrow-circle-right hover:text-blue-500"
+                                    class="pi pi-arrow-circle-right text-slate-700 hover:text-slate-500"
                                     style="font-size: 2rem"
                                 ></span>
                             </div>
@@ -713,35 +742,41 @@ onMounted(() => {
                 v-else
                 class="w-full flex flex-col items-center justify-center h-[500px]"
             >
-                <div class="mb-5">Empieza a personalizar tu cover</div>
+                <div class="mb-5">Personaliza tu cover</div>
+
                 <svg
-                    class="h-[400px]"
-                    fill="#000000"
-                    version="1.1"
-                    id="Capa_1"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="800px"
-                    height="800px"
-                    viewBox="0 0 93.268 93.268"
+                    version="1.1"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 512 640"
+                    style="enable-background: new 0 0 512 512"
                     xml:space="preserve"
                 >
                     <g>
-                        <g>
-                            <path
-                                d="M71.065,4.551V4.035C71.065,1.807,69.259,0,67.03,0H26.225c-2.229,0-4.035,1.807-4.035,4.035v1.474h0.018v82.25H22.19
-			v1.474c0,2.229,1.807,4.035,4.035,4.035H67.03c2.229,0,4.035-1.807,4.035-4.035v-0.974h0.012V4.551H71.065z M47.197,12.953
-			c0.412-0.484,1.11-0.845,1.688-0.869c0.074,0.673-0.195,1.347-0.597,1.832c-0.402,0.485-1.059,0.862-1.701,0.812
-			C46.5,14.069,46.824,13.383,47.197,12.953z M35.806,3.862c0,1.453-1.178,2.63-2.63,2.63H27.85c-1.452,0-2.63-1.178-2.63-2.63
-			V3.788c0-1.453,1.178-2.63,2.63-2.63h5.326c1.452,0,2.63,1.178,2.63,2.63V3.862z M50.479,22.131
-			c-0.479,0.698-0.975,1.394-1.756,1.409c-0.771,0.014-1.016-0.456-1.896-0.456c-0.877,0-1.152,0.441-1.879,0.47
-			c-0.754,0.028-1.328-0.754-1.811-1.452c-0.986-1.423-1.738-4.023-0.727-5.779c0.502-0.872,1.398-1.423,2.373-1.438
-			c0.74-0.013,1.439,0.499,1.893,0.499s1.303-0.616,2.195-0.526c0.375,0.016,1.424,0.151,2.098,1.137
-			c-0.053,0.035-1.252,0.731-1.237,2.184c0.017,1.735,1.521,2.313,1.541,2.321C51.261,20.54,51.031,21.322,50.479,22.131z"
-                            />
-                            <circle cx="28.266" cy="3.755" r="1.72" />
-                            <circle cx="33.328" cy="3.755" r="1.168" />
-                        </g>
+                        <path
+                            d="M196.3,111.7c12.4,0,22.5-10.1,22.5-22.5s-10.1-22.5-22.5-22.5s-22.5,10.1-22.5,22.5S183.9,111.7,196.3,111.7z M196.3,81.7   c4.1,0,7.5,3.4,7.5,7.5s-3.4,7.5-7.5,7.5s-7.5-3.4-7.5-7.5S192.1,81.7,196.3,81.7z"
+                        />
+                        <path
+                            d="M221.9,119.2c0,12.4,10.1,22.5,22.5,22.5s22.5-10.1,22.5-22.5s-10.1-22.5-22.5-22.5S221.9,106.8,221.9,119.2z M244.4,111.7   c4.1,0,7.5,3.4,7.5,7.5s-3.4,7.5-7.5,7.5s-7.5-3.4-7.5-7.5S240.3,111.7,244.4,111.7z"
+                        />
+                        <circle cx="244.4" cy="77.1" r="10.8" />
+                        <circle cx="244.4" cy="156.7" r="7.5" />
+                        <path
+                            d="M196.3,171.7c12.4,0,22.5-10.1,22.5-22.5s-10.1-22.5-22.5-22.5s-22.5,10.1-22.5,22.5S183.9,171.7,196.3,171.7z    M196.3,141.7c4.1,0,7.5,3.4,7.5,7.5s-3.4,7.5-7.5,7.5s-7.5-3.4-7.5-7.5S192.1,141.7,196.3,141.7z"
+                        />
+                        <path
+                            d="M256,248.5c-20,0-36.2,16.3-36.2,36.2S236,321,256,321s36.2-16.3,36.2-36.2S276,248.5,256,248.5z M256,306   c-11.7,0-21.2-9.5-21.2-21.2s9.5-21.2,21.2-21.2c11.7,0,21.2,9.5,21.2,21.2S267.7,306,256,306z"
+                        />
+                        <rect x="142.5" y="107.8" width="15" height="15" />
+                        <path
+                            d="M298.1,71.7c0-18.9-15.3-34.2-34.2-34.2h-87.2c-18.9,0-34.2,15.3-34.2,34.2v21.1h15V71.7c0-10.6,8.6-19.2,19.2-19.2h87.2   c10.6,0,19.2,8.6,19.2,19.2v87.2c0,10.6-8.6,19.2-19.2,19.2h-87.2c-10.6,0-19.2-8.6-19.2-19.2v-21.1h-15v21.1   c0,18.9,15.3,34.2,34.2,34.2h87.2c18.9,0,34.2-15.3,34.2-34.2V71.7z"
+                        />
+                        <path
+                            d="M348.9,7.5H163.1c-27.9,0-50.6,22.7-50.6,50.6v395.8c0,27.9,22.7,50.6,50.6,50.6h185.7c27.9,0,50.6-22.7,50.6-50.6v-11.1   h-15v11.1c0,19.6-16,35.6-35.6,35.6H163.1c-19.6,0-35.6-16-35.6-35.6V58.1c0-19.6,16-35.6,35.6-35.6h185.7   c19.6,0,35.6,16,35.6,35.6v339.7h15V58.1C399.5,30.2,376.8,7.5,348.9,7.5z"
+                        />
+                        <rect x="384.5" y="412.8" width="15" height="15" />
                     </g>
                 </svg>
             </div>
