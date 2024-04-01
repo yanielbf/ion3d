@@ -2,7 +2,9 @@
 import { inject, onMounted, defineProps, toRaw, watch, reactive } from "vue";
 import Dropdown from "primevue/dropdown";
 import ProgressSpinner from "primevue/progressspinner";
-import InputSwitch from "primevue/inputswitch";
+import TabView from "primevue/tabview";
+import TabPanel from "primevue/tabpanel";
+import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
 import * as THREE from "three";
 import { TresCanvas } from "@tresjs/core";
@@ -63,7 +65,9 @@ const state = reactive({
     backColorSelected: colors.back[0],
     borderColorSelected: colors.side[0],
     pieces: [],
+    materials: [],
     includeText: false,
+    activeView: 0,
 });
 
 function handleGetFamiliesAttributes() {
@@ -140,39 +144,32 @@ function handleGetProduct() {
 
 function handleChangeColor(place, item) {
     if (place == 1) {
-        borderColorSelected.value = item;
+        state.borderColorSelected = item;
     } else {
-        backColorSelected.value = item;
+        state.backColorSelected = item;
     }
 
     if (state.loading3D) return;
 
-    scene = new THREE.Scene();
+    scene.remove(scene.children[0]);
     const group = new THREE.Group();
 
-    let pieceSelected = Object.values(state.pieces).find(
-        (item, index) => index === place
-    );
-    console.log(pieceSelected);
+    Object.keys(state.pieces).forEach((key, index) => {
+        if(place == index) {
+            let material = Object.values(state.materials)[index].clone();
+            console.log(material);
+            material.color.set(item.color);
+            console.log(material);
+            console.log('----------------');
+            state.pieces[key].material = material; 
+        }
+        group.add(toRaw(state.pieces[key]));
+    });
 
-    // const pieceSelected = pieces.value.filter((x) => x.key === piece)[0];
-    // const pieceToChange = toRaw(pieceSelected.value);
-    // let mat = toRaw(pieceSelected.material);
-    // mat.color.set(item.color);
-    // pieceToChange.material = mat;
-    // group.add(pieceToChange);
-
-    // for (const iterator of pieces.value) {
-    //     if (iterator.key !== piece) {
-    //         group.add(toRaw(iterator.value));
-    //     }
-    // }
-
-    // scene.add(group);
+    scene.add(group);
 }
 
 async function init3d() {
-    console.log(state.product);
     try {
         state.error3D = null;
         state.loading3D = true;
@@ -187,7 +184,9 @@ async function init3d() {
         const keys = Object.keys(nodes).filter(
             (key) => ![1, 2].includes(key.toString().length) && key !== "Scene"
         );
+
         state.pieces = Object.fromEntries(keys.map((key) => [key, nodes[key]]));
+        state.materials = materials;
 
         if (
             Object.values(state.pieces).length !== 2 &&
@@ -284,14 +283,36 @@ onMounted(() => {
             </div>
             <div v-if="state.product" class="grid grid-cols-2 gap-2">
                 <div id="viewer" class="border rounded-md">
-                    <div>
+                    <div class="flex mb-2 gap-2 justify-end p-4">
+                        <Button
+                            @click="state.activeView = 0"
+                            label="3D"
+                            class="!ring-0"
+                            :class="{
+                                'bg-red-500': state.activeView == 0,
+                                'bg-gray-500': state.activeView == 1,
+                            }"
+                        />
+                        <Button
+                            @click="state.activeView = 1"
+                            label="2D"
+                            class="!ring-0"
+                            :class="{
+                                'bg-red-500': state.activeView == 1,
+                                'bg-gray-500': state.activeView == 0,
+                            }"
+                        />
+                    </div>
+                    <div v-show="state.activeView == 0">
                         <div v-if="state.loading3D">Cargando modelo 3D</div>
                         <div v-else-if="!state.loading3D && state.error3D">
                             {{ state.error3D }}
                         </div>
                         <div v-else class="h-[500px] w-full rounded-md p-5">
                             <TresCanvas clear-color="#fff" preset="realistic">
-                                <TresPerspectiveCamera :position="[3, 2, -210]" />
+                                <TresPerspectiveCamera
+                                    :position="[3, 2, -210]"
+                                />
                                 <OrbitControls :enableZoom="false" />
                                 <Suspense>
                                     <primitive :object="scene" />
@@ -303,6 +324,9 @@ onMounted(() => {
                                 <TresAmbientLight :intensity="1" />
                             </TresCanvas>
                         </div>
+                    </div>
+                    <div v-show="state.activeView == 1" class="h-[500px] px-8">
+                        2D
                     </div>
                 </div>
                 <div id="settings" class="border rounded-md px-8 py-5">
@@ -318,16 +342,15 @@ onMounted(() => {
                     <ColorSelector
                         label="Borde"
                         :colors="colors.side"
-                        :place="2"
+                        :place="0"
                         @change-color="handleChangeColor"
                     />
-                    <div class="flex flex-col gap-2">
-                        <div>Incluir texto</div>
-                        <Checkbox v-model="state.includeText" :binary="true" />
-                    </div>
                 </div>
             </div>
-            <div v-else class="w-full flex flex-col items-center justify-center h-[500px]">
+            <div
+                v-else
+                class="w-full flex flex-col items-center justify-center h-[500px]"
+            >
                 <div class="mb-5">Empieza a personalizar tu cover</div>
                 <svg
                     class="h-[400px]"
