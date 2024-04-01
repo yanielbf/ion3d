@@ -1,5 +1,13 @@
 <script setup>
-import { inject, onMounted, defineProps, toRaw, watch, reactive } from "vue";
+import {
+    inject,
+    onMounted,
+    defineProps,
+    toRaw,
+    watch,
+    reactive,
+    ref,
+} from "vue";
 import Dropdown from "primevue/dropdown";
 import ProgressSpinner from "primevue/progressspinner";
 import InputText from "primevue/inputtext";
@@ -65,9 +73,19 @@ const state = reactive({
     materials: [],
     includeText: false,
     activeSetting: 0,
-    view: '3D',
-    textSize: 20
+    view2DLoaded: false,
+    view: "3D",
+    text: "",
+    textSize: 20,
 });
+
+const container = ref();
+const stage = ref();
+const layer = ref();
+const transformer = ref();
+const stageConfig = ref({});
+const textConfig = ref({});
+let selectedShapeName = "";
 
 // General
 
@@ -146,10 +164,14 @@ function handleGetProduct() {
 function handleChangeSettingView() {
     if (state.activeSetting == 0) {
         state.activeSetting = 1;
-        state.view = '2D';
+        state.view = "2D";
+        if (!state.view2DLoaded) {
+            state.view2DLoaded = true;
+            init2d();
+        }
     } else {
         state.activeSetting = 0;
-        state.view = '3D';
+        state.view = "3D";
     }
 }
 
@@ -170,10 +192,7 @@ function handleChangeColor(place, item) {
     Object.keys(state.pieces).forEach((key, index) => {
         if (place == index) {
             let material = Object.values(state.materials)[index].clone();
-            console.log(material);
             material.color.set(item.color);
-            console.log(material);
-            console.log("----------------");
             state.pieces[key].material = material;
         }
         group.add(toRaw(state.pieces[key]));
@@ -233,9 +252,234 @@ async function init3d() {
 }
 
 // 2D
+function handleStageMouseDown(e) {
+    if (e.target === e.target.getStage()) {
+        selectedShapeName = "";
+        handleUpdateTransformer();
+        return;
+    }
+
+    const clickedOnTransformer =
+        e.target.getParent().className === "Transformer";
+    if (clickedOnTransformer) {
+        return;
+    }
+
+    const name = e.target.name();
+    selectedShapeName = name;
+    handleUpdateTransformer();
+}
+
+function handleTransformEnd(e) {
+    textConfig.value.x = e.target.x();
+    textConfig.value.y = e.target.y();
+    textConfig.value.rotation = e.target.rotation();
+    textConfig.value.scaleX = e.target.scaleX();
+    textConfig.value.scaleY = e.target.scaleY();
+}
+
+function handleTransformMoved(e) {
+    const transformerNode = transformer.value.getNode();
+    const stage = transformerNode.getStage();
+    const boxes = transformerNode.nodes().map((node) => node.getClientRect());
+    const box = getTotalBox(boxes);
+    transformerNode.nodes().forEach((shape) => {
+        const absPos = shape.getAbsolutePosition();
+        // where are shapes inside bounding box of all shapes?
+        const offsetX = box.x - absPos.x;
+        const offsetY = box.y - absPos.y;
+
+        // we total box goes outside of viewport, we need to move absolute position of shape
+        const newAbsPos = { ...absPos };
+        if (box.x < 0) {
+            newAbsPos.x = -offsetX;
+        }
+        if (box.y < 0) {
+            newAbsPos.y = -offsetY;
+        }
+        if (box.x + box.width > stage.width()) {
+            newAbsPos.x = stage.width() - box.width - offsetX;
+        }
+        if (box.y + box.height > stage.height()) {
+            newAbsPos.y = stage.height() - box.height - offsetY;
+        }
+        shape.setAbsolutePosition(newAbsPos);
+    });
+}
+
+function handleDragEnd(e) {
+    const textNode = e.target;
+    var distanciaIzquierda = textNode.x();
+    var distanciaDerecha =
+        stageConfig.value.width - (textNode.x() + textNode.width());
+    var distanciaArriba = textNode.y();
+    var distanciaAbajo =
+        stageConfig.value.height - (textNode.y() + textNode.height());
+}
+
+function handleUpdateTransformer() {
+    const transformerNode = transformer.value.getNode();
+    const stage = transformerNode.getStage();
+    const selectedNode = stage.findOne("." + selectedShapeName);
+    if (selectedNode === transformerNode.node()) {
+        return;
+    }
+    if (selectedNode) {
+        transformerNode.nodes([selectedNode]);
+        const boxes = transformerNode
+            .nodes()
+            .map((node) => node.getClientRect());
+        const box = getTotalBox(boxes);
+        transformerNode.nodes().forEach((shape) => {
+            const absPos = shape.getAbsolutePosition();
+            const offsetX = box.x - absPos.x;
+            const offsetY = box.y - absPos.y;
+
+            const newAbsPos = { ...absPos };
+            if (box.x < 0) {
+                newAbsPos.x = -offsetX;
+            }
+            if (box.y < 0) {
+                newAbsPos.y = -offsetY;
+            }
+            if (box.x + box.width > stage.width()) {
+                newAbsPos.x = stage.width() - box.width - offsetX;
+            }
+            if (box.y + box.height > stage.height()) {
+                newAbsPos.y = stage.height() - box.height - offsetY;
+            }
+            shape.setAbsolutePosition(newAbsPos);
+        });
+    } else {
+        transformerNode.nodes([]);
+    }
+}
+
+function getTotalBox(boxes) {
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+
+    boxes.forEach((box) => {
+        minX = Math.min(minX, box.x);
+        minY = Math.min(minY, box.y);
+        maxX = Math.max(maxX, box.x + box.width);
+        maxY = Math.max(maxY, box.y + box.height);
+    });
+    return {
+        x: minX,
+        y: minY,
+        width: maxX - minX,
+        height: maxY - minY,
+    };
+}
+
+function getClientRect(rotatedBox) {
+    const { x, y, width, height } = rotatedBox;
+    const rad = rotatedBox.rotation;
+
+    const p1 = getCorner(x, y, 0, 0, rad);
+    const p2 = getCorner(x, y, width, 0, rad);
+    const p3 = getCorner(x, y, width, height, rad);
+    const p4 = getCorner(x, y, 0, height, rad);
+
+    const minX = Math.min(p1.x, p2.x, p3.x, p4.x);
+    const minY = Math.min(p1.y, p2.y, p3.y, p4.y);
+    const maxX = Math.max(p1.x, p2.x, p3.x, p4.x);
+    const maxY = Math.max(p1.y, p2.y, p3.y, p4.y);
+
+    return {
+        x: minX,
+        y: minY,
+        width: maxX - minX,
+        height: maxY - minY,
+    };
+}
+
+function getCorner(pivotX, pivotY, diffX, diffY, angle) {
+    const distance = Math.sqrt(diffX * diffX + diffY * diffY);
+
+    /// find angle from pivot to corner
+    angle += Math.atan2(diffY, diffX);
+
+    /// get new x and y and round it off to integer
+    const x = pivotX + distance * Math.cos(angle);
+    const y = pivotY + distance * Math.sin(angle);
+
+    return { x: x, y: y };
+}
+
+function boundBoxFunc(oldBox, newBox) {
+    const stageV = stage.value.getStage();
+    const box = getClientRect(newBox);
+    const isOut =
+        box.x < 0 ||
+        box.y < 0 ||
+        box.x + box.width > stageV.width() ||
+        box.y + box.height > stageV.height();
+
+    if (isOut) {
+        return oldBox;
+    }
+    return newBox;
+}
+
+function handleText(e) {
+    if (state.text.length > 40) {
+        state.text = state.text.slice(0, 40);
+    } else {
+        textConfig.value.text = e.target.value;
+    }
+}
 
 function handleChangeSize(size) {
     state.textSize = size;
+    textConfig.value.fontSize = size;
+}
+
+function init2d() {
+    setTimeout(() => {
+        stageConfig.value = {
+            width: container.value.clientWidth,
+            height: container.value.clientHeight,
+        };
+        console.log(stageConfig.value);
+        const anchoCelda = stageConfig.value.width / 6;
+        const altoCelda = stageConfig.value.height / 6;
+        const numColumnas = 6;
+        const numFilas = 6;
+
+        for (var i = 0; i <= numColumnas; i++) {
+            var x = i * anchoCelda;
+            var lineaVertical = new Konva.Line({
+                points: [x, 0, x, stageConfig.value.height],
+                stroke: "rgba(0, 0, 0, 0.2)",
+                strokeWidth: 1,
+            });
+            layer.value.getNode().add(lineaVertical);
+        }
+
+        for (var j = 0; j <= numFilas; j++) {
+            var y = j * altoCelda;
+            var lineaHorizontal = new Konva.Line({
+                points: [0, y, stageConfig.value.width, y],
+                stroke: "rgba(0, 0, 0, 0.2)",
+                strokeWidth: 1,
+            });
+            layer.value.getNode().add(lineaHorizontal);
+        }
+
+        textConfig.value = {
+            text: "",
+            fontSize: 20,
+            x: 0,
+            y: 0,
+            draggable: true,
+            name: "text",
+            fill: "black",
+        };
+    }, 1000);
 }
 
 watch(
@@ -302,7 +546,7 @@ onMounted(() => {
             </div>
             <div v-if="state.product" class="grid grid-cols-1 gap-2">
                 <div id="viewer" class="border rounded-lg">
-                    <div class="p-3 pt-5 flex justify-center">
+                    <div class="p-3 border-b pt-5 flex justify-center">
                         <button
                             type="button"
                             class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -338,7 +582,58 @@ onMounted(() => {
                             </TresCanvas>
                         </div>
                     </div>
-                    <div v-show="state.view == '2D'">2D</div> 
+                    <div v-show="state.view == '2D'">
+                        <div
+                            class="w-full h-[500px] p-5 flex justify-center items-center"
+                        >
+                            <div
+                                :class="{
+                                    [`border-[${state.borderColorSelected.color}]`]: true,
+                                    [`bg-[${state.backColorSelected.color}]`]: true,
+                                }"
+                                class="md:w-[20%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
+                            >
+                                <div class="flex justify-end">
+                                    <div
+                                        class="w-[40%] h-[75%] mt-3 rounded-lg border-white bg-white mr-3"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="w-full rounded -pb-4"
+                                    ref="container"
+                                >
+                                    <v-stage
+                                        ref="stage"
+                                        :config="stageConfig"
+                                        @mousedown="handleStageMouseDown"
+                                        @touchstart="handleStageMouseDown"
+                                    >
+                                        <v-layer ref="layer">
+                                            <v-text
+                                                ref="text"
+                                                :config="textConfig"
+                                                @dragend="handleDragEnd"
+                                                @transformend="
+                                                    handleTransformEnd
+                                                "
+                                            />
+                                            <v-transformer
+                                                :centeredScaling="true"
+                                                :rotationSnaps="[
+                                                    0, 90, 180, 270,
+                                                ]"
+                                                :resizeEnabled="false"
+                                                :flipEnabled="false"
+                                                :boundBoxFunc="boundBoxFunc"
+                                                ref="transformer"
+                                                @dragmove="handleTransformMoved"
+                                            />
+                                        </v-layer>
+                                    </v-stage>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div
                         class="px-6 py-6 border-t grid grid-cols-[1fr_4fr_1fr]"
                     >
@@ -377,11 +672,12 @@ onMounted(() => {
                         >
                             <div class="flex flex-col gap-2 w-1/2 mb-5">
                                 <label>Texto</label>
-                                <InputText v-model="text" />
+                                <InputText
+                                    v-model="state.text"
+                                    @input="handleText"
+                                />
                             </div>
-                            <div
-                                class="mb-5 items-center gap-6 w-1/2"
-                            >
+                            <div class="mb-5 items-center gap-6 w-1/2">
                                 <div class="mb-2">Tamaño</div>
                                 <div class="flex flex-wrap gap-3">
                                     <div
