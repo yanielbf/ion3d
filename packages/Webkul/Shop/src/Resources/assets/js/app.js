@@ -82,6 +82,7 @@ import Shop from "./plugins/shop";
 import VeeValidate from "./plugins/vee-validate";
 import Flatpickr from "./plugins/flatpickr";
 import Tres from '@tresjs/core';
+import VueKonva from 'vue-konva';
 import PrimeVue from 'primevue/config';
 import Lara from './presets/lara';
 import Designer3D from './components/Designer3D.vue';
@@ -93,7 +94,8 @@ import 'primeicons/primeicons.css'
     Shop, 
     VeeValidate, 
     Flatpickr,
-    Tres
+    Tres,
+    VueKonva
 ].forEach((plugin) => app.use(plugin));
 
 app.use(PrimeVue, { unstyled: true, pt: Lara });

@@ -69,6 +69,8 @@ const state = reactive({
     textSize: 20
 });
 
+// General
+
 function handleGetFamiliesAttributes() {
     axios
         .get(props.info.urls.get_families_attributes)
@@ -141,6 +143,18 @@ function handleGetProduct() {
     }
 }
 
+function handleChangeSettingView() {
+    if (state.activeSetting == 0) {
+        state.activeSetting = 1;
+        state.view = '2D';
+    } else {
+        state.activeSetting = 0;
+        state.view = '3D';
+    }
+}
+
+// 3D
+
 function handleChangeColor(place, item) {
     if (place == 1) {
         state.borderColorSelected = item;
@@ -166,20 +180,6 @@ function handleChangeColor(place, item) {
     });
 
     scene.add(group);
-}
-
-function handleChangeSize(size) {
-    state.textSize = size;
-}
-
-function handleChangeSettingView() {
-    if (state.activeSetting == 0) {
-        state.activeSetting = 1;
-        state.view = '2D';
-    } else {
-        state.activeSetting = 0;
-        state.view = '3D';
-    }
 }
 
 async function init3d() {
@@ -230,6 +230,12 @@ async function init3d() {
     } finally {
         state.loading3D = false;
     }
+}
+
+// 2D
+
+function handleChangeSize(size) {
+    state.textSize = size;
 }
 
 watch(
