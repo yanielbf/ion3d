@@ -95,6 +95,8 @@ Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'
         Route::get('get-attributes-by-family', 'get_attributes_by_family')->name('shop.designer_3d.get_attributes_by_family');
         
         Route::get('get-product-by-attributes', 'get_product_by_attributes')->name('shop.designer_3d.get_product_by_attributes');
+
+        Route::post('add-item-to-cart', 'add_item_to_cart')->name('shop.designer_3d.add_item_to_cart');
     });
 
     Route::group(['middleware' => ['customer'], 'prefix' => 'customer'], function () {

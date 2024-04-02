@@ -7,6 +7,7 @@ import {
     watch,
     reactive,
     ref,
+    computed,
 } from "vue";
 import Dropdown from "primevue/dropdown";
 import ProgressSpinner from "primevue/progressspinner";
@@ -14,6 +15,7 @@ import InputText from "primevue/inputtext";
 import * as THREE from "three";
 import { TresCanvas } from "@tresjs/core";
 import { useGLTF, OrbitControls } from "@tresjs/cientos";
+import html2canvas from "html2canvas";
 import ColorSelector from "./ColorSelector.vue";
 
 const colors = {
@@ -80,6 +82,7 @@ const state = reactive({
     quantity: 1,
 });
 
+const screenShot = ref();
 const container = ref();
 const stage = ref();
 const layer = ref();
@@ -87,6 +90,17 @@ const transformer = ref();
 const stageConfig = ref({});
 const textConfig = ref({});
 let selectedShapeName = "";
+
+const codeCover = computed(
+    () =>
+        `product_${state.product.id}_back_${
+            state.backColorSelected.id
+        }_${state.backColorSelected.color.replace("#", "")}_side_${
+            state.borderColorSelected.id
+        }_${state.borderColorSelected.color.replace("#", "")}_text_${
+            state.text
+        }_fontSize_${state.textSize}`
+);
 
 // General
 
@@ -439,6 +453,28 @@ function handleChangeSize(size) {
     textConfig.value.fontSize = size;
 }
 
+async function handleAddtoCart() {
+    state.view = "2D";
+    state.activeSetting = 1;
+    setTimeout(() => {
+        html2canvas(screenShot.value, {
+            useCORS: true,
+            allowTaint: true,
+        }).then(function (canvas) {
+            canvas.toBlob(function (blob) {
+                axios
+                    .postForm(props.info.urls.add_item_to_cart, {
+                        image: blob,
+                        filename: `${codeCover.value}.png`,
+                        product_id: state.product.id,
+                        quantity: state.quantity,
+                    })
+                    .then((res) => console.log(res));
+            }, "image/png");
+        });
+    }, 1000);
+}
+
 function init2d() {
     setTimeout(() => {
         stageConfig.value = {
@@ -550,37 +586,58 @@ onMounted(() => {
                         class="px-6 border-b py-3 flex flex-wrap gap-3 justify-between items-center"
                     >
                         <div>
-                            <div class="text-lg mb-2">
+                            <div class="mb-2">
                                 {{ state.product.name }}
                             </div>
-                            <div class="text-xl font-medium mb-2">
+                            <div class="text-lg font-medium mb-2">
                                 {{ state.product.prices.final.formatted_price }}
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <InputText
-                                    v-model.number="state.quantity"
-                                    class="w-full mb-2"
-                                />
                             </div>
                             <div class="flex gap-2">
                                 <button
                                     type="button"
-                                    class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                >
+                                    -
+                                </button>
+                                <InputText
+                                    v-model.number="state.quantity"
+                                    class="w-full mb-2"
+                                />
+                                <button
+                                    type="button"
+                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <button
+                                type="button"
+                                class="w-full mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                            >
+                                Empezar de nuevo
+                            </button>
+                            <div class="flex gap-2">
+                                <button
+                                    @click="() => handleAddtoCart()"
+                                    class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                                 >
                                     Agregar al carrito
                                 </button>
                                 <button
                                     type="button"
-                                    class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                    class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                                 >
-                                    Ir a comprar
+                                    Comprar ahora
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div v-show="state.view == '3D'">
+                    <div
+                        v-show="state.view == '3D'"
+                        data-html2canvas-ignore="true"
+                    >
                         <div
                             class="h-[500px] flex justify-center items-center"
                             v-if="state.loading3D"
@@ -609,12 +666,13 @@ onMounted(() => {
                     </div>
                     <div v-show="state.view == '2D'">
                         <div
+                            ref="screenShot"
                             class="w-full h-[500px] p-10 flex justify-center items-center"
                         >
                             <div
                                 :class="{
-                                    [`border-[${state.borderColorSelected.color}]`]: true,
-                                    [`bg-[${state.backColorSelected.color}]`]: true,
+                                    [`border-[${state.backColorSelected.color}]`]: true,
+                                    [`bg-[${state.borderColorSelected.color}]`]: true,
                                 }"
                                 class="md:w-[18%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
                             >

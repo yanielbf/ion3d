@@ -9,6 +9,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Shop\Http\Resources\AttributeResource;
 use Webkul\Shop\Http\Resources\FamilyAttributeResource;
 use Webkul\Shop\Http\Resources\ProductResource;
+use Webkul\Checkout\Facades\Cart;
+use Illuminate\Support\Facades\Event;
+use Webkul\Shop\Http\Resources\CartResource;
 
 class Designer3DController extends APIController
 {
@@ -51,5 +54,73 @@ class Designer3DController extends APIController
     {
         $product = $this->productRepository->getOneFromDatabaseByAttributes();
         return !is_null($product) ? new ProductResource($product) : null;
+    }
+
+    /**
+     * Get product by attributes
+     */
+    public function add_item_to_cart(): ?JsonResource
+    {
+        $this->validate(request(), [
+            'product_id' => 'required|integer|exists:products,id',
+        ]);
+
+        $image = request()->file('image');
+        $filename = request()->input('filename');
+
+        if(isset($image) && isset($filename)) {
+            $image->storeAs('covers', $filename);
+        }
+
+        try {
+            $product = $this->productRepository->with('parent')->find(request()->input('product_id'));
+
+            if (request()->get('is_buy_now')) {
+                Cart::deActivateCart();
+            }
+
+            $cart = Cart::addProduct($product->id, request()->all());
+
+            /**
+             * To Do (@devansh-webkul): Need to check this and improve cart facade.
+             */
+            if (
+                is_array($cart)
+                && isset($cart['warning'])
+            ) {
+                return new JsonResource([
+                    'message' => $cart['warning'],
+                ]);
+            }
+
+            if ($cart) {
+                if ($customer = auth()->guard('customer')->user()) {
+                    // $this->wishlistRepository->deleteWhere([
+                    //     'product_id'  => $product->id,
+                    //     'customer_id' => $customer->id,
+                    // ]);
+                }
+
+                if (request()->get('is_buy_now')) {
+                    Event::dispatch('shop.item.buy-now', request()->input('product_id'));
+
+                    return new JsonResource([
+                        'data'     => new CartResource(Cart::getCart()),
+                        'redirect' => route('shop.checkout.onepage.index'),
+                        'message'  => trans('shop::app.checkout.cart.item-add-to-cart'),
+                    ]);
+                }
+
+                return new JsonResource([
+                    'data'     => new CartResource(Cart::getCart()),
+                    'message'  => trans('shop::app.checkout.cart.item-add-to-cart'),
+                ]);
+            }
+        } catch (\Exception $exception) {
+            return new JsonResource([
+                'redirect_uri' => route('shop.product_or_category.index', $product->url_key),
+                'message'      => $exception->getMessage(),
+            ]);
+        }
     }
 }
