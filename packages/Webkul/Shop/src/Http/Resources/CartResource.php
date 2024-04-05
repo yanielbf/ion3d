@@ -18,7 +18,6 @@ class CartResource extends JsonResource
         $taxes = collect(Tax::getTaxRatesWithAmount($this, true))->map(function ($rate) {
             return core()->currency($rate ?? 0);
         });
-
         return [
             'id'                             => $this->id,
             'is_guest'                       => $this->is_guest,

@@ -14,6 +14,7 @@ class CartItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        $a = $this;
         return [
             'id'              => $this->id,
             'quantity'        => $this->quantity,
@@ -26,6 +27,7 @@ class CartItemResource extends JsonResource
             'options'         => array_values($this->resource->additional['attributes'] ?? []),
             'base_image'      => $this->getTypeInstance()->getBaseImage($this),
             'product_url_key' => $this->product->url_key,
+            'additional'      => $this->resource->additional
         ];
     }
 }

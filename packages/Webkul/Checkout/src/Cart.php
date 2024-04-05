@@ -210,7 +210,7 @@ class Cart
             if(isset($itemFound)) {
                 $currentAdditionalData = $itemFound->additional;
                 foreach ($currentAdditionalData['designs'] as $key => $value) {
-                    if (array_key_exists($key, $currentAdditionalData['designs'])) {
+                    if (array_key_exists($key, $data['designs'])) {
                         $data['designs'][$key]['quantity'] += $value['quantity'];
                     } else {
                         $data['designs'][$key] = $value;

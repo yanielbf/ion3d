@@ -70,7 +70,6 @@
                     >
                         <!-- Cart Item Image -->
                         {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.image.before') !!}
-
                         <div class="">
                             <a :href="`{{ route('shop.product_or_category.index', '') }}/${item.product_url_key}`">
                                 <img
@@ -146,8 +145,24 @@
 
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.product_details.after') !!}
                             </div>
+                            <div v-for="(key, index) in Object.keys(item.additional.designs)" @class(['flex gap-2 justify-between items-center'])>
+                                <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" v-text="'Diseño ' + (index + 1)" @class(['bg-green-500 rounded-xl px-2 text-white cursor-pointer'])></a>
+                                <x-shop::quantity-changer
+                                    class="gap-x-2.5 max-w-[150px] max-h-9 py-1.5 px-3.5 rounded-[54px]"
+                                    name="quantity"
+                                    ::value="item.additional.designs[key].quantity"
+                                    @change="updateItemDesign($event, item, key)"
+                                />
+                                <button
+                                    type="button"
+                                    class="text-[#0A49A7]"
+                                    @click="removeItemDesign(item.id, key)"
+                                >
+                                    @lang('shop::app.checkout.cart.mini-cart.remove')
+                                </button>
+                            </div>
 
-                            <div class="flex gap-5 items-center flex-wrap">
+                            <div v-if="!item.additional.designs" class="flex gap-5 items-center flex-wrap">
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.quantity_changer.before') !!}
 
                                 <!-- Cart Item Quantity Changer -->
@@ -305,6 +320,7 @@
                     this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
                         .then(response => {
                             this.cart = response.data.data;
+                            console.log(this.cart)
                         })
                         .catch(error => {});
                 },
@@ -327,8 +343,42 @@
                             this.isLoading = false;
                         }).catch(error => this.isLoading = false);
                 },
+                updateItemDesign(quantity, item, key) {
+                    this.isLoading = true;
 
+                    let qty = {};
+
+                    qty[item.id] = quantity;
+
+                    this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty })
+                        .then(response => {
+                            if (response.data.message) {
+                                this.cart = response.data.data;
+                            } else {
+                                this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                            }
+
+                            this.isLoading = false;
+                        }).catch(error => this.isLoading = false);
+                },
                 removeItem(itemId) {
+                    this.$emitter.emit('open-confirm-modal', {
+                        agree: () => {
+                            this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {
+                                '_method': 'DELETE',
+                                'cart_item_id': itemId,
+                            })
+                            .then(response => {
+                                this.cart = response.data.data;
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                            })
+                            .catch(error => {
+                                    this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
+                            });
+                        }
+                    });
+                },
+                removeItemDesign(itemId, key) {
                     this.$emitter.emit('open-confirm-modal', {
                         agree: () => {
                             this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {

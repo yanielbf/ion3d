@@ -86,9 +86,6 @@ class Designer3DController extends APIController
 
             $cart = Cart::addProduct($product->id, $data);
 
-            /**
-             * To Do (@devansh-webkul): Need to check this and improve cart facade.
-             */
             if (is_array($cart) && isset($cart['warning'])) {
                 return new JsonResource([
                     'message' => $cart['warning'],
