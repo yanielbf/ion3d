@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, reactive, defineEmits } from "vue";
+import { reactive } from "vue";
 
 const props = defineProps({
     colors: {

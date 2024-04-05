@@ -20,9 +20,7 @@ class OnepageController extends Controller
         /**
          * If guest checkout is not allowed then redirect back to the cart page
          */
-        if (
-            ! auth()->guard('customer')->check()
-            && ! core()->getConfigData('catalog.products.guest_checkout.allow_guest_checkout')
+        if (!auth()->guard('customer')->check() && !core()->getConfigData('catalog.products.guest_checkout.allow_guest_checkout')
         ) {
             return redirect()->route('shop.customer.session.index');
         }

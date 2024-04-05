@@ -65,11 +65,20 @@ class Designer3DController extends APIController
             'product_id' => 'required|integer|exists:products,id',
         ]);
 
-        $image = request()->file('image');
-        $filename = request()->input('filename');
+        $data['product_id'] = request()->input('product_id');
+        $data['quantity'] = intval(request()->input('quantity'));
+        $hash = request()->input('hash');
 
-        if(isset($image) && isset($filename)) {
-            $image->storeAs('covers', $filename);
+        if(isset($hash)) {
+            $design = request()->input('design')[$hash];
+            $image = request()->file('image');
+            $image->storeAs('covers', $design['filename']);
+            $data['designs'] = [
+                $hash => [
+                    'quantity' => intval($design['quantity']),
+                    'filename' => $design['filename'],
+                ]
+            ];
         }
 
         try {
@@ -79,15 +88,12 @@ class Designer3DController extends APIController
                 Cart::deActivateCart();
             }
 
-            $cart = Cart::addProduct($product->id, request()->all());
+            $cart = Cart::addProduct($product->id, $data);
 
             /**
              * To Do (@devansh-webkul): Need to check this and improve cart facade.
              */
-            if (
-                is_array($cart)
-                && isset($cart['warning'])
-            ) {
+            if (is_array($cart) && isset($cart['warning'])) {
                 return new JsonResource([
                     'message' => $cart['warning'],
                 ]);

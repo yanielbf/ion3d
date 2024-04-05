@@ -849,9 +849,11 @@ abstract class AbstractType
     {
         $data['quantity'] = $this->handleQuantity((int) $data['quantity']);
 
-        $data = $this->getQtyRequest($data);
+        if(!isset($data['designs'])) {
+            $data = $this->getQtyRequest($data);
+        }
 
-        if (! $this->haveSufficientQuantity($data['quantity'])) {
+        if (!$this->haveSufficientQuantity($data['quantity'])) {
             return trans('product::app.checkout.cart.inventory-warning');
         }
 
@@ -920,18 +922,30 @@ abstract class AbstractType
                 return $options1['parent_id'] == $options2['parent_id'];
             } elseif (
                 isset($options1['parent_id'])
-                && ! isset($options2['parent_id'])
+                && !isset($options2['parent_id'])
             ) {
                 return false;
             } elseif (
                 isset($options2['parent_id'])
-                && ! isset($options1['parent_id'])
+                && !isset($options1['parent_id'])
             ) {
                 return false;
             }
         }
 
         return true;
+    }
+
+        /**
+     * Compare options.
+     *
+     * @param  array  $options1
+     * @param  array  $options2
+     * @return bool
+     */
+    public function compareProduct($id)
+    {
+        return $this->product->id == $id;
     }
 
     /**

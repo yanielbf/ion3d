@@ -1,14 +1,5 @@
 <script setup>
-import {
-    inject,
-    onMounted,
-    defineProps,
-    toRaw,
-    watch,
-    reactive,
-    ref,
-    computed,
-} from "vue";
+import { inject, onMounted, toRaw, watch, reactive, ref, computed } from "vue";
 import Dropdown from "primevue/dropdown";
 import ProgressSpinner from "primevue/progressspinner";
 import InputText from "primevue/inputtext";
@@ -50,6 +41,7 @@ const fontSize = {
 let scene = new THREE.Scene();
 
 const axios = inject("$axios");
+const emitter = inject("$emitter");
 
 const props = defineProps({
     info: {
@@ -61,6 +53,8 @@ const state = reactive({
     loading: true,
     loadingProduct: false,
     loading3D: true,
+    loadingAddCart: false,
+    loadingShop: false,
     error: null,
     errorProduct: null,
     error3D: null,
@@ -103,6 +97,18 @@ const codeCover = computed(
 );
 
 // General
+function createHash() {
+    let hash = 0;
+    for (let i = 0; i < codeCover.value.length; i++) {
+        hash += codeCover.value.charCodeAt(i);
+    }
+    hash += textConfig.value.x;
+    hash += textConfig.value.y;
+    hash += textConfig.value.rotation || 0;
+    hash += textConfig.value.scaleX || 0;
+    hash += textConfig.value.scaleY || 0;
+    return hash.toString(16);
+}
 
 function handleGetFamiliesAttributes() {
     axios
@@ -176,7 +182,7 @@ function handleGetProduct() {
     }
 }
 
-function handleChangeSettingView(direction) {
+function handleChangeSettingView() {
     if (state.activeSetting == 0) {
         state.activeSetting = 1;
         state.view = "2D";
@@ -190,10 +196,19 @@ function handleChangeSettingView(direction) {
     }
 }
 
+function handleChange2DView() {
+    state.activeSetting = 1;
+    state.view = "2D";
+    if (!state.view2DLoaded) {
+        state.view2DLoaded = true;
+        init2d();
+    }
+}
+
 // 3D
 
 function handleChangeColor(place, item) {
-    if (place == 1) {
+    if (place == 0) {
         state.borderColorSelected = item;
     } else {
         state.backColorSelected = item;
@@ -454,22 +469,32 @@ function handleChangeSize(size) {
 }
 
 async function handleAddtoCart() {
-    state.view = "2D";
-    state.activeSetting = 1;
+    handleChange2DView();
+    state.loadingAddCart = true;
     setTimeout(() => {
         html2canvas(screenShot.value, {
             useCORS: true,
             allowTaint: true,
         }).then(function (canvas) {
             canvas.toBlob(function (blob) {
+                const hash = createHash();
                 axios
                     .postForm(props.info.urls.add_item_to_cart, {
-                        image: blob,
-                        filename: `${codeCover.value}.png`,
                         product_id: state.product.id,
                         quantity: state.quantity,
+                        image: blob,
+                        hash: hash,
+                        design: {
+                            [hash]: {
+                                filename: `${codeCover.value}.png`,
+                                quantity: state.quantity,
+                            },
+                        },
                     })
-                    .then((res) => console.log(res));
+                    .then((res) => {
+                        emitter.emit("update-mini-cart", res.data.data);
+                    })
+                    .finally(() => (state.loadingAddCart = false));
             }, "image/png");
         });
     }, 1000);
@@ -557,7 +582,10 @@ onMounted(() => {
 
 <template>
     <div class="container mt-8 px-[60px] max-lg:px-8">
-        <div v-if="state.loading" class="flex justify-center">
+        <div
+            v-if="state.loading"
+            class="flex justify-center items-center h-[616px]"
+        >
             <ProgressSpinner
                 style="width: 50px; height: 50px"
                 strokeWidth="4"
@@ -612,24 +640,32 @@ onMounted(() => {
                             </div>
                         </div>
                         <div>
-                            <button
-                                type="button"
-                                class="w-full mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
-                            >
-                                Empezar de nuevo
-                            </button>
-                            <div class="flex gap-2">
+                            <div class="flex flex-col gap-2">
                                 <button
-                                    @click="() => handleAddtoCart()"
-                                    class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                    class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-3 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
                                 >
-                                    Agregar al carrito
+                                    <span>Empezar de nuevo</span>
                                 </button>
                                 <button
-                                    type="button"
-                                    class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                    @click="() => handleAddtoCart()"
+                                    class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
                                 >
-                                    Comprar ahora
+                                    <i
+                                        v-if="state.loadingAddCart"
+                                        class="pi pi-spin pi-spinner"
+                                        style="font-size: 1rem"
+                                    />
+                                    <span>Agregar al carrito</span>
+                                </button>
+                                <button
+                                    class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
+                                >
+                                    <i
+                                        v-if="state.loadingShop"
+                                        class="pi pi-spin pi-spinner"
+                                        style="font-size: 1rem"
+                                    />
+                                    <span>Finalizar compra</span>
                                 </button>
                             </div>
                         </div>
@@ -671,8 +707,8 @@ onMounted(() => {
                         >
                             <div
                                 :class="{
-                                    [`border-[${state.backColorSelected.color}]`]: true,
-                                    [`bg-[${state.borderColorSelected.color}]`]: true,
+                                    [`border-[${state.borderColorSelected.color}]`]: true,
+                                    [`bg-[${state.backColorSelected.color}]`]: true,
                                 }"
                                 class="md:w-[18%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
                             >
@@ -797,7 +833,7 @@ onMounted(() => {
             </div>
             <div
                 v-else
-                class="w-full flex flex-col items-center justify-center h-[500px]"
+                class="w-full flex flex-col items-center justify-center h-[522px]"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

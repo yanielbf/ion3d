@@ -159,7 +159,7 @@ class Cart
 
         foreach ($items as $item) {
             if ($item->getTypeInstance()->compareOptions($item->additional, $data['additional'])) {
-                if (! isset($data['additional']['parent_id'])) {
+                if (!isset($data['additional']['parent_id'])) {
                     return $item;
                 }
 
@@ -185,18 +185,35 @@ class Cart
 
         $cart = $this->getCart();
 
-        if (! $cart) {
+        if (!$cart) {
             $cart = $this->create($data);
         }
 
-        if (! $cart) {
+        if (!$cart) {
             return ['warning' => __('shop::app.checkout.cart.item.error-add')];
         }
 
         $product = $this->productRepository->find($productId);
 
-        if (! $product->status) {
+        if (!$product->status) {
             return ['info' => __('shop::app.checkout.cart.item.inactive-add')];
+        }
+
+        if(isset($data['designs'])) {
+            $itemFound = null;
+            $items = $this->getCart()->all_items;
+            foreach ($items as $item) {
+                if ($item->getTypeInstance()->compareProduct($data['product_id'])) {
+                    $itemFound = $item;
+                }
+            }
+            if(isset($itemFound)) {
+                $currentAdditionalData = $itemFound->additional;
+                $data['designs'] = array_replace($data['designs'], $currentAdditionalData['designs']);
+                $data['quantity'] = array_reduce($data['designs'], function($acc, $item) {
+                    return $acc + $item['quantity'];
+                }, 0);
+            }
         }
 
         $cartProducts = $product->getTypeInstance()->prepareForCart($data);
@@ -219,7 +236,7 @@ class Cart
                     $cartProduct['parent_id'] = $parentCartItem->id;
                 }
 
-                if (! $cartItem) {
+                if (!$cartItem) {
                     $cartItem = $this->cartItemRepository->create(array_merge($cartProduct, ['cart_id' => $cart->id]));
                 } else {
                     if (

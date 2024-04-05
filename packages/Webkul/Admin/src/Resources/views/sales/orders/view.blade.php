@@ -140,6 +140,7 @@
                                         <p class="text-base text-gray-800 dark:text-white font-semibold">
                                             {{ $item->name }}
                                         </p>
+                                        <a class="hover:underline cursor-pointer text-blue-500" target="_blank" href="{{asset('storage/covers/'.$item->additional['filename'])}}">Ver foto</a>
 
                                         <div class="flex flex-col gap-1.5 place-items-start">
                                             <p class="text-gray-600 dark:text-gray-300">
