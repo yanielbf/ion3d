@@ -209,7 +209,14 @@ class Cart
             }
             if(isset($itemFound)) {
                 $currentAdditionalData = $itemFound->additional;
-                $data['designs'] = array_replace($data['designs'], $currentAdditionalData['designs']);
+                foreach ($currentAdditionalData['designs'] as $key => $value) {
+                    if (array_key_exists($key, $currentAdditionalData['designs'])) {
+                        $data['designs'][$key]['quantity'] += $value['quantity'];
+                    } else {
+                        $data['designs'][$key] = $value;
+                    }
+                }
+                // $data['designs'] = array_replace($currentAdditionalData['designs'], $data['designs']);
                 $data['quantity'] = array_reduce($data['designs'], function($acc, $item) {
                     return $acc + $item['quantity'];
                 }, 0);

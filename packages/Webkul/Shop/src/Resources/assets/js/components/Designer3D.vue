@@ -54,6 +54,7 @@ const state = reactive({
     loadingProduct: false,
     loading3D: true,
     loadingAddCart: false,
+    loadingBuyNow: false,
     loadingShop: false,
     error: null,
     errorProduct: null,
@@ -67,7 +68,6 @@ const state = reactive({
     borderColorSelected: colors.side[0],
     pieces: [],
     materials: [],
-    includeText: false,
     activeSetting: 0,
     view2DLoaded: false,
     view: "3D",
@@ -97,7 +97,7 @@ const codeCover = computed(
 );
 
 // General
-function createHash() {
+function handleCreateHash() {
     let hash = 0;
     for (let i = 0; i < codeCover.value.length; i++) {
         hash += codeCover.value.charCodeAt(i);
@@ -203,6 +203,100 @@ function handleChange2DView() {
         state.view2DLoaded = true;
         init2d();
     }
+}
+
+function handleChangeQuantity(type) {
+    if (type == "+") {
+        state.quantity += 1;
+    } else {
+        state.quantity = state.quantity - 1 == 0 ? 1 : state.quantity - 1;
+    }
+}
+
+function handleRestart() {
+    if (state.loadingAddCart || state.loadingBuyNow) {
+        return;
+    }
+    state.activeSetting = 0;
+    state.view2DLoaded = false;
+    state.view = "3D";
+    state.quantity = 1;
+    state.text = "";
+    state.textSize = 20;
+    textConfig.value = {};
+}
+
+async function handleAddtoCart(buyNow) {
+    if (state.loadingAddCart || state.loadingBuyNow) {
+        return;
+    }
+    if (state.quantity < 1) {
+        emitter.emit("add-flash", {
+            type: "error",
+            message: "La cantidad debe ser mayor 0",
+        });
+        return;
+    }
+    handleChange2DView();
+    if (buyNow) {
+        state.loadingBuyNow = true;
+    } else {
+        state.loadingAddCart = true;
+    }
+    setTimeout(() => {
+        html2canvas(screenShot.value, {
+            useCORS: true,
+            allowTaint: true,
+        }).then(function (canvas) {
+            canvas.toBlob(function (blob) {
+                const url = `${props.info.urls.add_item_to_cart}${
+                    buyNow ? "?is_buy_now=1" : ""
+                }`;
+                const hash = handleCreateHash();
+                axios
+                    .postForm(url, {
+                        product_id: state.product.id,
+                        quantity: state.quantity,
+                        image: blob,
+                        hash: hash,
+                        design: {
+                            [hash]: {
+                                filename: `${codeCover.value}.png`,
+                                quantity: state.quantity,
+                            },
+                        },
+                    })
+                    .then((response) => {
+                        if (!response.data.data.message) {
+                            emitter.emit(
+                                "update-mini-cart",
+                                response.data.data
+                            );
+                            emitter.emit("add-flash", {
+                                type: "success",
+                                message: response.data.message,
+                            });
+                            handleRestart();
+                            if (buyNow) {
+                                window.location = response.data.redirect;
+                            }
+                        } else {
+                            emitter.emit("add-flash", {
+                                type: "error",
+                                message: response.data.data.message,
+                            });
+                        }
+                    })
+                    .finally(() => {
+                        if (buyNow) {
+                            state.loadingBuyNow = false;
+                        } else {
+                            state.loadingAddCart = false;
+                        }
+                    });
+            }, "image/png");
+        });
+    }, 1000);
 }
 
 // 3D
@@ -468,38 +562,6 @@ function handleChangeSize(size) {
     textConfig.value.fontSize = size;
 }
 
-async function handleAddtoCart() {
-    handleChange2DView();
-    state.loadingAddCart = true;
-    setTimeout(() => {
-        html2canvas(screenShot.value, {
-            useCORS: true,
-            allowTaint: true,
-        }).then(function (canvas) {
-            canvas.toBlob(function (blob) {
-                const hash = createHash();
-                axios
-                    .postForm(props.info.urls.add_item_to_cart, {
-                        product_id: state.product.id,
-                        quantity: state.quantity,
-                        image: blob,
-                        hash: hash,
-                        design: {
-                            [hash]: {
-                                filename: `${codeCover.value}.png`,
-                                quantity: state.quantity,
-                            },
-                        },
-                    })
-                    .then((res) => {
-                        emitter.emit("update-mini-cart", res.data.data);
-                    })
-                    .finally(() => (state.loadingAddCart = false));
-            }, "image/png");
-        });
-    }, 1000);
-}
-
 function init2d() {
     setTimeout(() => {
         stageConfig.value = {
@@ -609,20 +671,25 @@ onMounted(() => {
                 </div>
             </div>
             <div v-if="state.product" class="grid grid-cols-1 gap-2">
-                <div id="viewer" class="border rounded-lg">
+                <div id="viewer" class="rounded-lg">
                     <div
                         class="px-6 border-b py-3 flex flex-wrap gap-3 justify-between items-center"
                     >
-                        <div>
+                        <div class="w-full md:w-1/3">
                             <div class="mb-2">
                                 {{ state.product.name }}
                             </div>
-                            <div class="text-lg font-medium mb-2">
-                                {{ state.product.prices.final.formatted_price }}
+                            <div class="text-lg font-medium mb-3">
+                                {{
+                                    `${
+                                        state.product.prices.final.price *
+                                        state.quantity
+                                    } ${info.currency}`
+                                }}
                             </div>
                             <div class="flex gap-2">
                                 <button
-                                    type="button"
+                                    @click="handleChangeQuantity('-')"
                                     class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                                 >
                                     -
@@ -632,7 +699,7 @@ onMounted(() => {
                                     class="w-full mb-2"
                                 />
                                 <button
-                                    type="button"
+                                    @click="handleChangeQuantity('+')"
                                     class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                                 >
                                     +
@@ -642,12 +709,13 @@ onMounted(() => {
                         <div>
                             <div class="flex flex-col gap-2">
                                 <button
+                                    @click="handleRestart"
                                     class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-3 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
                                 >
-                                    <span>Empezar de nuevo</span>
+                                    <span>Restablecer valores</span>
                                 </button>
                                 <button
-                                    @click="() => handleAddtoCart()"
+                                    @click="handleAddtoCart(false)"
                                     class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
                                 >
                                     <i
@@ -658,14 +726,15 @@ onMounted(() => {
                                     <span>Agregar al carrito</span>
                                 </button>
                                 <button
+                                    @click="handleAddtoCart(true)"
                                     class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
                                 >
                                     <i
-                                        v-if="state.loadingShop"
+                                        v-if="state.loadingBuyNow"
                                         class="pi pi-spin pi-spinner"
                                         style="font-size: 1rem"
                                     />
-                                    <span>Finalizar compra</span>
+                                    <span>Agregar y finalizar compra</span>
                                 </button>
                             </div>
                         </div>
@@ -680,7 +749,7 @@ onMounted(() => {
                         >
                             Cargando modelo 3D
                         </div>
-                        <div v-else-if="!state.loading3D && state.error3D">
+                        <div class="h-[500px] flex justify-center items-center" v-else-if="!state.loading3D && state.error3D">
                             {{ state.error3D }}
                         </div>
                         <div v-else class="h-[500px] w-full rounded-md p-5">

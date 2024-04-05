@@ -84,10 +84,6 @@ class Designer3DController extends APIController
         try {
             $product = $this->productRepository->with('parent')->find(request()->input('product_id'));
 
-            if (request()->get('is_buy_now')) {
-                Cart::deActivateCart();
-            }
-
             $cart = Cart::addProduct($product->id, $data);
 
             /**
