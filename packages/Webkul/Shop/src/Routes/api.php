@@ -60,7 +60,7 @@ Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'
 
         Route::post('', 'store')->name('shop.api.checkout.cart.store');
 
-        Route::post('', 'storeDesign')->name('shop.api.checkout.cart.store_design');
+        Route::post('store-design', 'storeDesign')->name('shop.api.checkout.cart.store_design');
 
         Route::put('', 'update')->name('shop.api.checkout.cart.update');
 

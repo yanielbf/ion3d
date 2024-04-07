@@ -237,7 +237,6 @@ async function handleAddtoCart(buyNow) {
         });
         return;
     }
-    handleChange2DView();
     if (buyNow) {
         state.loadingBuyNow = true;
     } else {
@@ -248,9 +247,8 @@ async function handleAddtoCart(buyNow) {
             useCORS: true,
             allowTaint: true,
             onclone: function (clonedDoc) {
-                console.log(111111, clonedDoc, clonedDoc.getElementById('model'))
+                clonedDoc.getElementById('view2D').style.display = 'block';
                 clonedDoc.getElementById('model').style.display = 'block';
-                console.log(clonedDoc.getElementById('model'))
             }
         }).then(function (canvas) {
             canvas.toBlob(function (blob) {
@@ -744,94 +742,96 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div
-                        v-show="state.view == '3D'"
-                        data-html2canvas-ignore="true"
-                    >
+                    <div ref="screenShot">
                         <div
-                            class="h-[500px] flex justify-center items-center"
-                            v-if="state.loading3D"
-                        >
-                            Cargando modelo 3D
-                        </div>
-                        <div class="h-[500px] flex justify-center items-center" v-else-if="!state.loading3D && state.error3D">
-                            {{ state.error3D }}
-                        </div>
-                        <div v-else class="h-[500px] w-full rounded-md p-5">
-                            <TresCanvas clear-color="#fff" preset="realistic">
-                                <TresPerspectiveCamera
-                                    :position="[3, 2, -210]"
-                                />
-                                <OrbitControls :enableZoom="false" />
-                                <Suspense>
-                                    <primitive :object="scene" />
-                                </Suspense>
-                                <TresDirectionalLight
-                                    :intensity="2"
-                                    :position="[3, 3, 3]"
-                                />
-                                <TresAmbientLight :intensity="1" />
-                            </TresCanvas>
-                        </div>
-                    </div>
-                    <div v-show="state.view == '2D'" ref="screenShot" class="pb-8">
-                        <div
-                            class="w-full h-[500px] px-10 pt-10 pb-5 flex justify-center items-center"
+                            v-show="state.view == '3D'"
+                            data-html2canvas-ignore="true"
                         >
                             <div
-                                :class="{
-                                    [`border-[${state.borderColorSelected.color}]`]: true,
-                                    [`bg-[${state.backColorSelected.color}]`]: true,
-                                }"
-                                class="md:w-[18%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
+                                class="h-[500px] flex justify-center items-center"
+                                v-if="state.loading3D"
                             >
-                                <div class="flex justify-end">
-                                    <div
-                                        class="w-[40%] h-[75%] mt-3 rounded-lg border-white bg-white mr-3"
-                                    ></div>
-                                </div>
-                                <div
-                                    class="w-full rounded -pb-4"
-                                    ref="container"
-                                >
-                                    <v-stage
-                                        ref="stage"
-                                        :config="stageConfig"
-                                        @mousedown="handleStageMouseDown"
-                                        @touchstart="handleStageMouseDown"
-                                    >
-                                        <v-layer ref="layer">
-                                            <v-text
-                                                ref="text"
-                                                :config="textConfig"
-                                                @dragend="handleDragEnd"
-                                                @transformend="
-                                                    handleTransformEnd
-                                                "
-                                            />
-                                            <v-transformer
-                                                :centeredScaling="true"
-                                                :rotationSnaps="[
-                                                    0, 90, 180, 270,
-                                                ]"
-                                                :resizeEnabled="false"
-                                                :flipEnabled="false"
-                                                :boundBoxFunc="boundBoxFunc"
-                                                ref="transformer"
-                                                @dragmove="handleTransformMoved"
-                                            />
-                                        </v-layer>
-                                    </v-stage>
-                                </div>
+                                Cargando modelo 3D
+                            </div>
+                            <div class="h-[500px] flex justify-center items-center" v-else-if="!state.loading3D && state.error3D">
+                                {{ state.error3D }}
+                            </div>
+                            <div v-else class="h-[500px] w-full rounded-md p-5">
+                                <TresCanvas clear-color="#fff" preset="realistic">
+                                    <TresPerspectiveCamera
+                                        :position="[3, 2, -210]"
+                                    />
+                                    <OrbitControls :enableZoom="false" />
+                                    <Suspense>
+                                        <primitive :object="scene" />
+                                    </Suspense>
+                                    <TresDirectionalLight
+                                        :intensity="2"
+                                        :position="[3, 3, 3]"
+                                    />
+                                    <TresAmbientLight :intensity="1" />
+                                </TresCanvas>
                             </div>
                         </div>
-                        <div id="model" class="text-center" style="display:none;">
-                            {{ Object.values(state.selectedAttributes).reduce((acc, x) => `${acc} ${x.name}`, '') }}
+                        <div id="view2D" v-show="state.view == '2D'" class="pb-8">
+                            <div
+                                class="w-full h-[500px] px-10 pt-10 pb-5 flex justify-center items-center"
+                            >
+                                <div
+                                    :class="{
+                                        [`border-[${state.borderColorSelected.color}]`]: true,
+                                        [`bg-[${state.backColorSelected.color}]`]: true,
+                                    }"
+                                    class="md:w-[18%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
+                                >
+                                    <div class="flex justify-end">
+                                        <div
+                                            class="w-[40%] h-[75%] mt-3 rounded-lg border-white bg-white mr-3"
+                                        ></div>
+                                    </div>
+                                    <div
+                                        class="w-full rounded -pb-4"
+                                        ref="container"
+                                    >
+                                        <v-stage
+                                            ref="stage"
+                                            :config="stageConfig"
+                                            @mousedown="handleStageMouseDown"
+                                            @touchstart="handleStageMouseDown"
+                                        >
+                                            <v-layer ref="layer">
+                                                <v-text
+                                                    ref="text"
+                                                    :config="textConfig"
+                                                    @dragend="handleDragEnd"
+                                                    @transformend="
+                                                        handleTransformEnd
+                                                    "
+                                                />
+                                                <v-transformer
+                                                    :centeredScaling="true"
+                                                    :rotationSnaps="[
+                                                        0, 90, 180, 270,
+                                                    ]"
+                                                    :resizeEnabled="false"
+                                                    :flipEnabled="false"
+                                                    :boundBoxFunc="boundBoxFunc"
+                                                    ref="transformer"
+                                                    @dragmove="handleTransformMoved"
+                                                />
+                                            </v-layer>
+                                        </v-stage>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="model" class="text-center" style="display:none;">
+                                {{ Object.values(state.selectedAttributes).reduce((acc, x) => `${acc} ${x.name}`, '') }}
+                            </div>
                         </div>
-                    </div>
-                    <div v-show="state.view == 'Images'">
-                        <img :src="state.product.images[0].medium_image_url" />
-                    </div>
+                        <div v-show="state.view == 'Images'" data-html2canvas-ignore="true">
+                            <img :src="state.product.images[0].medium_image_url" />
+                        </div>
+                        </div>
                     <div
                         class="px-6 py-6 border-t grid grid-cols-[1fr_4fr_1fr]"
                     >

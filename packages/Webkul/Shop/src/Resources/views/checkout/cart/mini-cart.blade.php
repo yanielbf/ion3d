@@ -320,7 +320,6 @@
                     this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
                         .then(response => {
                             this.cart = response.data.data;
-                            console.log(this.cart)
                         })
                         .catch(error => {});
                 },
