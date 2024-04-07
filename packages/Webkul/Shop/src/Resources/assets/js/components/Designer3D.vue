@@ -247,6 +247,11 @@ async function handleAddtoCart(buyNow) {
         html2canvas(screenShot.value, {
             useCORS: true,
             allowTaint: true,
+            onclone: function (clonedDoc) {
+                console.log(111111, clonedDoc, clonedDoc.getElementById('model'))
+                clonedDoc.getElementById('model').style.display = 'block';
+                console.log(clonedDoc.getElementById('model'))
+            }
         }).then(function (canvas) {
             canvas.toBlob(function (blob) {
                 const url = `${props.info.urls.add_item_to_cart}${
@@ -769,10 +774,9 @@ onMounted(() => {
                             </TresCanvas>
                         </div>
                     </div>
-                    <div v-show="state.view == '2D'">
+                    <div v-show="state.view == '2D'" ref="screenShot" class="pb-8">
                         <div
-                            ref="screenShot"
-                            class="w-full h-[500px] p-10 flex justify-center items-center"
+                            class="w-full h-[500px] px-10 pt-10 pb-5 flex justify-center items-center"
                         >
                             <div
                                 :class="{
@@ -820,6 +824,9 @@ onMounted(() => {
                                     </v-stage>
                                 </div>
                             </div>
+                        </div>
+                        <div id="model" class="text-center" style="display:none;">
+                            {{ Object.values(state.selectedAttributes).reduce((acc, x) => `${acc} ${x.name}`, '') }}
                         </div>
                     </div>
                     <div v-show="state.view == 'Images'">

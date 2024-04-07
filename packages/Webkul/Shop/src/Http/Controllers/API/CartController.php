@@ -106,6 +106,74 @@ class CartController extends APIController
     }
 
     /**
+     * Store design items in cart.
+     */
+    public function storeDesign(): JsonResource
+    {
+        $this->validate(request(), [
+            'product_id' => 'required|integer|exists:products,id',
+        ]);
+
+        $data['product_id'] = request()->input('product_id');
+        $data['quantity'] = intval(request()->input('quantity'));
+        $hash = request()->input('hash');
+
+        if(isset($hash)) {
+            $design = request()->input('design')[$hash];
+            $image = request()->file('image');
+            $image->storeAs('covers', $design['filename']);
+            $data['designs'] = [
+                $hash => [
+                    'quantity' => intval($design['quantity']),
+                    'filename' => $design['filename'],
+                    'hash' => $hash
+                ]
+            ];
+        }
+
+        try {
+            $product = $this->productRepository->with('parent')->find(request()->input('product_id'));
+
+            $cart = Cart::addProduct($product->id, $data);
+
+            if (is_array($cart) && isset($cart['warning'])) {
+                return new JsonResource([
+                    'message' => $cart['warning'],
+                ]);
+            }
+
+            if ($cart) {
+                if ($customer = auth()->guard('customer')->user()) {
+                    // $this->wishlistRepository->deleteWhere([
+                    //     'product_id'  => $product->id,
+                    //     'customer_id' => $customer->id,
+                    // ]);
+                }
+
+                if (request()->get('is_buy_now')) {
+                    Event::dispatch('shop.item.buy-now', request()->input('product_id'));
+
+                    return new JsonResource([
+                        'data'     => new CartResource(Cart::getCart()),
+                        'redirect' => route('shop.checkout.onepage.index'),
+                        'message'  => trans('shop::app.checkout.cart.item-add-to-cart'),
+                    ]);
+                }
+
+                return new JsonResource([
+                    'data'     => new CartResource(Cart::getCart()),
+                    'message'  => trans('shop::app.checkout.cart.item-add-to-cart'),
+                ]);
+            }
+        } catch (\Exception $exception) {
+            return new JsonResource([
+                'redirect_uri' => route('shop.product_or_category.index', $product->url_key),
+                'message'      => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    /**
      * Removes the item from the cart if it exists.
      */
     public function destroy(): JsonResource
@@ -163,6 +231,25 @@ class CartController extends APIController
     {
         try {
             Cart::updateItems(request()->input());
+
+            return new JsonResource([
+                'data'    => new CartResource(Cart::getCart()),
+                'message' => trans('shop::app.checkout.cart.index.quantity-update'),
+            ]);
+        } catch (\Exception $exception) {
+            return new JsonResource([
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    /**
+     * Updates the quantity of the items design present in the cart.
+     */
+    public function updateDesign(): JsonResource
+    {
+        try {
+            Cart::updateDesignItems(request()->input());
 
             return new JsonResource([
                 'data'    => new CartResource(Cart::getCart()),

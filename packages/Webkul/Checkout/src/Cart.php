@@ -216,7 +216,6 @@ class Cart
                         $data['designs'][$key] = $value;
                     }
                 }
-                // $data['designs'] = array_replace($currentAdditionalData['designs'], $data['designs']);
                 $data['quantity'] = array_reduce($data['designs'], function($acc, $item) {
                     return $acc + $item['quantity'];
                 }, 0);
@@ -362,6 +361,69 @@ class Cart
             ], $itemId);
 
             Event::dispatch('checkout.cart.update.after', $item);
+        }
+
+        $this->collectTotals();
+
+        return true;
+    }
+
+    /**
+     * Update cart items design information.
+     *
+     * @param  array  $data
+     * @return bool|void|Exception
+     */
+    public function updateDesignItems($data)
+    {
+        foreach ($data['qty'] as $itemId => $quantity) {
+            $item = $this->cartItemRepository->find($itemId);
+
+            if (!$item) {
+                continue;
+            }
+
+            if (!$item->product->status) {
+                throw new \Exception(__('shop::app.checkout.cart.item.inactive'));
+            }
+
+            $additional = $item->additional;
+            
+            if(isset($additional['designs']) && isset($additional['designs'][$data['key']])) {
+                if($quantity <= 0) {
+                    unset($additional['designs'][$data['key']]);
+                } else {
+                    $additional['designs'][$data['key']]['quantity'] = $quantity;
+                }
+            }
+
+            $totalQuantity = array_reduce($additional['designs'], function($acc, $item) {
+                return $acc + $item['quantity'];
+            }, 0);
+
+
+            if ($totalQuantity <= 0) {
+                $this->removeItem($itemId);
+            } else {
+                $item->quantity = $totalQuantity;
+
+                if (! $this->isItemHaveQuantity($item)) {
+                    throw new \Exception(__('shop::app.checkout.cart.inventory-warning'));
+                }
+
+                Event::dispatch('checkout.cart.update.before', $item);
+
+                $this->cartItemRepository->update([
+                    'additional'        => $additional,
+                    'quantity'          => $totalQuantity,
+                    'total'             => core()->convertPrice($item->price * $quantity),
+                    'base_total'        => $item->price * $quantity,
+                    'total_weight'      => $item->weight * $quantity,
+                    'base_total_weight' => $item->weight * $quantity,
+                ], $itemId);
+
+                Event::dispatch('checkout.cart.update.after', $item);
+            }
         }
 
         $this->collectTotals();
