@@ -9,6 +9,12 @@ import { useGLTF, OrbitControls } from "@tresjs/cientos";
 import html2canvas from "html2canvas";
 import ColorSelector from "./ColorSelector.vue";
 
+const props = defineProps({
+    info: {
+        type: Object,
+    },
+});
+
 const colors = {
     side: [
         { id: 1, color: "#057EB5" },
@@ -33,21 +39,15 @@ const colors = {
 };
 
 const fontSize = {
-    20: "Normal",
-    25: "Mediano",
-    30: "Grande",
+    20: props.info.texts.text_size_normal,
+    25: props.info.texts.text_size_medium,
+    30: props.info.texts.text_size_big,
 };
 
 let scene = new THREE.Scene();
 
 const axios = inject("$axios");
 const emitter = inject("$emitter");
-
-const props = defineProps({
-    info: {
-        type: Object,
-    },
-});
 
 const state = reactive({
     loading: true,
@@ -233,7 +233,7 @@ async function handleAddtoCart(buyNow) {
     if (state.quantity < 1) {
         emitter.emit("add-flash", {
             type: "error",
-            message: "La cantidad debe ser mayor 0",
+            message: props.info.texts.validation_quantity,
         });
         return;
     }
@@ -580,7 +580,7 @@ function init2d() {
             var x = i * anchoCelda;
             var lineaVertical = new Konva.Line({
                 points: [x, 0, x, stageConfig.value.height],
-                stroke: "rgba(0, 0, 0, 0.2)",
+                stroke: "rgba(0, 0, 0, 0.1)",
                 strokeWidth: 1,
             });
             layer.value.getNode().add(lineaVertical);
@@ -590,7 +590,7 @@ function init2d() {
             var y = j * altoCelda;
             var lineaHorizontal = new Konva.Line({
                 points: [0, y, stageConfig.value.width, y],
-                stroke: "rgba(0, 0, 0, 0.2)",
+                stroke: "rgba(0, 0, 0, 0.1)",
                 strokeWidth: 1,
             });
             layer.value.getNode().add(lineaHorizontal);
@@ -660,6 +660,7 @@ onMounted(() => {
             />
         </div>
         <div v-else>
+            {{info.texts.phone_model}}
             <div class="grid md:grid-cols-2 grid-cols-1 gap-2 mb-7">
                 <div v-for="attribute in state.attributes" :key="attribute.id">
                     <label>{{ attribute.name }}</label>
@@ -668,7 +669,7 @@ onMounted(() => {
                         :filter="true"
                         :options="attribute.options"
                         optionLabel="name"
-                        :placeholder="`Select a ${attribute.name}`"
+                        :placeholder="`${info.texts.select_attribute} ${attribute.name}`"
                         class="w-full"
                     />
                 </div>
@@ -715,7 +716,7 @@ onMounted(() => {
                                     @click="handleRestart"
                                     class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-3 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
                                 >
-                                    <span>Restablecer valores</span>
+                                    <span>{{info.texts.restart_values}}</span>
                                 </button>
                                 <button
                                     @click="handleAddtoCart(false)"
@@ -726,7 +727,7 @@ onMounted(() => {
                                         class="pi pi-spin pi-spinner"
                                         style="font-size: 1rem"
                                     />
-                                    <span>Agregar al carrito</span>
+                                    <span>{{info.texts.add_to_cart}}</span>
                                 </button>
                                 <button
                                     @click="handleAddtoCart(true)"
@@ -737,7 +738,7 @@ onMounted(() => {
                                         class="pi pi-spin pi-spinner"
                                         style="font-size: 1rem"
                                     />
-                                    <span>Agregar y finalizar compra</span>
+                                    <span>{{info.texts.add_to_cart_finish}}</span>
                                 </button>
                             </div>
                         </div>
@@ -751,7 +752,7 @@ onMounted(() => {
                                 class="h-[500px] flex justify-center items-center"
                                 v-if="state.loading3D"
                             >
-                                Cargando modelo 3D
+                                {{info.texts.loading_modal_3d}}
                             </div>
                             <div class="h-[500px] flex justify-center items-center" v-else-if="!state.loading3D && state.error3D">
                                 {{ state.error3D }}
@@ -851,14 +852,14 @@ onMounted(() => {
                             class="flex flex-col justify-center items-center"
                         >
                             <ColorSelector
-                                label="Parte trasera"
+                                :label="info.texts.back_piece"
                                 :colors="colors.back"
                                 :place="1"
                                 @change-color="handleChangeColor"
                             />
                             <div class="h-5"></div>
                             <ColorSelector
-                                label="Borde"
+                                :label="info.texts.side_piece"
                                 :colors="colors.side"
                                 :place="0"
                                 @change-color="handleChangeColor"
@@ -869,14 +870,14 @@ onMounted(() => {
                             class="flex flex-col items-center justify-center"
                         >
                             <div class="flex flex-col gap-2 w-1/2 mb-5">
-                                <label>Texto</label>
+                                <label>{{info.texts.text_print}}</label>
                                 <InputText
                                     v-model="state.text"
                                     @input="handleText"
                                 />
                             </div>
                             <div class="mb-5 items-center gap-6 w-1/2">
-                                <div class="mb-2">Tamaño</div>
+                                <div class="mb-2">{{info.texts.text_size}}</div>
                                 <div class="flex flex-wrap gap-3">
                                     <div
                                         v-for="item in [20, 25, 30]"
@@ -947,7 +948,7 @@ onMounted(() => {
                         <rect x="384.5" y="412.8" width="15" height="15" />
                     </g>
                 </svg>
-                <div class="mt-2">Personaliza tu cover</div>
+                <div class="mt-2">{{info.texts.custom_your_cover}}</div>
             </div>
         </div>
     </div>

@@ -550,6 +550,23 @@ return [
         ],
     ],
 
+    'design3d' => [
+        'custom_your_cover' => 'Personaliza tu cover',
+        'select_attribute' => 'Seleccione un',
+        'restart_values' => 'Restablecer valores',
+        'add_to_cart_finish' => 'Agregar y finalizar compra',
+        'add_to_cart' => 'Agregar al carrito',
+        'back_piece' => 'Parte trasera',
+        'side_piece' => 'Borde',
+        'text_print' => 'Texto',
+        'text_size' => 'Tamaño',
+        'text_size_normal' => 'Normal',
+        'text_size_medium' => 'Mediano',
+        'text_size_big' => 'Grande',
+        'validation_quantity' => 'La cantidad debe ser mayor 0',
+        'loading_modal_3d' => 'Cargando modelo 3D'
+    ],
+
     'categories' => [
         'filters' => [
             'clear-all' => 'Limpiar todo',
@@ -740,7 +757,7 @@ return [
             'pagination-showing' => 'Mostrando :firstItem a :lastItem de :total entradas',
         ],
     ],
-    
+
     'errors' => [
         'go-to-home'   => 'Ir a la página de inicio',
     
