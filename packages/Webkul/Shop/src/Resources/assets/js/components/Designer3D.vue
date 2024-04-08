@@ -102,8 +102,8 @@ function handleCreateHash() {
     for (let i = 0; i < codeCover.value.length; i++) {
         hash += codeCover.value.charCodeAt(i);
     }
-    hash += textConfig.value.x;
-    hash += textConfig.value.y;
+    hash += textConfig.value.x || 0;
+    hash += textConfig.value.y || 0;
     hash += textConfig.value.rotation || 0;
     hash += textConfig.value.scaleX || 0;
     hash += textConfig.value.scaleY || 0;

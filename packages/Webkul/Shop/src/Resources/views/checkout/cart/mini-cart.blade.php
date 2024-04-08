@@ -145,7 +145,7 @@
 
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.product_details.after') !!}
                             </div>
-                            <div v-for="(key, index) in Object.keys(item.additional.designs)" @class(['flex gap-2 justify-between items-center'])>
+                            <div v-if="item.additional.designs" v-for="(key, index) in Object.keys(item.additional.designs)" @class(['flex gap-2 justify-between items-center'])>
                                 <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" v-text="'Diseño ' + (index + 1)" @class(['bg-slate-500 rounded-xl px-2 py-1 text-sm text-white cursor-pointer'])></a>
                                 <x-shop::quantity-changer
                                     class="gap-x-2.5 max-w-[150px] max-h-9 py-1.5 px-3.5 rounded-[54px]"
@@ -161,8 +161,7 @@
                                     @lang('shop::app.checkout.cart.mini-cart.remove')
                                 </button>
                             </div>
-
-                            <div v-if="!item.additional.designs" class="flex gap-5 items-center flex-wrap">
+                            <div v-else class="flex gap-5 items-center flex-wrap">
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.quantity_changer.before') !!}
 
                                 <!-- Cart Item Quantity Changer -->
@@ -365,6 +364,7 @@
                             this.isLoading = false;
                         }).catch(error => this.isLoading = false);
                 },
+
                 removeItem(itemId) {
                     this.$emitter.emit('open-confirm-modal', {
                         agree: () => {
