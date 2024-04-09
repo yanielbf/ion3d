@@ -140,7 +140,6 @@
                                         <p class="text-base text-gray-800 dark:text-white font-semibold">
                                             {{ $item->name }}
                                         </p>
-                                        <a class="hover:underline cursor-pointer text-blue-500" target="_blank" href="{{asset('storage/covers/'.$item->additional['filename'])}}">Ver foto</a>
 
                                         <div class="flex flex-col gap-1.5 place-items-start">
                                             <p class="text-gray-600 dark:text-gray-300">
@@ -174,6 +173,14 @@
                                                 {{ $item->qty_canceled ? trans('admin::app.sales.orders.view.item-canceled', ['qty_canceled' => $item->qty_canceled]) : '' }}
                                             </p>
                                         </div>
+                                        @if (isset($item->additional['designs']))
+                                            <div class="flex gap-3 w-full text-gray-600 dark:text-gray-300 text-sm">
+                                                <div>{{count($item->additional['designs'])}} diseño(s): </div>
+                                                @foreach ($item->additional['designs'] as $design)
+                                                    <a class="hover:underline cursor-pointer text-blue-500" target="_blank" href="{{asset('storage/covers/'.$design['filename'])}}">Diseño {{$design['hash']}} ({{$design['quantity']}})</a>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
 

@@ -21,7 +21,7 @@
 
         {!! view_render_event('bagisto.shop.checkout.onepage.summary.item_image.after') !!}
 
-        <div>
+        <div class="w-full">
             {!! view_render_event('bagisto.shop.checkout.onepage.summary.item_name.before') !!}
 
             <p class="text-base text-navyBlue max-sm:text-sm max-sm:font-medium">
@@ -30,9 +30,15 @@
 
             {!! view_render_event('bagisto.shop.checkout.onepage.summary.item_name.after') !!}
 
-            <p class="mt-2.5 text-lg font-medium max-sm:text-sm max-sm:font-normal">
+            <p class="mt-2.5 text-lg font-medium max-sm:text-sm max-sm:font-normal mb-3">
                 @lang('shop::app.checkout.onepage.summary.price_&_qty', ['price' => '@{{ item.formatted_price }}', 'qty' => '@{{ item.quantity }}'])
             </p>
+
+            <div @class(['flex gap-2 flex-wrap items-center'])>
+                <div v-if="item.additional.designs" v-for="(key, index) in Object.keys(item.additional.designs)">
+                    <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" v-text="'Diseño ' + (index + 1)" @class(['bg-slate-500 rounded-xl px-2 py-1 text-sm text-white cursor-pointer'])></a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

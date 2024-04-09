@@ -42,44 +42,38 @@
     </head>
 
     <body>
-        {!! view_render_event('bagisto.shop.layout.body.before') !!}
-
-        <a href="#main" class="skip-to-main-content-link">Skip to main content</a>
-
         <div id="app">
+            {!! view_render_event('bagisto.shop.layout.body.before') !!}
+
             <!-- Flash Message Blade Component -->
             <x-shop::flash-group />
 
             <!-- Confirm Modal Blade Component -->
             <x-shop::modal.confirm />
 
-            <!-- Page Header Blade Component -->
-            @if ($hasHeader)
-                <x-shop::layouts.header />
-            @endif
+            <div class="grid grid-rows-[140px,auto,80px] grid-cols-[120px,auto] min-h-screen">
+                @if ($hasHeader)
+                    <div class="col-span-2 row-span-1">
+                        <x-shop::layouts.header />
+                    </div>
+                @endif
+                
+                <div class="col-span-2 min-h-[400px]">
+                    <!-- Page Content Blade Component -->
+                    <div id="main" class="bg-white">
+                        {{ $slot }}
+                    </div>
+                </div>
+                
+                @if ($hasFooter)
+                    <div class="col-span-2 row-span-1">
+                        <x-shop::layouts.footer />
+                    </div>
+                @endif
+            </div>
 
-            {!! view_render_event('bagisto.shop.layout.content.before') !!}
-
-            <!-- Page Content Blade Component -->
-            <main id="main" class="bg-white">
-                {{ $slot }}
-            </main>
-
-            {!! view_render_event('bagisto.shop.layout.content.after') !!}
-
-            
-            <!-- Page Services Blade Component -->
-            @if ($hasFeature)
-                <x-shop::layouts.services />
-            @endif
-
-            <!-- Page Footer Blade Component -->
-            @if ($hasFooter)
-                <x-shop::layouts.footer />
-            @endif
+            {!! view_render_event('bagisto.shop.layout.body.after') !!}
         </div>
-
-        {!! view_render_event('bagisto.shop.layout.body.after') !!}
 
         @stack('scripts')
 
