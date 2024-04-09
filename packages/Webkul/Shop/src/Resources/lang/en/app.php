@@ -554,7 +554,7 @@ return [
         'custom_your_cover' => 'Customize your cover',
         'select_attribute' => 'Select a',
         'restart_values' => 'Reset values',
-        'add_to_cart_finish' => 'Add and finish purchase',
+        'add_to_cart_finish' => 'Add and purchase',
         'add_to_cart' => 'Add to cart',
         'back_piece' => 'Back piece',
         'side_piece' => 'Side piece',

@@ -674,75 +674,20 @@ onMounted(() => {
                     />
                 </div>
             </div>
-            <div v-if="state.product" class="grid grid-cols-1 gap-2">
+            <div
+                v-if="state.loadingProduct"
+                class="flex justify-center items-center h-[616px]"
+            >
+                <ProgressSpinner
+                    style="width: 50px; height: 50px"
+                    strokeWidth="4"
+                    class="fill-surface-0 dark:fill-surface-800"
+                    animationDuration=".5s"
+                    aria-label="Custom ProgressSpinner"
+                />
+            </div>
+            <div v-if="!state.loadingProduct && state.product" class="grid grid-cols-1 gap-2">
                 <div id="viewer" class="rounded-lg">
-                    <div
-                        class="px-6 border-b py-3 flex flex-wrap gap-3 justify-between items-center"
-                    >
-                        <div class="w-full md:w-1/3">
-                            <div class="mb-2">
-                                {{ state.product.name }}
-                            </div>
-                            <div class="text-lg font-medium mb-3">
-                                {{
-                                    `${
-                                        state.product.prices.final.price *
-                                        state.quantity
-                                    } ${info.currency}`
-                                }}
-                            </div>
-                            <div class="flex gap-2">
-                                <button
-                                    @click="handleChangeQuantity('-')"
-                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
-                                >
-                                    -
-                                </button>
-                                <InputText
-                                    v-model.number="state.quantity"
-                                    class="w-full mb-2"
-                                />
-                                <button
-                                    @click="handleChangeQuantity('+')"
-                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
-                                >
-                                    +
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex flex-col gap-2">
-                                <button
-                                    @click="handleRestart"
-                                    class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-3 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
-                                >
-                                    <span>{{info.texts.restart_values}}</span>
-                                </button>
-                                <button
-                                    @click="handleAddtoCart(false)"
-                                    class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
-                                >
-                                    <i
-                                        v-if="state.loadingAddCart"
-                                        class="pi pi-spin pi-spinner"
-                                        style="font-size: 1rem"
-                                    />
-                                    <span>{{info.texts.add_to_cart}}</span>
-                                </button>
-                                <button
-                                    @click="handleAddtoCart(true)"
-                                    class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
-                                >
-                                    <i
-                                        v-if="state.loadingBuyNow"
-                                        class="pi pi-spin pi-spinner"
-                                        style="font-size: 1rem"
-                                    />
-                                    <span>{{info.texts.add_to_cart_finish}}</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                     <div ref="screenShot">
                         <div
                             v-show="state.view == '3D'"
@@ -832,10 +777,68 @@ onMounted(() => {
                         <div v-show="state.view == 'Images'" data-html2canvas-ignore="true">
                             <img :src="state.product.images[0].medium_image_url" />
                         </div>
+                    </div>
+                    <div class="border-t p-6 grid grid-cols-1 md:grid-cols-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
+                            <div class="grid grid-cols-3 gap-2">
+                                <button
+                                    @click="handleChangeQuantity('-')"
+                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                >
+                                    -
+                                </button>
+                                <InputText
+                                    v-model.number="state.quantity"
+                                    class="mb-2"
+                                />
+                                <button
+                                    @click="handleChangeQuantity('+')"
+                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                >
+                                    +
+                                </button>
+                            </div>
+                            <div class="text-lg font-medium mb-3">
+                                {{
+                                    `${
+                                        state.product.prices.final.price *
+                                        state.quantity
+                                    } ${info.currency}`
+                                }}
+                            </div>
                         </div>
-                    <div
-                        class="px-6 py-6 border-t grid grid-cols-[1fr_4fr_1fr]"
-                    >
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <button
+                                @click="handleRestart"
+                                class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-3 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
+                            >
+                                <span>{{info.texts.restart_values}}</span>
+                            </button>
+                            <button
+                                @click="handleAddtoCart(false)"
+                                class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
+                            >
+                                <i
+                                    v-if="state.loadingAddCart"
+                                    class="pi pi-spin pi-spinner"
+                                    style="font-size: 1rem"
+                                />
+                                <span>{{info.texts.add_to_cart}}</span>
+                            </button>
+                            <button
+                                @click="handleAddtoCart(true)"
+                                class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
+                            >
+                                <i
+                                    v-if="state.loadingBuyNow"
+                                    class="pi pi-spin pi-spinner"
+                                    style="font-size: 1rem"
+                                />
+                                <span>{{info.texts.add_to_cart_finish}}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6 border-t grid grid-cols-[1fr_4fr_1fr]">
                         <div class="flex justify-start items-center">
                             <div
                                 @click="handleChangeSettingView"
@@ -909,7 +912,7 @@ onMounted(() => {
                 </div>
             </div>
             <div
-                v-else
+                v-if="!state.loadingProduct && !state.product"
                 class="w-full flex flex-col items-center justify-center h-[522px]"
             >
                 <svg
@@ -921,7 +924,7 @@ onMounted(() => {
                     viewBox="0 0 512 540"
                     style="enable-background: new 0 0 512 512"
                     xml:space="preserve"
-                    class="w-1/5"
+                    class="md:w-1/5"
                 >
                     <g>
                         <path

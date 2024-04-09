@@ -554,7 +554,7 @@ return [
         'custom_your_cover' => 'Personaliza tu cover',
         'select_attribute' => 'Seleccione un',
         'restart_values' => 'Restablecer valores',
-        'add_to_cart_finish' => 'Agregar y finalizar compra',
+        'add_to_cart_finish' => 'Agregar y comprar',
         'add_to_cart' => 'Agregar al carrito',
         'back_piece' => 'Parte trasera',
         'side_piece' => 'Borde',
