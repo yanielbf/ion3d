@@ -137,6 +137,7 @@ class InvoiceController extends Controller
      */
     public function printInvoice(int $id)
     {
+        ini_set('max_execution_time', 3600);
         $invoice = $this->invoiceRepository->findOrFail($id);
 
         return $this->downloadPDF(

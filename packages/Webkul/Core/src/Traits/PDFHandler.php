@@ -19,7 +19,7 @@ trait PDFHandler
         }
 
         $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
-
+        
         return PDF::loadHTML($this->adjustArabicAndPersianContent($html))
             ->setPaper('a4')
             ->download($fileName.'.pdf');
