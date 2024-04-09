@@ -36,7 +36,7 @@
 
             <div @class(['flex gap-2 flex-wrap items-center'])>
                 <div v-if="item.additional.designs" v-for="(key, index) in Object.keys(item.additional.designs)">
-                    <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" v-text="'Diseño ' + (index + 1)" @class(['bg-slate-500 rounded-xl px-2 py-1 text-sm text-white cursor-pointer'])></a>
+                    <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" v-text="'Diseño ' + (index + 1) + ' ('+ item.additional.designs[key].quantity +')'" @class(['bg-slate-500 rounded-xl px-2 py-1 text-sm text-white cursor-pointer'])></a>
                 </div>
             </div>
         </div>
