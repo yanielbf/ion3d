@@ -4,9 +4,15 @@ namespace Webkul\Shop\Http\Controllers;
 
 use Webkul\CMS\Repositories\PageRepository;
 use Webkul\Marketing\Repositories\URLRewriteRepository;
+use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 
 class PageController extends Controller
 {
+    /**
+     * Using const variable for status
+     */
+    const STATUS = 1;
+
     /**
      * Create a new controller instance.
      *
@@ -14,7 +20,8 @@ class PageController extends Controller
      */
     public function __construct(
         protected PageRepository $pageRepository,
-        protected URLRewriteRepository $urlRewriteRepository
+        protected URLRewriteRepository $urlRewriteRepository,
+        protected ThemeCustomizationRepository $themeCustomizationRepository
     ) {
     }
 
@@ -40,6 +47,11 @@ class PageController extends Controller
             }
         }
 
-        return view('shop::cms.page')->with('page', $page);
+        $customizations = $this->themeCustomizationRepository->orderBy('sort_order')->findWhere([
+            'status'     => self::STATUS,
+            'channel_id' => core()->getCurrentChannel()->id,
+        ]);
+
+        return view('shop::cms.page')->with('page', $page)->with('customizations', $customizations);
     }
 }

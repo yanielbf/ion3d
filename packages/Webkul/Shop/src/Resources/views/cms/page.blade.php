@@ -13,7 +13,17 @@
     <x-slot:title>
         {{ $page->meta_title }}
     </x-slot>
+    @foreach ($customizations as $customization)
+        @php ($data = $customization->options) @endphp
 
+        <!-- Static content -->
+        @switch ($customization->type)
+            @case ($customization::IMAGE_CAROUSEL)
+                <!-- Image Carousel -->
+                <x-shop::carousel :options="$data" />
+                @break
+        @endswitch
+    @endforeach
     <!-- Page Content -->
     <div class="container mt-8 px-[60px] max-lg:px-8">
         {!! $page->html_content !!}

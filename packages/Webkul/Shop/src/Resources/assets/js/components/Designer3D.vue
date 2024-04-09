@@ -924,7 +924,7 @@ onMounted(() => {
                     viewBox="0 0 512 540"
                     style="enable-background: new 0 0 512 512"
                     xml:space="preserve"
-                    class="md:w-1/5"
+                    class="w-1/2 md:w-1/5"
                 >
                     <g>
                         <path

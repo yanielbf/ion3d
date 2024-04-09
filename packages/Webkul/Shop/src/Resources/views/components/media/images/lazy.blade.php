@@ -20,7 +20,7 @@
             :data-src="src"
             :id="'image-' + $.uid"
             @load="onLoad"
-            v-show="! isLoading"
+            v-show="!isLoading"
             v-if="lazy"
         >
 
@@ -30,7 +30,7 @@
             :id="'image-' + $.uid"
             @load="onLoad"
             v-else
-            v-show="! isLoading"
+            v-show="!isLoading"
         >
     </script>
 
@@ -59,7 +59,7 @@
             mounted() {
                 let self = this;
 
-                if (! this.lazy) {
+                if (!this.lazy) {
                     return;
                 }
                 
