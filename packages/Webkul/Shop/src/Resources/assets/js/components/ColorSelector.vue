@@ -1,28 +1,17 @@
 <script setup>
-import { reactive } from "vue";
+import { computed, onMounted, defineModel } from "vue";
 
 const props = defineProps({
     colors: {
         type: Array,
-    },
-    place: {
-        type: Number,
     },
     label: {
         type: String,
     },
 });
 
-const emit = defineEmits(["changeColor"]);
+const selectedColor = defineModel();
 
-const state = reactive({
-    selectedColor: props.colors[0],
-});
-
-function handlerChangeColor(color) {
-    state.selectedColor = color;
-    emit("changeColor", props.place, color);
-}
 </script>
 
 <template>
@@ -34,15 +23,15 @@ function handlerChangeColor(color) {
                 :key="item.id"
                 :class="{
                     [`bg-[${item.color}]`]: true,
-                    'border-white': item.color != state.selectedColor.color,
+                    'border-white': item.color != selectedColor.color,
                     'border-black border-2':
-                        item.color == state.selectedColor.color,
+                        item.color == selectedColor.color,
                 }"
                 class="w-8 h-8 cursor-pointer rounded-full flex justify-center items-center"
-                @click="handlerChangeColor(item)"
+                @click="selectedColor = item"
             >
                 <svg
-                    v-if="item.color == state.selectedColor.color"
+                    v-if="item.color == selectedColor.color"
                     class="w-6 h-6 text-white"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"

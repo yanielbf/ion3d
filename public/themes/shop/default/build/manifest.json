@@ -1,6 +1,26 @@
 {
+  "node_modules/primeicons/fonts/primeicons.eot": {
+    "file": "assets/primeicons-987f23ea.eot",
+    "src": "node_modules/primeicons/fonts/primeicons.eot"
+  },
+  "node_modules/primeicons/fonts/primeicons.svg": {
+    "file": "assets/primeicons-36c54cec.svg",
+    "src": "node_modules/primeicons/fonts/primeicons.svg"
+  },
+  "node_modules/primeicons/fonts/primeicons.ttf": {
+    "file": "assets/primeicons-dc895fee.ttf",
+    "src": "node_modules/primeicons/fonts/primeicons.ttf"
+  },
+  "node_modules/primeicons/fonts/primeicons.woff": {
+    "file": "assets/primeicons-f5d1d219.woff",
+    "src": "node_modules/primeicons/fonts/primeicons.woff"
+  },
+  "node_modules/primeicons/fonts/primeicons.woff2": {
+    "file": "assets/primeicons-9eea6e0b.woff2",
+    "src": "node_modules/primeicons/fonts/primeicons.woff2"
+  },
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-502f4bd5.css",
+    "file": "assets/app-25b2a1ea.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -81,14 +101,21 @@
     "src": "src/Resources/assets/images/wishlist.png"
   },
   "src/Resources/assets/js/app.css": {
-    "file": "assets/app-05f8acf7.css",
+    "file": "assets/app-3f263ce1.css",
     "src": "src/Resources/assets/js/app.css"
   },
   "src/Resources/assets/js/app.js": {
-    "css": [
-      "assets/app-05f8acf7.css"
+    "assets": [
+      "assets/primeicons-987f23ea.eot",
+      "assets/primeicons-9eea6e0b.woff2",
+      "assets/primeicons-f5d1d219.woff",
+      "assets/primeicons-dc895fee.ttf",
+      "assets/primeicons-36c54cec.svg"
     ],
-    "file": "assets/app-5b1bdb47.js",
+    "css": [
+      "assets/app-3f263ce1.css"
+    ],
+    "file": "assets/app-1d09f097.js",
     "isEntry": true,
     "src": "src/Resources/assets/js/app.js"
   }

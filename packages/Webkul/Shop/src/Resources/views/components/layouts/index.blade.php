@@ -51,7 +51,7 @@
             <!-- Confirm Modal Blade Component -->
             <x-shop::modal.confirm />
 
-            <div class="grid grid-rows-[140px,auto,80px] grid-cols-[120px,auto] min-h-screen">
+            <div class="grid grid-rows-[90px,auto,80px] md:grid-rows-[140px,auto,80px] grid-cols-[120px,auto] min-h-screen">
                 @if ($hasHeader)
                     <div class="col-span-2 row-span-1">
                         <x-shop::layouts.header />

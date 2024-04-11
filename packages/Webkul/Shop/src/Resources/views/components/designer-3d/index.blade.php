@@ -1,5 +1,8 @@
+@props(['options'])
+
 @php
     $props = json_encode([
+        'enableScreenText' => $options['enable_screen_text'] != '0',
         'currency' => core()->getCurrentCurrency()->symbol,
         'urls' => [
             'get_families_attributes' => route('shop.designer_3d.get_families_attributes'),
@@ -22,7 +25,7 @@
             'text_size_big' => trans('shop::app.design3d.text_size_big'),
             'validation_quantity' => trans('shop::app.design3d.validation_quantity'),
             'loading_modal_3d' => trans('shop::app.design3d.loading_modal_3d'),
-        ] 
+        ]
     ])
 @endphp
 

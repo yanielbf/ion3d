@@ -118,7 +118,7 @@
         @includeWhen($theme->type === 'services_content', 'admin::settings.themes.edit.services-content')
 
         <!-- Designer-cover Template -->
-        @includeWhen($theme->type === 'designer_3d', 'admin::settings.themes.edit.designer-cover')
+        @includeWhen($theme->type === 'designer_3d', 'admin::settings.themes.edit.designer-3d')
 
         <!-- Parent Theme Customizer Component -->
         <script type="module">

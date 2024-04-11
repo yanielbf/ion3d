@@ -2893,6 +2893,9 @@ return [
                     'title'              => 'Título',
                     'update-service'     => 'Actualizar servicios',
                 ],
+                'design3d'                      => [
+                    'enable_text_screen' => 'Habilitar configuracion para texto'
+                ]
             ],
 
             'create-success' => 'Tema creado con éxito',

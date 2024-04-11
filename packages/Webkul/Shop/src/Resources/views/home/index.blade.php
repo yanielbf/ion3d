@@ -63,11 +63,9 @@
 
                 @break
             @case ($customization::DESIGNER_3D)
-                <!-- Product Carousel -->
+                <!-- Design 3D -->
                 <x-shop::designer-3d
-                    :title="$data['title'] ?? ''"
-                    :src="route('shop.api.products.index', $data['filters'] ?? [])"
-                    :navigation-link="route('shop.search.index', $data['filters'] ?? [])"
+                    :options="$data"
                 />
 
                 @break

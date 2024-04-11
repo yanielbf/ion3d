@@ -217,6 +217,8 @@ function handleRestart() {
     if (state.loadingAddCart || state.loadingBuyNow) {
         return;
     }
+    state.backColorSelected = colors.back[0];
+    state.borderColorSelected = colors.side[0];
     state.activeSetting = 0;
     state.view2DLoaded = false;
     state.view = "3D";
@@ -305,12 +307,6 @@ async function handleAddtoCart(buyNow) {
 // 3D
 
 function handleChangeColor(place, item) {
-    if (place == 0) {
-        state.borderColorSelected = item;
-    } else {
-        state.backColorSelected = item;
-    }
-
     if (state.loading3D) return;
 
     scene.remove(scene.children[0]);
@@ -640,13 +636,33 @@ watch(
     }
 );
 
+watch(
+    () => state.backColorSelected,
+    () => {
+        handleChangeColor(1, state.backColorSelected)
+    },
+    {
+        deep: true,
+    }
+);
+
+watch(
+    () => state.borderColorSelected,
+    () => {
+        handleChangeColor(0, state.borderColorSelected)
+    },
+    {
+        deep: true,
+    }
+);
+
 onMounted(() => {
     handleGetFamiliesAttributes();
 });
 </script>
 
 <template>
-    <div class="container mt-8 px-[60px] max-lg:px-8">
+    <div class="container mt-0 md:mt-8 px-[60px] max-lg:px-8">
         <div
             v-if="state.loading"
             class="flex justify-center items-center h-[616px]"
@@ -721,14 +737,14 @@ onMounted(() => {
                         </div>
                         <div id="view2D" v-show="state.view == '2D'" class="pb-8">
                             <div
-                                class="w-full h-[500px] px-10 pt-10 pb-5 flex justify-center items-center"
+                                class="w-full h-[500px] pt-10 pb-5 flex justify-center items-center"
                             >
                                 <div
                                     :class="{
                                         [`border-[${state.borderColorSelected.color}]`]: true,
                                         [`bg-[${state.backColorSelected.color}]`]: true,
                                     }"
-                                    class="md:w-[18%] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
+                                    class="w-[70%] md:w-1/3 max-w-[240px] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
                                 >
                                     <div class="flex justify-end">
                                         <div
@@ -778,7 +794,79 @@ onMounted(() => {
                             <img :src="state.product.images[0].medium_image_url" />
                         </div>
                     </div>
-                    <div class="border-t p-6 grid grid-cols-1 md:grid-cols-2">
+                    <div class="py-6 border-t grid" :class="{'grid-cols-[1fr_4fr_1fr]': info.enableScreenText, 'grid-cols-1': !info.enableScreenText}">
+                        <div class="flex justify-start items-center">
+                            <div
+                                @click="handleChangeSettingView"
+                                class="cursor-pointer"
+                                v-if="info.enableScreenText"
+                            >
+                                <span
+                                    class="pi pi-arrow-circle-left text-slate-700 hover:text-slate-500"
+                                    style="font-size: 2rem"
+                                ></span>
+                            </div>
+                        </div>
+                        <div
+                            v-show="state.activeSetting === 0"
+                            class="flex flex-col justify-center items-center"
+                        >
+                            <ColorSelector
+                                :label="info.texts.back_piece"
+                                :colors="colors.back"
+                                v-model="state.backColorSelected"
+                            />
+                            <div class="h-5"></div>
+                            <ColorSelector
+                                :label="info.texts.side_piece"
+                                :colors="colors.side"
+                                v-model="state.borderColorSelected"
+                            />
+                        </div>
+                        <div
+                            v-show="state.activeSetting === 1"
+                            class="flex flex-col items-center justify-center"
+                        >
+                            <div class="flex flex-col gap-2 mb-5 w-full md:w-1/2">
+                                <label>{{info.texts.text_print}}</label>
+                                <InputText
+                                    class="w-full"
+                                    v-model="state.text"
+                                    @input="handleText"
+                                />
+                            </div>
+                            <div class="mb-5 items-center gap-6 w-1/2">
+                                <div class="mb-2">{{info.texts.text_size}}</div>
+                                <div class="flex flex-wrap gap-3">
+                                    <div
+                                        v-for="item in [20, 25, 30]"
+                                        :key="item"
+                                        :class="{
+                                            'bg-red-400 text-white':
+                                                item === state.textSize,
+                                        }"
+                                        class="cursor-pointer rounded-xl px-2 py-1 flex justify-center items-center bg-gray-300"
+                                        @click="handleChangeSize(item)"
+                                    >
+                                        {{ fontSize[item] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end items-center">
+                            <div
+                                @click="handleChangeSettingView"
+                                class="cursor-pointer"
+                                v-if="info.enableScreenText"
+                            >
+                                <span
+                                    class="pi pi-arrow-circle-right text-slate-700 hover:text-slate-500"
+                                    style="font-size: 2rem"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t py-6 grid grid-cols-1 md:grid-cols-2">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
                             <div class="grid grid-cols-3 gap-2">
                                 <button
@@ -836,77 +924,6 @@ onMounted(() => {
                                 />
                                 <span>{{info.texts.add_to_cart_finish}}</span>
                             </button>
-                        </div>
-                    </div>
-                    <div class="p-6 border-t grid grid-cols-[1fr_4fr_1fr]">
-                        <div class="flex justify-start items-center">
-                            <div
-                                @click="handleChangeSettingView"
-                                class="cursor-pointer"
-                            >
-                                <span
-                                    class="pi pi-arrow-circle-left text-slate-700 hover:text-slate-500"
-                                    style="font-size: 2rem"
-                                ></span>
-                            </div>
-                        </div>
-                        <div
-                            v-show="state.activeSetting === 0"
-                            class="flex flex-col justify-center items-center"
-                        >
-                            <ColorSelector
-                                :label="info.texts.back_piece"
-                                :colors="colors.back"
-                                :place="1"
-                                @change-color="handleChangeColor"
-                            />
-                            <div class="h-5"></div>
-                            <ColorSelector
-                                :label="info.texts.side_piece"
-                                :colors="colors.side"
-                                :place="0"
-                                @change-color="handleChangeColor"
-                            />
-                        </div>
-                        <div
-                            v-show="state.activeSetting === 1"
-                            class="flex flex-col items-center justify-center"
-                        >
-                            <div class="flex flex-col gap-2 w-1/2 mb-5">
-                                <label>{{info.texts.text_print}}</label>
-                                <InputText
-                                    v-model="state.text"
-                                    @input="handleText"
-                                />
-                            </div>
-                            <div class="mb-5 items-center gap-6 w-1/2">
-                                <div class="mb-2">{{info.texts.text_size}}</div>
-                                <div class="flex flex-wrap gap-3">
-                                    <div
-                                        v-for="item in [20, 25, 30]"
-                                        :key="item"
-                                        :class="{
-                                            'bg-red-400 text-white':
-                                                item === state.textSize,
-                                        }"
-                                        class="cursor-pointer rounded-xl px-2 py-1 flex justify-center items-center bg-gray-300"
-                                        @click="handleChangeSize(item)"
-                                    >
-                                        {{ fontSize[item] }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-end items-center">
-                            <div
-                                @click="handleChangeSettingView"
-                                class="cursor-pointer"
-                            >
-                                <span
-                                    class="pi pi-arrow-circle-right text-slate-700 hover:text-slate-500"
-                                    style="font-size: 2rem"
-                                ></span>
-                            </div>
                         </div>
                     </div>
                 </div>
