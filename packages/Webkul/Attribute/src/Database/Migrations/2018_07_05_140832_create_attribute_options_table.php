@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('admin_name')->nullable();
             $table->integer('sort_order')->nullable();
             $table->string('swatch_value')->nullable();
+            $table->boolean('is_enabled')->default(true);
 
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
         });

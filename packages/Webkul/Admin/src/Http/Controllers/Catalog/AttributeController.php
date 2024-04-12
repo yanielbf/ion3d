@@ -56,7 +56,7 @@ class AttributeController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'code'          => ['required', 'not_in:type,attribute_family_id', 'unique:attributes,code', new Code()],
+            'code'          => ['required', 'not_in:type,attribute_family_id', 'unique:attributes,code'],
             'admin_name'    => 'required',
             'type'          => 'required',
             'default_value' => 'integer',
@@ -109,7 +109,8 @@ class AttributeController extends Controller
     public function update(int $id)
     {
         $this->validate(request(), [
-            'code'          => ['required', 'unique:attributes,code,'.$id, new Code],
+            //'code'          => ['required', 'unique:attributes,code,'.$id, new Code],
+            'code'          => ['required', 'unique:attributes,code,'.$id],
             'admin_name'    => 'required',
             'type'          => 'required',
             'default_value' => 'integer',

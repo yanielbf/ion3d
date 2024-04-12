@@ -195,7 +195,12 @@
                                                     <x-admin::table.th v-if="showSwatch && (swatchType == 'color' || swatchType == 'image')">
                                                         @lang('admin::app.catalog.attributes.edit.swatch')
                                                     </x-admin::table.th>
-    
+
+                                                    <!-- Admin tables heading -->
+                                                    <x-admin::table.th>
+                                                        @lang('admin::app.catalog.attributes.edit.is-enabled')
+                                                    </x-admin::table.th>
+
                                                     <!-- Admin tables heading -->
                                                     <x-admin::table.th>
                                                         @lang('admin::app.catalog.attributes.edit.admin-name')
@@ -225,7 +230,7 @@
                                                 <template #item="{ element, index }">
                                                     <x-admin::table.thead.tr
                                                         class="hover:bg-gray-50 dark:hover:bg-gray-950"
-                                                        v-show="! element.isDelete"
+                                                        v-show="!element.isDelete"
                                                     >
                                                         <input
                                                             type="hidden"
@@ -248,6 +253,20 @@
                                                                 :name="'options[' + element.id + '][sort_order]'"
                                                                 :value="index"
                                                             />
+                                                        </x-admin::table.td>
+
+                                                        <!-- Is Enable -->
+                                                        <x-admin::table.td class="!px-6">
+                                                            <p
+                                                                class="dark:text-white"
+                                                                v-text="element.is_enabled == '1' ? 'Si' : 'No'"
+                                                            >
+                                                            </p>
+                                                            <input
+                                                                type="hidden"
+                                                                :name="'options[' + element.id + '][is_enabled]'"
+                                                                :value="element.is_enabled"
+                                                            >
                                                         </x-admin::table.td>
     
                                                         <!-- Swatch Type Image / Color -->
@@ -866,7 +885,7 @@
                                 </x-admin::form.control-group>
                             </div>
 
-                            <div class="grid grid-cols-3 gap-4">
+                            <div class="grid grid-cols-4 gap-4">
                                 <!-- Hidden Id Input -->
                                 <x-admin::form.control-group.control
                                     type="hidden"
@@ -878,6 +897,20 @@
                                     name="isNew"
                                     ::value="optionIsNew"
                                 />
+
+                                <x-admin::form.control-group class="w-full mb-2.5">
+                                    <x-admin::form.control-group.label>
+                                        @lang('admin::app.catalog.attributes.edit.is-enabled')
+                                    </x-admin::form.control-group.label>
+                                    <x-admin::form.control-group.control
+                                        type="select"
+                                        name="is_enabled"
+                                        rules="required"
+                                    >
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </x-admin::form.control-group.control>
+                                </x-admin::form.control-group>
 
                                 <!-- Admin Input -->
                                 <x-admin::form.control-group class="w-full mb-2.5">
@@ -974,7 +1007,7 @@
 
                 methods: {
                     storeOptions(params, { resetForm, setValues }) {
-                        if (! params.id) {
+                        if (!params.id) {
                             params.id = 'option_' + this.optionId;
                             this.optionId++;
                         }
@@ -1012,7 +1045,6 @@
                             ? [{ id: value.id, url: value.swatch_value_url }]
                             : [],
                         };
-
                         this.$refs.modelForm.setValues(value);
 
                         this.$refs.addOptionsRow.toggle();
@@ -1046,6 +1078,7 @@
                                         'id': option.id,
                                         'admin_name': option.admin_name,
                                         'sort_order': option.sort_order,
+                                        'is_enabled': option.is_enabled,
                                         'swatch_value': option.swatch_value,
                                         'swatch_value_url': option.swatch_value_url,
                                         'notRequired': '',

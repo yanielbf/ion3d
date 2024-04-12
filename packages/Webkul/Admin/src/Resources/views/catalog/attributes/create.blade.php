@@ -201,6 +201,11 @@
 
                                                 <!-- Admin tables heading -->
                                                 <x-admin::table.th>
+                                                    @lang('admin::app.catalog.attributes.edit.is-enabled')
+                                                </x-admin::table.th>
+
+                                                <!-- Admin tables heading -->
+                                                <x-admin::table.th>
                                                     @lang('admin::app.catalog.attributes.create.admin-name')
                                                 </x-admin::table.th>
 
@@ -236,6 +241,20 @@
                                                             :name="'options[' + element.id + '][position]'"
                                                             :value="index"
                                                         />
+                                                    </x-admin::table.td>
+
+                                                    <!-- Is Enable -->
+                                                    <x-admin::table.td class="!px-6">
+                                                        <p
+                                                            class="dark:text-white"
+                                                            v-text="element.params.is_enabled == '1' ? 'Si' : 'No'"
+                                                        >
+                                                        </p>
+                                                        <input
+                                                            type="hidden"
+                                                            :name="'options[' + element.params.id + '][is_enabled]'"
+                                                            :value="element.params.is_enabled"
+                                                        >
                                                     </x-admin::table.td>
 
                                                     <!-- Swatch Type Image / Color -->
@@ -747,12 +766,26 @@
                                 </x-admin::form.control-group>
                             </div>
 
-                            <div class="grid grid-cols-3 gap-4">
+                            <div class="grid grid-cols-4 gap-4">
                                 <!-- Hidden Id Input -->
                                 <x-admin::form.control-group.control
                                     type="hidden"
                                     name="id"
                                 />
+
+                                <x-admin::form.control-group class="w-full mb-2.5">
+                                    <x-admin::form.control-group.label>
+                                        @lang('admin::app.catalog.attributes.edit.is-enabled')
+                                    </x-admin::form.control-group.label>
+                                    <x-admin::form.control-group.control
+                                        type="select"
+                                        name="is_enabled"
+                                        rules="required"
+                                    >
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </x-admin::form.control-group.control>
+                                </x-admin::form.control-group>
 
                                 <!-- Admin Input -->
                                 <x-admin::form.control-group class="w-full mb-2.5">

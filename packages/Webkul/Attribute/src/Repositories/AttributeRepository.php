@@ -141,7 +141,9 @@ class AttributeRepository extends Repository
     public function getDesign3DAttributes($familyAttribbuteId)
     {
         return $this->model
-            ->with(['translations', 'options', 'options.translations'])
+            ->with(['translations', 'options' => function ($option) {
+                return $option->where('is_enabled', 1);
+            }, 'options.translations'])
             ->join('attribute_group_mappings', 'attribute_group_mappings.attribute_id', '=', 'attributes.id')
             ->join('attribute_groups', 'attribute_group_mappings.attribute_group_id', '=', 'attribute_groups.id')
             ->where('attribute_groups.attribute_family_id', $familyAttribbuteId)
