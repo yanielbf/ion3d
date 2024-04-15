@@ -22,11 +22,11 @@ const selectedColor = defineModel();
                 v-for="item in props.colors"
                 :key="item.id"
                 :class="{
-                    [`bg-[${item.color}]`]: true,
                     'border-white': item.color != selectedColor.color,
                     'border-black border-2':
                         item.color == selectedColor.color,
                 }"
+                :style="{backgroundColor: item.color}"
                 class="w-8 h-8 cursor-pointer rounded-full flex justify-center items-center"
                 @click="selectedColor = item"
             >

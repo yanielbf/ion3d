@@ -12,7 +12,7 @@
 
     <!-- Category Edit Form -->
     <x-admin::form
-        :action="route('admin.catalog.categories.update', $category->id)"
+        :action="route('admin.catalog.categories.update', $category->id).'?locale='.$currentLocale->code"
         enctype="multipart/form-data"
         method="PUT"
     >
@@ -60,6 +60,7 @@
                             {{ $currentLocale->name }}
 
                             <input type="hidden" name="locale" value="{{ $currentLocale->code }}"/>
+                            <input type="hidden" name="{{ $currentLocale->code }}[locale_id]" value="{{ $currentLocale->id }}"/>
 
                             <span class="icon-sort-down text-2xl"></span>
                         </button>

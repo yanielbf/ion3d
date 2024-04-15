@@ -1009,7 +1009,7 @@ return [
                     'id'             => 'ID',
                     'inactive'       => 'Inactivo',
                     'name'           => 'Nombre',
-                    'no-of-products' => 'Visible en el menú',
+                    'no-of-products' => 'Número de productos',
                     'position'       => 'Posición',
                     'status'         => 'Estado',
                     'update-status'  => 'Actualizar Estado',
@@ -2896,7 +2896,11 @@ return [
                     'update-service'     => 'Actualizar servicios',
                 ],
                 'design3d'                      => [
-                    'enable_text_screen' => 'Habilitar configuracion para texto'
+                    'cover_settings' => 'Configuración de fundas',
+                    'back_colors' => 'Colores de parte trasera',
+                    'side_colors' => 'Colores del lateral',
+                    'enable_text_screen' => 'Habilitar configuracion para texto',
+                    'polyhedron_settings' => 'Configuración de polihedros',
                 ]
             ],
 

@@ -1,7 +1,15 @@
-@props(['options'])
+@props(['type', 'options'])
 
 @php
     $props = json_encode([
+        'coverBackColors' => array_map(function($n) {
+            static $i = 0;
+            return ['id' => ++$i, 'color' => $n];
+        }, explode(';', $options['cover_back_colors'])),
+        'coverSideColors' => array_map(function($n) {
+            static $i = 0;
+            return ['id' => ++$i, 'color' => $n];
+        }, explode(';', $options['cover_side_colors'])),
         'enableScreenText' => $options['enable_screen_text'] != '0',
         'currency' => core()->getCurrentCurrency()->symbol,
         'urls' => [
@@ -28,7 +36,12 @@
         ]
     ])
 @endphp
-
-<v-designer-3d
-    :info="{{ $props }}"
-/>
+@if ($type == 'cover')
+    <v-designer-3d
+        :info="{{ $props }}"
+    />
+@elseif ($type == 'polyhedron')
+    <div class="p-5 text-center">Comming soon</div>
+@else
+   <div class="p-5 text-center">No implementation</div>
+@endif

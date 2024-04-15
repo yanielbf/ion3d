@@ -16,26 +16,8 @@ const props = defineProps({
 });
 
 const colors = {
-    side: [
-        { id: 1, color: "#057EB5" },
-        { id: 2, color: "#00138D" },
-        { id: 3, color: "#8A0156" },
-        { id: 4, color: "#EB6B2B" },
-        { id: 5, color: "#232325" },
-        { id: 6, color: "#8A33EE" },
-        { id: 7, color: "#FA1432" },
-        { id: 8, color: "#305E9B" },
-    ],
-    back: [
-        { id: 1, color: "#83BE01" },
-        { id: 2, color: "#DEB229" },
-        { id: 3, color: "#A8A8A8" },
-        { id: 4, color: "#F0F0F2" },
-        { id: 5, color: "#7DFC01" },
-        { id: 6, color: "#FFFD03" },
-        { id: 7, color: "#FEC708" },
-        { id: 8, color: "#563E3B" },
-    ],
+    side: props.info.coverSideColors,
+    back: props.info.coverBackColors,
 };
 
 const fontSize = {
@@ -196,15 +178,6 @@ function handleChangeSettingView() {
     }
 }
 
-function handleChange2DView() {
-    state.activeSetting = 1;
-    state.view = "2D";
-    if (!state.view2DLoaded) {
-        state.view2DLoaded = true;
-        init2d();
-    }
-}
-
 function handleChangeQuantity(type) {
     if (type == "+") {
         state.quantity += 1;
@@ -305,7 +278,6 @@ async function handleAddtoCart(buyNow) {
 }
 
 // 3D
-
 function handleChangeColor(place, item) {
     if (state.loading3D) return;
 

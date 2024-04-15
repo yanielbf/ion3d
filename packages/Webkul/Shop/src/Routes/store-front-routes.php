@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Webkul\Shop\Http\Controllers\CompareController;
 use Webkul\Shop\Http\Controllers\HomeController;
+use Webkul\Shop\Http\Controllers\Designer3DController;
 use Webkul\Shop\Http\Controllers\PageController;
 use Webkul\Shop\Http\Controllers\ProductController;
 use Webkul\Shop\Http\Controllers\ProductsCategoriesProxyController;
@@ -29,6 +30,13 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
      */
     Route::get('/', [HomeController::class, 'index'])
         ->name('shop.home.index')
+        ->middleware('cacheResponse');
+
+    /**
+     * Store front home.
+     */
+    Route::get('/designer3d/{type}', [Designer3DController::class, 'index'])
+        ->name('shop.designer3d.index')
         ->middleware('cacheResponse');
 
     /**

@@ -62,13 +62,6 @@
                 />
 
                 @break
-            @case ($customization::DESIGNER_3D)
-                <!-- Design 3D -->
-                <x-shop::designer-3d
-                    :options="$data"
-                />
-
-                @break
         @endswitch
     @endforeach
 </x-shop::layouts>

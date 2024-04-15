@@ -6,6 +6,35 @@
         <div class="flex gap-2.5 mt-3.5 max-xl:flex-wrap">
             <div class="flex flex-col gap-2 flex-1 min-w-[931px] max-xl:flex-auto">
                 <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
+                    <div class="mb-4 font-semibold"> @lang('admin::app.settings.themes.edit.design3d.cover_settings')</div>
+                    <x-admin::form.control-group>
+                        <x-admin::form.control-group.label class="required">
+                            @lang('admin::app.settings.themes.edit.design3d.back_colors')
+                        </x-admin::form.control-group.label>
+
+                        <x-admin::form.control-group.control
+                            type="text"
+                            name="{{ $currentLocale->code }}[options][cover_back_colors]"
+                            rules="required"
+                            value="{{ $theme->translate($currentLocale->code)->options['cover_back_colors'] ?? ''}}"
+                        />
+
+                        <x-admin::form.control-group.error control-name="{{ $theme->translate($currentLocale->code)->options['cover_back_colors'] ?? ''}}" />
+                    </x-admin::form.control-group>
+                    <x-admin::form.control-group>
+                        <x-admin::form.control-group.label class="required">
+                            @lang('admin::app.settings.themes.edit.design3d.side_colors')
+                        </x-admin::form.control-group.label>
+
+                        <x-admin::form.control-group.control
+                            type="text"
+                            name="{{ $currentLocale->code }}[options][cover_side_colors]"
+                            rules="required"
+                            value="{{ $theme->translate($currentLocale->code)->options['cover_side_colors'] ?? ''}}"
+                        />
+
+                        <x-admin::form.control-group.error control-name="{{ $theme->translate($currentLocale->code)->options['cover_side_colors'] ?? ''}}" />
+                    </x-admin::form.control-group>
                     <x-admin::form.control-group>
                         <x-admin::form.control-group.label class="required">
                             @lang('admin::app.settings.themes.edit.design3d.enable_text_screen')
@@ -21,9 +50,11 @@
                             <option value="1">Si</option>
                         </x-admin::form.control-group.control>
 
-                        <x-admin::form.control-group.error control-name="channel_id" />
+                        <x-admin::form.control-group.error control-name="{{ $currentLocale->code }}[options][enable_screen_text]" />
                     </x-admin::form.control-group>
-                    
+                </div>
+                <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
+                    <div class="mb-4 font-semibold"> @lang('admin::app.settings.themes.edit.design3d.polyhedron_settings')</div>
                 </div>
             </div>
 
