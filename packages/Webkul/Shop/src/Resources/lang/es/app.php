@@ -344,6 +344,7 @@ return [
                 'welcome'           => 'Bienvenido',
                 'welcome-guest'     => 'Bienvenido, Invitado',
                 'wishlist'          => 'Lista de deseos',
+                'customize'         => 'Perzonaliza ahora',
             ],
     
             'footer' => [
@@ -363,6 +364,16 @@ return [
                 'subscribe-newsletter'   => 'Suscríbete al boletín',
                 'subscribe-stay-touch'   => 'Suscríbete para mantenerte en contacto.',
                 'whats-new'              => 'Novedades',
+                'pages'                  => 'Páginas',
+                'ready-for-start'        => '¿Listo para empezar?',
+                'contact-name'           => 'Nombre',
+                'contact-email'          => 'Correo electrónico',
+                'contact-message'        => 'Mensaje',
+                'send-message'           => 'Enviar mensaje',
+                'contact-address'        => 'Dirección',
+                'contact-phone-email'    => 'Vía de contacto',
+                'contact-hours-working'  => 'Horario laborable',
+                'contact-info'           => 'We are here to assist you! If you have any questions or need assistance, please feel free to reach out to us.',
             ],
         ],
     

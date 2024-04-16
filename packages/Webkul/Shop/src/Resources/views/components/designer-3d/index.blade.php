@@ -2,6 +2,7 @@
 
 @php
     $props = json_encode([
+        'type' => $type,
         'coverBackColors' => array_map(function($n) {
             static $i = 0;
             return ['id' => ++$i, 'color' => $n];
@@ -36,12 +37,7 @@
         ]
     ])
 @endphp
-@if ($type == 'cover')
-    <v-designer-3d
-        :info="{{ $props }}"
-    />
-@elseif ($type == 'polyhedron')
-    <div class="p-5 text-center">Comming soon</div>
-@else
-   <div class="p-5 text-center">No implementation</div>
-@endif
+
+<v-designer-3d
+    :info="{{ $props }}"
+/>

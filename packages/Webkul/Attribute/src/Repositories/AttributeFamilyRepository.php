@@ -170,11 +170,11 @@ class AttributeFamilyRepository extends Repository
      *
      * @return array
      */
-    public function getFamilyAttributes3D()
+    public function getFamilyAttributes3D($type)
     {
         return $this->model->where([
-            ['code', 'like', '3d_%'],
-            ['status', 1]
+            ['status', 1],
+            ['code', 'like', '%'.$type],
         ])->get();
     }
 }

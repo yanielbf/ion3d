@@ -20,6 +20,13 @@
             >
         </a>
 
+        <a
+            href="{{ route('shop.designer3d.index') }}"
+            class="py-2 px-4 bg-navyBlue rounded-2xl text-white text-base font-medium text-center cursor-pointer max-sm:px-5"
+        >
+            @lang('shop::app.components.layouts.header.customize')
+        </a>
+
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.after') !!}
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}

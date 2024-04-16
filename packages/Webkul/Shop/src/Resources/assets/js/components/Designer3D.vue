@@ -94,7 +94,7 @@ function handleCreateHash() {
 
 function handleGetFamiliesAttributes() {
     axios
-        .get(props.info.urls.get_families_attributes)
+        .get(`${props.info.urls.get_families_attributes}?type=${props.info.type}`)
         .then((response) => {
             state.familyAttributes = response.data.data;
             state.selectedFamilyAttribute =
@@ -634,7 +634,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="container mt-0 md:mt-8 px-[60px] max-lg:px-8">
+    <div class="container mt-0 md:mt-2 px-[60px] max-lg:px-8">
         <div
             v-if="state.loading"
             class="flex justify-center items-center h-[616px]"

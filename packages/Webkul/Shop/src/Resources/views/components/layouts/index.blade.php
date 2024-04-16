@@ -78,14 +78,7 @@
 
     <body>
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
-
-        <a
-            href="#main"
-            class="skip-to-main-content-link"
-        >
-            Skip to main content
-        </a>
-
+        <x-shop::screen-loading />
         <div id="app">
             <!-- Flash Message Blade Component -->
             <x-shop::flash-group />
@@ -110,7 +103,7 @@
 
             <!-- Page Services Blade Component -->
             @if ($hasFeature)
-                <x-shop::layouts.services />
+                <x-shop::services />
             @endif
 
             <!-- Page Footer Blade Component -->

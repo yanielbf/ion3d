@@ -10,6 +10,65 @@
             <div class="flex gap-2.5 mt-3.5 max-xl:flex-wrap">
                 <div class="flex flex-col gap-2 flex-1 max-xl:flex-auto">
                     <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
+                        <div class="mb-4 font-semibold"> @lang('admin::app.settings.themes.edit.footer-settings')</div>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label class="required">
+                                @lang('admin::app.settings.themes.edit.footer-address')
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][address]"
+                                rules="required"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['address'] ?? ''}}"
+                            />
+    
+                            <x-admin::form.control-group.error control-name="address" />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label class="required">
+                                @lang('admin::app.settings.themes.edit.footer-email')
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][email]"
+                                rules="required"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['email'] ?? ''}}"
+                            />
+    
+                            <x-admin::form.control-group.error control-name="email" />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label class="required">
+                                @lang('admin::app.settings.themes.edit.footer-phone')
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][phone]"
+                                rules="required"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['phone'] ?? ''}}"
+                            />
+    
+                            <x-admin::form.control-group.error control-name="phone" />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label class="required">
+                                @lang('admin::app.settings.themes.edit.footer-hours')
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][hours]"
+                                rules="required"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['hours'] ?? ''}}"
+                            />
+    
+                            <x-admin::form.control-group.error control-name="hours" />
+                        </x-admin::form.control-group>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
                         <!-- Add Links-->
                         <div class="flex gap-x-2.5 justify-between items-center mb-2.5">
                             <div class="flex flex-col gap-1">
@@ -411,7 +470,6 @@
             data() {
                 return {
                     footerLinks: @json($theme->translate($currentLocale->code)['options'] ?? null),
-
                     isUpdating: false,
                 };
             },
@@ -426,13 +484,13 @@
                 if (this.footerLinks === null) {
                     this.footerLinks = {};
                 }
-
                 for (let i = 1; i <= 3; i++) {
                     if (!this.footerLinks.hasOwnProperty(`column_${i}`)) {
                         this.footerLinks[`column_${i}`] = [];
                     }
                 }
-
+                const { settings, ...rest } = this.footerLinks;
+                this.footerLinks = rest;
                 Object.keys(this.footerLinks).forEach(key => {
                     this.footerLinks[key] = this.footerLinks[key].map(item => ({
                         ...item,

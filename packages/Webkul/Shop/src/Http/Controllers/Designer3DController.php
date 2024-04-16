@@ -25,7 +25,7 @@ class Designer3DController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(string $type)
+    public function index(?string $type = 'phone_cover')
     {
         $customization = $this->themeCustomizationRepository->orderBy('sort_order')->findOneWhere([
             'status'     => self::STATUS,

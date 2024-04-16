@@ -42,6 +42,7 @@
     </head>
 
     <body>
+        <x-shop::screen-loading />
         <div id="app">
             {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
