@@ -94,6 +94,7 @@ class ThemeCustomization extends TranslatableModel implements ThemeCustomization
     protected $fillable = [
         'type',
         'name',
+        'visible_at',
         'options',
         'sort_order',
         'status',

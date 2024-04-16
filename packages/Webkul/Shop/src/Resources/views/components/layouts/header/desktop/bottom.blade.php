@@ -16,7 +16,7 @@
             <img
                 src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
                 alt="{{ config('app.name') }}"
-                class="h-[60px]"
+                class="h-[40px]"
             >
         </a>
 
@@ -103,8 +103,51 @@
                     ></span>
                 </a>
             @endif
+            
+            @if(core()->getCurrentChannel()->locales()->count() > 1 || core()->getCurrentChannel()->currencies()->count() > 1 )
 
-            {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.compare.after') !!}
+                {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.locale_switcher.before') !!}
+
+                <!-- Locales Switcher -->
+                <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'right' : 'left' }}">
+                    <x-slot:toggle>
+                        <!-- Dropdown Toggler -->
+                        <div
+                            class="flex items-center gap-2.5 cursor-pointer"
+                            role="button"
+                            tabindex="0"
+                        >
+                            <img 
+                                src="{{ ! empty(core()->getCurrentLocale()->logo_url) 
+                                        ? core()->getCurrentLocale()->logo_url 
+                                        : bagisto_asset('images/default-language.svg') 
+                                    }}"
+                                class="h-full"
+                                alt="Default locale"
+                                width="24"
+                                height="16"
+                            />
+                            
+                            <span>
+                                {{ core()->getCurrentChannel()->locales()->orderBy('name')->where('code', app()->getLocale())->value('name') }}
+                            </span>
+
+                            <span
+                                class="icon-arrow-down text-2xl"
+                                role="presentation"
+                            ></span>
+                        </div>
+                    </x-slot>
+                
+                    <!-- Dropdown Content -->
+                    <x-slot:content class="!p-0">
+                        <v-locale-switcher></v-locale-switcher>
+                    </x-slot>
+                </x-shop::dropdown>
+
+                {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.locale_switcher.after') !!}
+
+            @endif
 
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.mini_cart.before') !!}
 
@@ -311,6 +354,25 @@
         </div>
     </script>
 
+    <script type="text/x-template" id="v-locale-switcher-template">
+        <div class="grid gap-1 mt-2.5 pb-2.5">
+            <span
+                class="flex items-center gap-2.5 px-5 py-2 text-base cursor-pointer hover:bg-gray-100"
+                v-for="locale in locales"
+                :class="{'bg-gray-100': locale.code == '{{ app()->getLocale() }}'}"
+                @click="change(locale)"                  
+            >
+                <img
+                    :src="locale.logo_url || '{{ bagisto_asset('images/default-language.svg') }}'"
+                    width="24"
+                    height="16"
+                />
+
+                @{{ locale.name }}
+            </span>
+        </div>
+    </script>
+
     <script type="module">
         app.component('v-desktop-category', {
             template: '#v-desktop-category-template',
@@ -349,6 +411,26 @@
                     }, []);
                 }
             },
+        });
+        
+        app.component('v-locale-switcher', {
+            template: '#v-locale-switcher-template',
+
+            data() {
+                return {
+                    locales: @json(core()->getCurrentChannel()->locales()->orderBy('name')->get()),
+                };
+            },
+
+            methods: {
+                change(locale) {
+                    let url = new URL(window.location.href);
+
+                    url.searchParams.set('locale', locale.code);
+
+                    window.location.href = url.href;
+                }
+            }
         });
     </script>
 @endPushOnce

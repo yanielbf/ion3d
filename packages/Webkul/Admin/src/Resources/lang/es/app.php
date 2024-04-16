@@ -2801,6 +2801,7 @@ return [
                     'inactive'     => 'Inactivo',
                     'name'         => 'Nombre',
                     'sort-order'   => 'Orden de Clasificación',
+                    'visible_at'   => 'Mostrar en',
                     'status'       => 'Estado',
                     'type'         => 'Tipo',
                     'view'         => 'Ver',
@@ -2811,6 +2812,7 @@ return [
                 'name'       => 'Nombre',
                 'save-btn'   => 'Guardar tema',
                 'sort-order' => 'Orden de Clasificación',
+                'visible_at' => 'Mostrar en',
                 'title'      => 'Crear Tema',
 
                 'type' => [
@@ -2858,6 +2860,7 @@ return [
                 'limit'                         => 'Límite',
                 'link'                          => 'Enlace',
                 'name'                          => 'Nombre',
+                'visible_at'                    => 'Mostrar en',
                 'preview'                       => 'Vista Previa',
                 'product-carousel'              => 'Carrusel de Productos',
                 'product-carousel-description'  => 'Muestra productos de forma elegante con un carrusel de productos dinámico y receptivo.',

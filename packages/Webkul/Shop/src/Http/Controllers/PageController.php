@@ -50,6 +50,7 @@ class PageController extends Controller
         $customizations = $this->themeCustomizationRepository->orderBy('sort_order')->findWhere([
             'status'     => self::STATUS,
             'channel_id' => core()->getCurrentChannel()->id,
+            'visible_at' => 'cms'
         ]);
 
         return view('shop::cms.page')->with('page', $page)->with('customizations', $customizations);

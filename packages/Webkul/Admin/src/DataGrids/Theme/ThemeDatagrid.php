@@ -32,6 +32,7 @@ class ThemeDatagrid extends DataGrid
                 'theme_customizations.id',
                 'theme_customizations.type',
                 'theme_customizations.sort_order',
+                'theme_customizations.visible_at',
                 'channel_translations.name as channel_name',
                 'theme_customizations.status',
                 'theme_customizations.name as name',
@@ -40,6 +41,7 @@ class ThemeDatagrid extends DataGrid
         $this->addFilter('type', 'theme_customizations.type');
         $this->addFilter('name', 'theme_customizations.name');
         $this->addFilter('sort_order', 'theme_customizations.sort_order');
+        $this->addFilter('visible_at', 'theme_customizations.visible_at');
         $this->addFilter('status', 'theme_customizations.status');
         $this->addFilter('channel_name', 'channel_name');
 
@@ -78,6 +80,15 @@ class ThemeDatagrid extends DataGrid
         $this->addColumn([
             'index'      => 'name',
             'label'      => trans('admin::app.settings.themes.index.datagrid.name'),
+            'type'       => 'string',
+            'searchable' => true,
+            'filterable' => true,
+            'sortable'   => true,
+        ]);
+
+        $this->addColumn([
+            'index'      => 'visible_at',
+            'label'      => trans('admin::app.settings.themes.index.datagrid.visible_at'),
             'type'       => 'string',
             'searchable' => true,
             'filterable' => true,

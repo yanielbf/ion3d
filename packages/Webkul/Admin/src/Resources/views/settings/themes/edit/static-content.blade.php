@@ -139,6 +139,26 @@
 
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="required">
+                                @lang('admin::app.settings.themes.edit.visible_at')
+                            </x-admin::form.control-group.label>
+
+                            <v-field
+                                type="text"
+                                name="visible_at"
+                                value="{{ $theme->visible_at }}"
+                                class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
+                                :class="[errors['visible_at'] ? 'border border-red-600 hover:border-red-600' : '']"
+                                rules="required"
+                                label="@lang('admin::app.settings.themes.edit.visible_at')"
+                                placeholder="@lang('admin::app.settings.themes.edit.visible_at')"
+                            >
+                            </v-field>
+
+                            <x-admin::form.control-group.error control-name="visible_at" />
+                        </x-admin::form.control-group>
+
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label class="required">
                                 @lang('admin::app.settings.themes.edit.sort-order')
                             </x-admin::form.control-group.label>
 

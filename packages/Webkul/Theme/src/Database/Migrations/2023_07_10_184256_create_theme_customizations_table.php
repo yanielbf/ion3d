@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('name');
+            $table->string('visible_at');
             $table->integer('sort_order');
             $table->boolean('status')->default(0);
 

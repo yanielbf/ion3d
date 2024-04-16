@@ -272,7 +272,7 @@ class ProductRepository extends Repository
             'url_key'              => null,
         ], request()->input());
 
-        if (! empty($params['query'])) {
+        if (!empty($params['query'])) {
             $params['name'] = $params['query'];
         }
 
@@ -297,19 +297,19 @@ class ProductRepository extends Repository
                         ->where('product_price_indices.customer_group_id', $customerGroup->id);
                 });
 
-            if (! empty($params['category_id'])) {
+            if (!empty($params['category_id'])) {
                 $qb->leftJoin('product_categories', 'product_categories.product_id', '=', 'products.id')
                     ->whereIn('product_categories.category_id', explode(',', $params['category_id']));
             }
 
-            if (! empty($params['type'])) {
+            if (!empty($params['type'])) {
                 $qb->where('products.type', $params['type']);
             }
 
             /**
              * Filter query by price.
              */
-            if (! empty($params['price'])) {
+            if (!empty($params['price'])) {
                 $priceRange = explode(',', $params['price']);
 
                 $qb->whereBetween('product_price_indices.min_price', [

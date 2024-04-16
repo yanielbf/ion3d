@@ -13,15 +13,27 @@
     <x-slot:title>
         {{ $page->meta_title }}
     </x-slot>
+    
     @foreach ($customizations as $customization)
         @php ($data = $customization->options) @endphp
 
         <!-- Static content -->
         @switch ($customization->type)
-            @case ($customization::IMAGE_CAROUSEL)
-                <!-- Image Carousel -->
-                <x-shop::carousel :options="$data" />
-                @break
+            @case ($customization::STATIC_CONTENT)
+            <!-- push style -->
+                @if (! empty($data['css']))
+                    @push ('styles')
+                        <style>
+                            {{ $data['css'] }}
+                        </style>
+                    @endpush
+                @endif
+
+                <!-- render html -->
+                @if (! empty($data['html']))
+                    {!! $data['html'] !!}
+                @endif
+            @break
         @endswitch
     @endforeach
     <!-- Page Content -->
