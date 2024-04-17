@@ -9,6 +9,8 @@ use Webkul\Shop\Http\Controllers\ProductController;
 use Webkul\Shop\Http\Controllers\ProductsCategoriesProxyController;
 use Webkul\Shop\Http\Controllers\SearchController;
 use Webkul\Shop\Http\Controllers\SubscriptionController;
+use Webkul\Shop\Http\Controllers\ContactController;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
     /**
@@ -55,6 +57,13 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         Route::post('subscription', 'store')->name('shop.subscription.store');
 
         Route::get('subscription/{token}', 'destroy')->name('shop.subscription.destroy');
+    });
+
+    /**
+     * Contact routes.
+     */
+    Route::controller(ContactController::class)->group(function () {
+        Route::post('contact', 'store')->name('shop.contact.store')->middleware(ProtectAgainstSpam::class);;
     });
 
     /**

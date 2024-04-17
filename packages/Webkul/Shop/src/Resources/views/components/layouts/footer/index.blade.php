@@ -99,42 +99,69 @@
           </div>
         </div>
         <!--End Col-->
+
+        {!! view_render_event('bagisto.shop.layout.footer.contact.before') !!}
+        
         <div class="">
           <h4 class="text-lg text-gray-900 font-medium mb-7">
             @lang('shop::app.components.layouts.footer.ready-for-start') 
           </h4>
-          <form class="grid grid-cols-1 md:grid-cols-2 gap-2" action="">
-            <div class="relative mb-6">
-              <label class="flex items-center mb-2 text-gray-600 text-sm">
-                  @lang('shop::app.components.layouts.footer.contact-name')  <svg width="7" height="7" class="ml-1" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.11222 6.04545L3.20668 3.94744L1.43679 5.08594L0.894886 4.14134L2.77415 3.18182L0.894886 2.2223L1.43679 1.2777L3.20668 2.41619L3.11222 0.318182H4.19105L4.09659 2.41619L5.86648 1.2777L6.40838 2.2223L4.52912 3.18182L6.40838 4.14134L5.86648 5.08594L4.09659 3.94744L4.19105 6.04545H3.11222Z" fill="#EF4444" />
-                </svg>
-              </label>
-              <input type="text" id="default-search" class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none " required="">
-            </div>
-            <div class="relative mb-6">
-              <label class="flex items-center mb-2 text-gray-600 text-sm">@lang('shop::app.components.layouts.footer.contact-email')  <svg width="7" height="7" class="ml-1" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.11222 6.04545L3.20668 3.94744L1.43679 5.08594L0.894886 4.14134L2.77415 3.18182L0.894886 2.2223L1.43679 1.2777L3.20668 2.41619L3.11222 0.318182H4.19105L4.09659 2.41619L5.86648 1.2777L6.40838 2.2223L4.52912 3.18182L6.40838 4.14134L5.86648 5.08594L4.09659 3.94744L4.19105 6.04545H3.11222Z" fill="#EF4444" />
-                </svg>
-              </label>
-              <input type="text" id="default-search" class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none " required="">
-            </div>
-            <div class="relative mb-6 col-span-2">
-              <label class="flex items-center mb-2 text-gray-600 text-sm">@lang('shop::app.components.layouts.footer.contact-message')  <svg width="7" height="7" class="ml-1" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.11222 6.04545L3.20668 3.94744L1.43679 5.08594L0.894886 4.14134L2.77415 3.18182L0.894886 2.2223L1.43679 1.2777L3.20668 2.41619L3.11222 0.318182H4.19105L4.09659 2.41619L5.86648 1.2777L6.40838 2.2223L4.52912 3.18182L6.40838 4.14134L5.86648 5.08594L4.09659 3.94744L4.19105 6.04545H3.11222Z" fill="#EF4444"></path>
-                </svg>
-              </label>
-              <div class="flex">
-                <div class="relative w-full">
-                  <textarea class="block w-full h-40 px-4 py-2.5 text-base leading-7 font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-2xl placeholder-gray-400 focus:outline-none resize-none"></textarea>
-                </div>
-              </div>
-            </div>
+          <x-shop::form
+            class="grid grid-cols-1 md:grid-cols-2 gap-2"
+            method="POST"
+            action="{{ route('shop.contact.store') }}"
+          >
+            @honeypot
+            <x-shop::form.control-group>
+                <x-shop::form.control-group.label class="!mt-0 required flex items-center mb-2 text-gray-600 text-sm">
+                    @lang('shop::app.components.layouts.footer.contact-name')
+                </x-shop::form.control-group.label>
+                <x-shop::form.control-group.control
+                    type="email"
+                    class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+                    name="name"
+                    rules="required"
+                    :label="strtolower(trans('shop::app.components.layouts.footer.contact-name'))"
+                    :aria-label="trans('shop::app.components.layouts.footer.contact-name')"
+                />
+                <x-shop::form.control-group.error control-name="name" />
+            </x-shop::form.control-group>
+            <x-shop::form.control-group>
+                <x-shop::form.control-group.label class="!mt-0 required flex items-center mb-2 text-gray-600 text-sm">
+                    @lang('shop::app.components.layouts.footer.contact-email')
+                </x-shop::form.control-group.label>
+                <x-shop::form.control-group.control
+                    type="email"
+                    class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+                    name="email"
+                    rules="required|email"
+                    :label="strtolower(trans('shop::app.components.layouts.footer.contact-email'))"
+                    :aria-label="trans('shop::app.components.layouts.footer.contact-email')"
+                />
+                <x-shop::form.control-group.error control-name="email" />
+            </x-shop::form.control-group>
+            <x-shop::form.control-group class="col-span-2">
+                <x-shop::form.control-group.label class="!mt-0 required flex items-center mb-2 text-gray-600 text-sm">
+                    @lang('shop::app.components.layouts.footer.contact-message')
+                </x-shop::form.control-group.label>
+                <x-shop::form.control-group.control
+                    type="textarea"
+                    class="h-[180px] block resize-none w-full px-5 py-2.5 leading-7 text-sm font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+                    name="message"
+                    rules="required"
+                    :label="strtolower(trans('shop::app.components.layouts.footer.contact-message'))"
+                    :aria-label="trans('shop::app.components.layouts.footer.contact-message')"
+                />
+                <x-shop::form.control-group.error control-name="message" />
+            </x-shop::form.control-group>
             <button class="col-span-2 w-full h-12 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm leading-6">
                 @lang('shop::app.components.layouts.footer.send-message')
             </button>
-          </form>
+          </x-shop::form>
         </div>
+
+        {!! view_render_event('bagisto.shop.layout.footer.contact.after') !!}
+
         <!--End Col-->
         <div class="lg:mx-auto text-center md:text-left">
             <h4 class="text-lg font-medium text-gray-900 mb-7">@lang('shop::app.components.layouts.footer.pages') </h4>

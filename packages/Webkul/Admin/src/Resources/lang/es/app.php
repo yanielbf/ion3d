@@ -3944,6 +3944,9 @@ return [
                 'greeting'    => '¡Damos una cálida bienvenida al nuevo cliente, :customer_name que acaba de registrarse con nosotros!',
                 'subject'     => 'Registro de nuevo cliente',
             ],
+            'contact' => [
+                'subject'     => 'Un cliente quiere contactarnos',
+            ],
         ],
 
         'orders' => [

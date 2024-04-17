@@ -833,6 +833,10 @@ return [
         'unsubscribe-success' => 'You have successfully unsubscribed to our newsletter.',
     ],
 
+    'contact' => [
+        'contact-success'   => 'We have received your message and we will contact you as soon as possible.',
+    ],
+
     'emails' => [
         'dear'   => 'Dear :customer_name',
         'thanks' => 'If you need any kind of help please contact us at <a href=":link" style=":style">:email</a>.<br/>Thanks!',

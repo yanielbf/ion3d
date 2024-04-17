@@ -812,7 +812,11 @@ return [
         'already'             => 'Ya estás suscrito a nuestro boletín.',
         'subscribe-success'   => 'Te has suscrito correctamente a nuestro boletín.',
         'unsubscribe-success' => 'Te has dado de baja correctamente de nuestro boletín.',
-    ],    
+    ],
+    
+    'contact' => [
+        'contact-success'   => 'Hemos recibido tu mensaje y te contactaremos a la brevedad.',
+    ], 
 
     'emails' => [
         'dear'   => 'Estimado/a :customer_name',

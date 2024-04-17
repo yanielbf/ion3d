@@ -61,7 +61,7 @@
             type="text/x-template"
             id="v-checkout-template"
         >
-            <template v-if="! cart">
+            <template v-if="!cart">
                 <!-- Shimmer Effect -->
                 <x-shop::shimmer.checkout.onepage />
             </template>

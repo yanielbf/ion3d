@@ -50,8 +50,8 @@
                             id="use_for_shipping"
                             for="use_for_shipping"
                             value="1"
-                            @change="useBillingAddressForShipping = ! useBillingAddressForShipping"
-                            ::checked="!! useBillingAddressForShipping"
+                            @change="useBillingAddressForShipping = !useBillingAddressForShipping"
+                            ::checked="!!useBillingAddressForShipping"
                         />
 
                         <label

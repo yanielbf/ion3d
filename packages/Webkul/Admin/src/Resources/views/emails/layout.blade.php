@@ -1,3 +1,5 @@
+@props(['footer' => true])
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -34,14 +36,16 @@
                 <!-- Email Content -->
                 {{ $slot }}
 
-                <!-- Email Footer -->
-                <p style="font-size: 16px;color: #202B3C;line-height: 24px;">
-                    @lang('admin::app.emails.thanks', [
-                        'link' => 'mailto:shop@shop.com',
-                        'email' => 'shop@shop.com',
-                        'style' => 'color: #2969FF;'
-                    ])
-                </p>
+                @if ($footer)
+                    <!-- Email Footer -->
+                    <p style="font-size: 16px;color: #202B3C;line-height: 24px;">
+                        @lang('admin::app.emails.thanks', [
+                            'link' => 'mailto:shop@shop.com',
+                            'email' => 'shop@shop.com',
+                            'style' => 'color: #2969FF;'
+                        ])
+                    </p>
+                @endif
             </div>
         </div>
     </body>

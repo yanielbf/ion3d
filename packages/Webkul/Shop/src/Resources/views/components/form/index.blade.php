@@ -30,7 +30,7 @@
             @csrf
         @endunless
 
-        @if (! in_array($method, ['GET', 'POST']))
+        @if (!in_array($method, ['GET', 'POST']))
             @method($method)
         @endif
 
