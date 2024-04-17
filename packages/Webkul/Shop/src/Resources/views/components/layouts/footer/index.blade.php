@@ -78,7 +78,7 @@
                             $hours = explode(';', $customization?->options['settings']['hours']);
                         @endphp
                         @foreach ($hours as $hour)
-                            <p class="text-gray-600 dark:text-slate-400 text-sm">{{ $hour }}</p>
+                            <p class="text-gray-600 text-sm">{{ $hour }}</p>
                         @endforeach
                     </div>
                 </li>

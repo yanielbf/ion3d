@@ -15,57 +15,23 @@
 
         <meta charset="UTF-8">
 
-        <meta
-            http-equiv="X-UA-Compatible"
-            content="IE=edge"
-        >
-        <meta
-            http-equiv="content-language"
-            content="{{ app()->getLocale() }}"
-        >
-
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1"
-        >
-        <meta
-            name="base-url"
-            content="{{ url()->to('/') }}"
-        >
-        <meta
-            name="currency"
-            content="{{ core()->getCurrentCurrency()->toJson() }}"
-        >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="base-url" content="{{ url()->to('/') }}" >
+        <meta name="currency" content="{{ core()->getCurrentCurrency()->toJson() }}">
 
         @stack('meta')
 
-        <link
-            rel="icon"
-            sizes="16x16"
-            href="{{ core()->getCurrentChannel()->favicon_url ?? bagisto_asset('images/favicon.ico') }}"
-        />
+        <link rel="icon" sizes="16x16" href="{{ core()->getCurrentChannel()->favicon_url ?? bagisto_asset('images/favicon.ico') }}"/>
 
         @bagistoVite(['src/Resources/assets/css/app.css', 'src/Resources/assets/js/app.js'])
 
-        <link
-            rel="preload"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-            as="style"
-        >
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        >
-
-        <link
-            rel="preload"
-            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
-            as="style"
-        >
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
-        >
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" as="style">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" as="style">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap">
+        <link rel="stylesheet" type="text/css" href="{{asset("vendor/cookie-consent/css/cookie-consent.css")}}">
 
         @stack('styles')
 

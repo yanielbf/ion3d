@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cacheResponse' => \Webkul\Shop\Http\Middleware\CacheResponse::class,
+        'cookie-consent' => \Statikbe\CookieConsent\CookieConsentMiddleware::class,
     ];
 }

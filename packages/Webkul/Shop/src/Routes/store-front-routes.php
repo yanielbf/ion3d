@@ -13,12 +13,6 @@ use Webkul\Shop\Http\Controllers\ContactController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
-    /**
-     * CMS pages.
-     */
-    Route::get('page/{slug}', [PageController::class, 'view'])
-        ->name('shop.cms.page')
-        ->middleware('cacheResponse');
 
     /**
      * Fallback route.
@@ -32,14 +26,21 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
      */
     Route::get('/', [HomeController::class, 'index'])
         ->name('shop.home.index')
-        ->middleware('cacheResponse');
+        ->middleware(['cacheResponse', 'cookie-consent']);
+
+    /**
+     * CMS pages.
+     */
+    Route::get('page/{slug}', [PageController::class, 'view'])
+        ->name('shop.cms.page')
+        ->middleware(['cacheResponse', 'cookie-consent']);
 
     /**
      * Store front home.
      */
     Route::get('/designer3d/{type?}', [Designer3DController::class, 'index'])
         ->name('shop.designer3d.index')
-        ->middleware('cacheResponse');
+        ->middleware(['cacheResponse', 'cookie-consent']);
 
     /**
      * Store front search.
