@@ -186,9 +186,41 @@
       </div>
       <!--Grid-->
       <div class="py-7 border-t border-gray-200">
-        <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-          <span class="text-sm text-gray-500 ">@lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])</span>
-          <div class="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
+        <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
+            <span class="text-sm text-gray-500 ">@lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])</span>
+            
+            {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
+            <!-- News Letter subscription -->
+            @if (core()->getConfigData('customer.settings.newsletter.subscription'))
+                <div class="grid gap-2.5">
+                    <x-shop::form
+                        :action="route('shop.subscription.store')"
+                        class="mt-2.5 rounded max-sm:mt-8"
+                    >
+                        <div class="relative w-full">
+                            <x-shop::form.control-group.control
+                                type="email"
+                                class="blockw-[420px] max-w-full px-5 py-5 p-28 rounded-xl text-xs font-medium max-1060:w-full"
+                                name="email"
+                                rules="required|email"
+                                label="Email"
+                                :aria-label="trans('shop::app.components.layouts.footer.email')"
+                                placeholder="email@example.com"
+                            />
+                            <x-shop::form.control-group.error control-name="email" />
+                            <button
+                                type="submit"
+                                class=" absolute flex items-center top-2 w-max px-7 py-3.5 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 text-white rounded-xl text-xs font-medium rtl:left-2 ltr:right-2"
+                            >
+                                @lang('shop::app.components.layouts.footer.subscribe')
+                            </button>
+                        </div>
+                    </x-shop::form>
+                </div>
+            @endif
+            {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
+
+            <div class="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
             @if (isset($customization?->options['settings']['instagram']))
                 <a href="{{$customization?->options['settings']['instagram']}}" target="_blank" class="w-9 h-9 rounded-full transition-all duration-700 bg-gray-700 flex justify-center items-center hover:bg-indigo-600">
                     <v-icon name="co-instagram" class="text-white" />
@@ -226,87 +258,5 @@
       </div>
     </div>
 </footer>
-{{-- <footer class="bg-gradient-to-r from-slate-900 to-slate-700">
-    <div class="flex gap-x-6 gap-y-8 justify-center p-4 max-1060:flex-wrap max-1060:flex-col-reverse max-sm:px-4">
-        <div class="flex gap-24 items-start flex-wrap max-1180:gap-6 max-1060:justify-center">
-            @if ($customization?->options)
-                @foreach ($customization->options as $footerLinkSection)
-                    <ul class="flex flex-wrap justify-center gap-5 text-sm">
-                        @php
-                            usort($footerLinkSection, function ($a, $b) {
-                                return $a['sort_order'] - $b['sort_order'];
-                            });
-                        @endphp
-
-                        @foreach ($footerLinkSection as $link)
-                            <li>
-                                <a class="text-white hover:text-slate-200" href="{{ $link['url'] }}">
-                                    {{ $link['title'] }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endforeach
-            @endif
-        </div>
-
-        {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
-
-        <!-- News Letter subscription -->
-        @if (core()->getConfigData('customer.settings.newsletter.subscription'))
-            <div class="grid gap-2.5">
-                <p
-                    class="max-w-[288px] leading-[45px] text-3xl italic text-navyBlue"
-                    role="heading"
-                    aria-level="2"
-                >
-                    @lang('shop::app.components.layouts.footer.newsletter-text')
-                </p>
-
-                <p class="text-xs">
-                    @lang('shop::app.components.layouts.footer.subscribe-stay-touch')
-                </p>
-
-                <x-shop::form
-                    :action="route('shop.subscription.store')"
-                    class="mt-2.5 rounded max-sm:mt-8"
-                >
-                    <div class="relative w-full">
-                        <x-shop::form.control-group.control
-                            type="email"
-                            class="blockw-[420px] max-w-full px-5 py-5 p-28 bg-[#F1EADF] border-[2px] border-[#E9DECC] rounded-xl text-xs font-medium max-1060:w-full"
-                            name="email"
-                            rules="required|email"
-                            label="Email"
-                            :aria-label="trans('shop::app.components.layouts.footer.email')"
-                            placeholder="email@example.com"
-                        />
-
-                        <x-shop::form.control-group.error control-name="email" />
-
-                        <button
-                            type="submit"
-                            class=" absolute flex items-center top-2 w-max px-7 py-3.5 bg-white rounded-xl text-xs font-medium rtl:left-2 ltr:right-2"
-                        >
-                            @lang('shop::app.components.layouts.footer.subscribe')
-                        </button>
-                    </div>
-                </x-shop::form>
-            </div>
-        @endif
-
-        {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
-    </div>
-
-    <div class="flex justify-center py-3.5 bg-gradient-to-r from-slate-900 to-slate-700">
-        {!! view_render_event('bagisto.shop.layout.footer.footer_text.before') !!}
-
-        <p class="text-sm text-white text-center">
-            @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
-        </p>
-
-        {!! view_render_event('bagisto.shop.layout.footer.footer_text.after') !!}
-    </div>
-</footer> --}}
 
 {!! view_render_event('bagisto.shop.layout.footer.after') !!}
