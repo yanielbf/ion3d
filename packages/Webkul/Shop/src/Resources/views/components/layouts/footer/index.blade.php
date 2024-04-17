@@ -21,7 +21,7 @@
 <footer class="w-full mt-9 md:mt-16 border-t">
     <div class="mx-auto max-w-7xl">
       <!--Grid-->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-8 px-6 md:px-0 pt-10 pb-4 md:pb-10">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-8 px-6 pt-10 pb-4 md:pb-10">
         <div class="lg:mb-0 flex flex-col">
           <a href="{{route('shop.home.index')}}" class="flex justify-center lg:justify-start">
             <img
@@ -30,7 +30,7 @@
                 class="h-[40px]"
             >
           </a>
-          <div class="mt-6 flex items-center justify-between w-full max-w-xl mx-auto flex-col  2xl:flex-col 2xl:items-start">
+          <div class="mt-6 flex items-center justify-between w-full max-w-xl mx-auto flex-col 2xl:flex-col 2xl:items-start">
             <ul class="mb-6 md:mb-0">
                 <li class="flex">
                     <div class="flex h-10 w-10 items-center justify-center rounded bg-gray-700 text-gray-50">
@@ -85,7 +85,7 @@
             </ul>
           </div>
         </div>
-        <div class="lg:mx-auto text-center md:text-left mt-5 md:mt-0">
+        <div class="lg:mx-auto text-center mt-5 md:mt-0">
             <h4 class="text-lg font-medium text-gray-900 mb-7">@lang('shop::app.components.layouts.footer.pages') </h4>
             @if ($customization?->options['column_1'])
                 @php
@@ -108,7 +108,7 @@
         <div class="flex flex-col md:justify-center md:items-center">
             @if (isset($customization?->options['settings']['whatsapp']))
                 <div class="mb-5 w-full md:w-1/2">
-                    <a href="{{$customization?->options['settings']['whatsapp']}}" target="_blank" class="flex items-center justify-center col-span-2 w-full h-12 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm leading-6">
+                    <a href="{{$customization?->options['settings']['whatsapp']}}" target="_blank" class="flex items-center justify-center px-3 text-center w-full h-12 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm leading-6">
                         @lang('shop::app.components.layouts.footer.send-message')
                     </a>
                 </div>
@@ -212,7 +212,7 @@
         
       </div>
       <!--Grid-->
-      <div class="px-6 md:px-0 py-3 border-t border-gray-200">
+      <div class="px-6 lg:px-3 py-3 border-t border-gray-200">
         <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-1 md:gap-4">
             <span class="text-sm text-gray-500 ">@lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])</span>
             {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
