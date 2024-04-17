@@ -33,7 +33,7 @@
           <div class="mt-6 flex items-center justify-between w-full max-w-xl mx-auto flex-col  2xl:flex-col 2xl:items-start">
             <ul class="mb-6 md:mb-0">
                 <li class="flex">
-                    <div class="flex h-10 w-10 items-center justify-center rounded bg-indigo-600 text-gray-50">
+                    <div class="flex h-10 w-10 items-center justify-center rounded bg-gray-700 text-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="h-6 w-6">
@@ -48,7 +48,7 @@
                     </div>
                 </li>
                 <li class="flex">
-                    <div class="flex h-10 w-10 items-center justify-center rounded bg-indigo-600 text-gray-50">
+                    <div class="flex h-10 w-10 items-center justify-center rounded bg-gray-700 text-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="h-6 w-6">
@@ -65,7 +65,7 @@
                     </div>
                 </li>
                 <li class="flex">
-                    <div class="flex h-10 w-10 items-center justify-center rounded bg-indigo-600 text-gray-50">
+                    <div class="flex h-10 w-10 items-center justify-center rounded bg-gray-700 text-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" class="h-6 w-6">
