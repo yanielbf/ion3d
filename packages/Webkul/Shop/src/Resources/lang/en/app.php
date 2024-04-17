@@ -369,7 +369,7 @@ return [
                 'contact-name'           => 'Name',
                 'contact-email'          => 'Email',
                 'contact-message'        => 'Message',
-                'send-message'           => 'Send message',
+                'send-message'           => 'Send us a whatsapp',
                 'contact-address'        => 'Address',
                 'contact-phone-email'    => 'Contact',
                 'contact-hours-working'  => 'Working hours',

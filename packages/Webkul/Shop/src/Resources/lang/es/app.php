@@ -369,7 +369,7 @@ return [
                 'contact-name'           => 'Nombre',
                 'contact-email'          => 'Correo electrónico',
                 'contact-message'        => 'Mensaje',
-                'send-message'           => 'Enviar mensaje',
+                'send-message'           => 'Envíanos un whatsapp',
                 'contact-address'        => 'Dirección',
                 'contact-phone-email'    => 'Vía de contacto',
                 'contact-hours-working'  => 'Horario laborable',

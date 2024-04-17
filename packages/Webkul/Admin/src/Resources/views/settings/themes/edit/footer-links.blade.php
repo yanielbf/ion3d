@@ -67,6 +67,90 @@
     
                             <x-admin::form.control-group.error control-name="hours" />
                         </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label>
+                                Instagram
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][instagram]"
+                                label="instagram"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['instagram'] ?? ''}}"
+                            />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label>
+                                Facebook
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][facebook]"
+                                label="facebook"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['facebook'] ?? ''}}"
+                            />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label>
+                                Tiktok
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][tiktok]"
+                                label="instagram"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['tiktok'] ?? ''}}"
+                            />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label>
+                                Telegram
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][telegram]"
+                                label="instagram"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['telegram'] ?? ''}}"
+                            />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label>
+                                X
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][x]"
+                                label="instagram"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['x'] ?? ''}}"
+                            />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label>
+                                Youtube
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][youtube]"
+                                label="instagram"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['youtube'] ?? ''}}"
+                            />
+                        </x-admin::form.control-group>
+                        <x-admin::form.control-group>
+                            <x-admin::form.control-group.label>
+                                Whatsapp
+                            </x-admin::form.control-group.label>
+    
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="{{ $currentLocale->code }}[options][settings][whatsapp]"
+                                label="instagram"
+                                value="{{ $theme->translate($currentLocale->code)->options['settings']['whatsapp'] ?? ''}}"
+                            />
+                        </x-admin::form.control-group>
                     </div>
                     <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
                         <!-- Add Links-->
