@@ -22,7 +22,7 @@
 
         <a
             href="{{ route('shop.designer3d.index') }}"
-            class="py-2 px-4 bg-navyBlue rounded-2xl text-white text-base font-medium text-center cursor-pointer max-sm:px-5"
+            class="py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5"
         >
             @lang('shop::app.components.layouts.header.customize')
         </a>
