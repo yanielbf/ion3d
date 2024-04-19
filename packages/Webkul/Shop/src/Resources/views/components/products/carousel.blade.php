@@ -48,7 +48,7 @@
                 class="flex items-stretch gap-8 [&>*]:flex-[0] mt-10 overflow-auto scroll-smooth scrollbar-hide max-sm:mt-5"
             >
                 <x-shop::products.card
-                    class="min-w-[242px] md:min-w-[400px] flex-1"
+                    class="min-w-[310px] md:min-w-[400px] flex-1"
                     v-for="product in products"
                 />
             </div>
@@ -84,7 +84,7 @@
 
                     products: [],
 
-                    offset: 274,
+                    offset: 342,
                 };
             },
 
