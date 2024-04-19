@@ -121,7 +121,11 @@ class CartController extends APIController
         if(isset($hash)) {
             $design = request()->input('design')[$hash];
             $image = request()->file('image');
-            $image->storeAs('covers', $design['filename']);
+            
+            if(isset($image)) {
+                $image->storeAs('covers', $design['filename']);
+            }
+            
             $data['designs'] = [
                 $hash => [
                     'quantity' => intval($design['quantity']),

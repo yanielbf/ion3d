@@ -30,18 +30,18 @@
                 </div>
                 <div class="flex p-2 mt-3 border-t border-gray-200"></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-medium">
-                    <button
-                        v-if="product.customizable"
+                    <x-shop::button
                         class="text-center w-full px-5 py-2 shadow-sm tracking-wider bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700"
-                    >
-                        Personalizar
-                    </button>
-                    <button 
+                        :title="trans('shop::app.components.products.card.customize')"
+                        @click="goToDesigner(product)"
+                    />
+                    <x-shop::button
                         class="text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
-                        type="button" aria-label="like"
-                    >
-                        Comprar
-                    </button>
+                        :title="trans('shop::app.components.products.card.buy')"
+                        ::loading="isAddingToCart"
+                        ::disabled="!product.is_saleable || isAddingToCart"
+                        @click="addToCart()"
+                    />
                 </div>
             </div>
         </div>
@@ -330,7 +330,7 @@
                             })
                             .catch(error => {});
                         } else {
-                            window.location.href = "{{ route('shop.customer.session.index')}}";
+                            window.location.href = `{{ route('shop.designer3d.index') }}`;
                         }
                 },
 
@@ -392,13 +392,29 @@
                 },
 
                 addToCart() {
-
+                    let url = '{{ route("shop.api.checkout.cart.store") }}';
+                    let hash = this.handleCreateHash(`product_${this.product.id}_back_1_83BE01_side_1_057EB5_text__fontSize_20.png`);
+                    let data = {
+                        quantity: 1,
+                        product_id: this.product.id,
+                    }
+                    if(this.product.customizable) {
+                        url = '{{ route("shop.api.checkout.cart.store_design") }}';
+                        data = {
+                            quantity: 1,
+                            product_id: this.product.id,
+                            image: null,
+                            hash: hash,
+                            design: {
+                                [hash]: {
+                                    filename: `default.png`,
+                                    quantity: 1,
+                                },
+                            },
+                        }
+                    }
                     this.isAddingToCart = true;
-
-                    this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', {
-                            'quantity': 1,
-                            'product_id': this.product.id,
-                        })
+                    this.$axios.post(url, data)
                         .then(response => {
                             if (response.data.data.redirect_uri) {
                                 window.location.href = response.data.data.redirect_uri;
@@ -420,6 +436,18 @@
                             this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
                         });
                 },
+
+                goToDesigner(product) {
+                    window.location.href = '{{ route("shop.designer3d.index") }}'
+                },
+
+                handleCreateHash(codeCover) {
+                    let hash = 0;
+                    for (let i = 0; i < codeCover.length; i++) {
+                        hash += codeCover.charCodeAt(i);
+                    }
+                    return hash.toString(16);
+                }
             },
         });
     </script>

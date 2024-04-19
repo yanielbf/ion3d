@@ -445,6 +445,8 @@ return [
     
         'products' => [
             'card' => [
+                'customize'              => 'Personalizar',
+                'buy'                    => 'Comprar',
                 'add-to-cart'            => 'Agregar al carrito',
                 'add-to-compare'         => 'Agregar a comparar',
                 'add-to-compare-success' => 'Elemento añadido correctamente a la lista de comparación.',
