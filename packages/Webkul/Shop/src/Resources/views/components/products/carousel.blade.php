@@ -12,12 +12,12 @@
         id="v-products-carousel-template"
     >
         <div
-            class="container mt-20 max-lg:px-8 max-sm:mt-8"
-            v-if="! isLoading && products.length"
+            class="container my-20 max-lg:px-8 max-sm:mt-8"
+            v-if="!isLoading && products.length"
         >
             <div class="flex justify-between">
                 <h2
-                    class="text-3xl font-dmserif max-sm:text-2xl"
+                    class="text-3xl max-sm:text-2xl"
                     v-text="title"
                 >
                 </h2>
@@ -45,17 +45,17 @@
 
             <div
                 ref="swiperContainer"
-                class="flex gap-8 [&>*]:flex-[0] mt-10 overflow-auto scroll-smooth scrollbar-hide max-sm:mt-5"
+                class="flex items-stretch gap-8 [&>*]:flex-[0] mt-10 overflow-auto scroll-smooth scrollbar-hide max-sm:mt-5"
             >
                 <x-shop::products.card
-                    class="min-w-[291px]"
+                    class="min-w-[242px] md:min-w-[400px] flex-1"
                     v-for="product in products"
                 />
             </div>
 
             <a
                 :href="navigationLink"
-                class="secondary-button block w-max mt-8 md:mt-14 mx-auto py-3 px-11 rounded-2xl text-base text-center"
+                class="bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white w-max mt-8 md:mt-14 mx-auto py-3 px-11 block text-base text-center"
                 v-if="navigationLink"
             >
                 @lang('shop::app.components.products.carousel.view-all')
@@ -84,7 +84,7 @@
 
                     products: [],
 
-                    offset: 323,
+                    offset: 274,
                 };
             },
 

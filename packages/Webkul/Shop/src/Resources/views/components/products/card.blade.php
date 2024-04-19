@@ -9,6 +9,46 @@
         type="text/x-template"
         id="v-product-card-template"
     >
+        <div class="flex flex-col">
+            <div class="bg-white border rounded-3xl p-4">
+                <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr]">
+                    <div class="h-full w-full lg:mb-0 mb-3">
+                        <x-shop::media.images.lazy
+                            class="w-full object-scale-down lg:object-cover lg:h-36 rounded-2xl border"
+                            ::src="product.base_image.medium_image_url"
+                            ::key="product.id"
+                            ::index="product.id"
+                            ::alt="product.name"
+                        />
+                    </div>
+                    <div class="flex-auto ml-3 justify-evenly">
+                        <div class="mb-4">
+                            <h2 class="flex-auto font-medium line-clamp-3 mb-3" v-text="product.name" />
+                            <h2 class="flex-auto font-medium text-indigo-500" v-html="product.price_html" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex p-2 mt-3 border-t border-gray-200"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-medium">
+                    <button
+                        class="text-center w-full px-5 py-2 shadow-sm tracking-wider bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700"
+                    >
+                        Personalizar
+                    </button>
+                    <button 
+                        class="text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
+                        type="button" aria-label="like"
+                    >
+                        Comprar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script
+        type="text/x-template"
+        id="v-product-card-template1"
+    >
         <!-- Grid Card -->
         <div
             class='grid gap-2.5 content-start w-full relative'

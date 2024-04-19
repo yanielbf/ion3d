@@ -2821,6 +2821,7 @@ return [
                     'footer-links'      => 'Enlaces del Pie de Página',
                     'image-carousel'    => 'Carrusel de imágenes',
                     'product-carousel'  => 'Carrusel de Productos',
+                    'product-carousel-3d'  => 'Carrusel de Productos 3D',
                     'services-content'  => 'Contenido de servicios',
                     'static-content'    => 'Contenido Estático',
                     'title'             => 'Tipo',

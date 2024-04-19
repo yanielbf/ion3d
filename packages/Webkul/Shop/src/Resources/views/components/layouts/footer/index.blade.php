@@ -18,7 +18,7 @@
     ]);
 @endphp
 
-<footer class="w-full mt-9 md:mt-16 border-t">
+<footer class="w-full border-t">
     <div class="mx-auto max-w-7xl">
       <!--Grid-->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-8 px-6 pt-10 pb-4 md:pb-10">
@@ -43,8 +43,8 @@
                             </path>
                         </svg>
                     </div>
-                    <div class="ml-4 mb-8">
-                        <p class="text-gray-600 dark:text-slate-400 text-sm">{{$customization?->options['settings']['address']}}</p>
+                    <div class="ml-4 mb-4">
+                        <p class="text-gray-600 text-sm">{{$customization?->options['settings']['address']}}</p>
                     </div>
                 </li>
                 <li class="flex">
@@ -60,8 +60,8 @@
                         </svg>
                     </div>
                     <div class="ml-4 mb-4">
-                        <p class="text-gray-600 dark:text-slate-400 text-sm">{{$customization?->options['settings']['phone']}}</p>
-                        <p class="text-gray-600 dark:text-slate-400 text-sm">{{$customization?->options['settings']['email']}}</p>
+                        <p class="text-gray-600 text-sm">{{$customization?->options['settings']['phone']}}</p>
+                        <p class="text-gray-600 text-sm">{{$customization?->options['settings']['email']}}</p>
                     </div>
                 </li>
                 <li class="flex">

@@ -84,22 +84,6 @@
                                     <x-admin::form.control-group.error control-name="name" />
                                 </x-admin::form.control-group>
 
-                                <x-admin::form.control-group>
-                                    <x-admin::form.control-group.label class="required">
-                                        @lang('admin::app.settings.themes.create.visible_at')
-                                    </x-admin::form.control-group.label>
-
-                                    <x-admin::form.control-group.control
-                                        type="text"
-                                        name="visible_at"
-                                        rules="required"
-                                        :label="trans('admin::app.settings.themes.create.visible_at')"
-                                        :placeholder="trans('admin::app.settings.themes.create.visible_at')"
-                                    />
-
-                                    <x-admin::form.control-group.error control-name="visible_at" />
-                                </x-admin::form.control-group>
-
                                 <!-- Sort Order -->
                                 <x-admin::form.control-group>
                                     <x-admin::form.control-group.label class="required">
