@@ -97,8 +97,8 @@
                     this.$axios.get(this.src)
                         .then(response => {
                             this.isLoading = false;
-
                             this.products = response.data.data;
+                            console.log(this.products);
                         }).catch(error => {
                             console.log(error);
                         });

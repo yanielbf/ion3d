@@ -31,6 +31,7 @@
                 <div class="flex p-2 mt-3 border-t border-gray-200"></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-medium">
                     <button
+                        v-if="product.customizable"
                         class="text-center w-full px-5 py-2 shadow-sm tracking-wider bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700"
                     >
                         Personalizar

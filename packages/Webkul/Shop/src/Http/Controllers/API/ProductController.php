@@ -42,7 +42,7 @@ class ProductController extends APIController
                 ]);
             }
         }
-
+        
         return ProductResource::collection($products);
     }
 

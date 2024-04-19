@@ -51,6 +51,7 @@ class ProductResource extends JsonResource
             'price_html'  => $productTypeInstance->getPriceHtml(),
             'avg_ratings' => round($this->reviewHelper->getAverageRating($this)),
             'design3d' => $this->design3d ? Storage::url($this->design3d) : null,
+            'customizable' => $this->customizable
         ];
     }
 }
