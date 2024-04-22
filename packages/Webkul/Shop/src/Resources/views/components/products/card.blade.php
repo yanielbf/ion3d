@@ -11,7 +11,7 @@
     >
         <div class="flex flex-col">
             <div class="bg-white border rounded-3xl p-4">
-                <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr]">
+                <div class="grid grid-cols-1 md:grid-cols-[1.2fr_2fr]">
                     <div class="h-full w-full lg:mb-0 mb-3">
                         <x-shop::media.images.lazy
                             class="w-full object-scale-down lg:object-cover lg:h-36 rounded-2xl border"
@@ -33,6 +33,7 @@
                     <x-shop::button
                         class="text-center w-full px-5 py-2 shadow-sm tracking-wider bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700"
                         :title="trans('shop::app.components.products.card.customize')"
+                        v-if="product.customizable"
                         @click="goToDesigner(product)"
                     />
                     <x-shop::button
@@ -160,7 +161,6 @@
                 <!-- Needs to implement that in future -->
                 <div class="hidden gap-4 mt-2">
                     <span class="block w-[30px] h-[30px] bg-[#B5DCB4] rounded-full cursor-pointer"></span>
-
                     <span class="block w-[30px] h-[30px] bg-[#5C5C5C] rounded-full cursor-pointer"></span>
                 </div>
             </div>
@@ -312,7 +312,6 @@
             data() {
                 return {
                     isCustomer: '{{ auth()->guard('customer')->check() }}',
-
                     isAddingToCart: false,
                 }
             },
@@ -438,7 +437,12 @@
                 },
 
                 goToDesigner(product) {
-                    window.location.href = '{{ route("shop.designer3d.index") }}'
+                    const attributes = '';
+                    let url = '{{ route("shop.designer3d.index") }}?attribute_family=' + product.attribute_family;
+                    Object.keys(product.attributes_values_3d).forEach(key => {
+                        url+=`&attributes[]=${key}-${product.attributes_values_3d[key]}`;
+                    });
+                    window.location.href = url;
                 },
 
                 handleCreateHash(codeCover) {

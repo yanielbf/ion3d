@@ -160,7 +160,7 @@ class Product extends Model implements ProductContract
     /**
      * Get the approved product reviews.
      */
-    public function approvedReviews(): HasMany
+    public function approved_reviews(): HasMany
     {
         return $this->reviews()->where('status', 'approved');
     }

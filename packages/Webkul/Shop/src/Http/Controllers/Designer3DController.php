@@ -25,15 +25,27 @@ class Designer3DController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(?string $type = 'phone_cover')
+    public function index()
     {
+        $attributeFamily = request()->query('attribute_family') ?? '3d_phone_cover';
+        $attributes = request()->query('attributes') ?? [];
+        
+        $values = [];
+
+        foreach($attributes as $attribute) {
+            $aux = explode('-', $attribute);
+            if(count($aux) == 2) {
+                $values[$aux[0]] = intval($aux[1]); 
+            }
+        }
+        
         $customization = $this->themeCustomizationRepository->orderBy('sort_order')->findOneWhere([
             'status'     => self::STATUS,
             'channel_id' => core()->getCurrentChannel()->id,
             'type' => 'designer_3d'
         ]);
 
-        return view('shop::designer3d.index', ['type' => $type, 'customization' => $customization]);
+        return view('shop::designer3d.index', ['attribute_family_3d' => $attributeFamily, 'attributes_3d' => $values, 'customization' => $customization]);
     }
 
     /**

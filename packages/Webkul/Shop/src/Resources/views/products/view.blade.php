@@ -312,7 +312,7 @@
 
                                     <div class="flex gap-4 items-center">
                                         <p class="text-[#6E6E6E] text-sm">
-                                            ({{ $product->approvedReviews->count() }} @lang('reviews'))
+                                            ({{ $product->approved_reviews->count() }} @lang('reviews'))
                                         </p>
                                     </div>
                                 </div>

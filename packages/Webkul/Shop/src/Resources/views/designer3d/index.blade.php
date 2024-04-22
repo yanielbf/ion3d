@@ -18,7 +18,8 @@
     </x-slot>
     
     <x-shop::designer-3d
-        :type="$type"
+        :attribute-family-3d="$attribute_family_3d"
+        :attributes-3d="$attributes_3d"
         :options="$customization->options"
     />
 </x-shop::layouts.designer3d>

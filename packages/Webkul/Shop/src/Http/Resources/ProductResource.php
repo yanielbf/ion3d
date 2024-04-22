@@ -31,6 +31,22 @@ class ProductResource extends JsonResource
     {
         $productTypeInstance = $this->getTypeInstance();
 
+        $attributesValues = [];
+
+        if($this->customizable) {
+            $attributes = $this->attribute_family->custom_attributes->filter(function ($item) {
+                return false !== stristr($item->code, '3d_');
+            })->reduce(function($carry, $item) {
+                $carry[strval($item->id)] = $item->code;
+                return $carry;
+            }, []);
+            
+            foreach ($attributes as $key => $value) {
+                $aux = $this->attribute_values->firstWhere('attribute_id', $key);
+                $attributesValues[$value] = $aux['integer_value'];
+            }
+        }
+
         return [
             'id'          => $this->id,
             'sku'         => $this->sku,
@@ -51,7 +67,9 @@ class ProductResource extends JsonResource
             'price_html'  => $productTypeInstance->getPriceHtml(),
             'avg_ratings' => round($this->reviewHelper->getAverageRating($this)),
             'design3d' => $this->design3d ? Storage::url($this->design3d) : null,
-            'customizable' => $this->customizable
+            'customizable' => $this->customizable,
+            'attribute_family' => $this->attribute_family->code,
+            'attributes_values_3d' => $attributesValues
         ];
     }
 }

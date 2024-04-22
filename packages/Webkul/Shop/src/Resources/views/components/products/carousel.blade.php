@@ -1,7 +1,19 @@
+@php
+ if($isCustomizable) {
+    $navigationLink = route('shop.designer3d.index');
+    $textNavigationLink = __('shop::app.components.products.carousel.customize-product');
+ } else {
+    $navigationLink = route('shop.search.index');
+    $textNavigationLink = __('shop::app.components.products.carousel.view-all');
+ }
+@endphp
+
 <v-products-carousel
-    src="{{ $src }}"
     title="{{ $title }}"
+    is-customizable="{{ $isCustomizable }}"
+    src="{{ $src }}"
     navigation-link="{{ $navigationLink ?? '' }}"
+    text-navigation-link="{{ $textNavigationLink ?? '' }}"
 >
     <x-shop::shimmer.products.carousel :navigation-link="$navigationLink ?? false" />
 </v-products-carousel>
@@ -57,9 +69,8 @@
                 :href="navigationLink"
                 class="bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white w-max mt-8 md:mt-14 mx-auto py-3 px-11 block text-base text-center"
                 v-if="navigationLink"
-            >
-                @lang('shop::app.components.products.carousel.view-all')
-            </a>
+                v-text="textNavigationLink"
+            />
         </div>
 
         <!-- Product Card Listing -->
@@ -73,17 +84,16 @@
             template: '#v-products-carousel-template',
 
             props: [
-                'src',
                 'title',
+                'src',
                 'navigationLink',
+                'textNavigationLink'
             ],
 
             data() {
                 return {
                     isLoading: true,
-
                     products: [],
-
                     offset: 342,
                 };
             },
@@ -98,7 +108,6 @@
                         .then(response => {
                             this.isLoading = false;
                             this.products = response.data.data;
-                            console.log(this.products);
                         }).catch(error => {
                             console.log(error);
                         });
@@ -106,7 +115,6 @@
 
                 swipeLeft() {
                     const container = this.$refs.swiperContainer;
-
                     container.scrollLeft -= this.offset;
                 },
 

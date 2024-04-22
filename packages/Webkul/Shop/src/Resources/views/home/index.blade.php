@@ -57,8 +57,8 @@
                 <!-- Product Carousel -->
                 <x-shop::products.carousel
                     :title="$data['title'] ?? ''"
+                    :is-customizable="isset($data['filters']['customizable'])"
                     :src="route('shop.api.products.index', $data['filters'] ?? [])"
-                    :navigation-link="route('shop.search.index', $data['filters'] ?? [])"
                 />
 
                 @break

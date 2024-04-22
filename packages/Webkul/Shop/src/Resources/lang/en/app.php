@@ -461,6 +461,7 @@ return [
                 'next'     => 'Next',
                 'previous' => 'Previous',
                 'view-all' => 'View All',
+                'customize-product' => 'Customize product',
             ],
         ],
 
@@ -564,7 +565,8 @@ return [
     ],
 
     'design3d' => [
-        'custom_your_cover' => 'Customize your cover',
+        'family_not_found' => 'The type of product you want to customize does not exist.',
+        'custom_your_cover' => 'Customize your product',
         'select_attribute' => 'Select a',
         'restart_values' => 'Reset values',
         'add_to_cart_finish' => 'Add and purchase',

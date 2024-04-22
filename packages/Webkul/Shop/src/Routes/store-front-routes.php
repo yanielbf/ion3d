@@ -38,7 +38,7 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
     /**
      * Store front home.
      */
-    Route::get('/designer3d/{type?}', [Designer3DController::class, 'index'])
+    Route::get('/designer3d', [Designer3DController::class, 'index'])
         ->name('shop.designer3d.index')
         ->middleware(['cacheResponse', 'cookie-consent']);
 

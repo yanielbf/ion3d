@@ -1,13 +1,13 @@
 <script setup>
 import { inject, onMounted, toRaw, watch, reactive, ref, computed } from "vue";
 import Dropdown from "primevue/dropdown";
-import ProgressSpinner from "primevue/progressspinner";
 import InputText from "primevue/inputtext";
 import * as THREE from "three";
 import { TresCanvas } from "@tresjs/core";
 import { useGLTF, OrbitControls } from "@tresjs/cientos";
 import html2canvas from "html2canvas";
 import ColorSelector from "./ColorSelector.vue";
+import EmptyState from "./EmptyState.vue";
 
 const props = defineProps({
     info: {
@@ -94,11 +94,16 @@ function handleCreateHash() {
 
 function handleGetFamiliesAttributes() {
     axios
-        .get(`${props.info.urls.get_families_attributes}?type=${props.info.type}`)
+        .get(`${props.info.urls.get_families_attributes}?code=${props.info.attributeFamily3d}`)
         .then((response) => {
-            state.familyAttributes = response.data.data;
-            state.selectedFamilyAttribute =
-                state.familyAttributes.length && state.familyAttributes[0];
+            if(response.data.data.length) {
+                state.familyAttributes = response.data.data;
+                state.selectedFamilyAttribute =
+                    state.familyAttributes.length && state.familyAttributes[0];
+            } else {
+                state.loading = false;
+                state.error = props.info.texts.family_not_found;
+            }
         })
         .catch((error) => {
             state.error = error;
@@ -113,13 +118,6 @@ function handleGetAttributes() {
             )
             .then((response) => {
                 state.attributes = response.data.data;
-                state.selectedAttributes = state.attributes.reduce(
-                    (acc, item) => {
-                        acc[item.code] = null;
-                        return acc;
-                    },
-                    {}
-                );
             })
             .catch((error) => {
                 state.error = error;
@@ -127,7 +125,6 @@ function handleGetAttributes() {
             .finally(() => {
                 state.loading = false;
             });
-    } else {
     }
 }
 
@@ -140,7 +137,7 @@ function handleGetProduct() {
         state.loadingProduct = true;
         const query = {};
         Object.keys(state.selectedAttributes).forEach(
-            (x) => (query[x] = state.selectedAttributes[x].id)
+            (x) => (query[x] = state.selectedAttributes[x])
         );
         const url =
             Object.keys(query) != ""
@@ -587,6 +584,26 @@ watch(
 );
 
 watch(
+    () => state.attributes,
+    () => {
+        if(Object.keys(props.info.attributes3d).length) {
+            state.selectedAttributes = props.info.attributes3d;
+        } else {
+            state.selectedAttributes = state.attributes.reduce(
+                (acc, item) => {
+                    acc[item.code] = null;
+                    return acc;
+                },
+                {}
+            );
+        }
+    },
+    {
+        deep: true,
+    }
+);
+
+watch(
     () => state.selectedAttributes,
     () => {
         handleGetProduct();
@@ -639,24 +656,29 @@ onMounted(() => {
             v-if="state.loading"
             class="flex justify-center items-center h-[616px]"
         >
-            <ProgressSpinner
-                style="width: 50px; height: 50px"
-                strokeWidth="4"
-                class="fill-surface-0 dark:fill-surface-800"
-                animationDuration=".5s"
-                aria-label="Custom ProgressSpinner"
-            />
+            <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-indigo-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+            </svg>
+        </div>
+        <div
+            v-else-if="state.error"
+            class="w-full flex flex-col items-center justify-center h-[522px]"
+        >
+            <EmptyState />
+            <div class="mt-2 text-gray-600 text-center">{{ state.error }}</div>
         </div>
         <div v-else>
             {{info.texts.phone_model}}
             <div class="grid md:grid-cols-2 grid-cols-1 gap-2 mb-7">
                 <div v-for="attribute in state.attributes" :key="attribute.id">
-                    <label>{{ attribute.name }}</label>
+                    <label class="text-gray-600 text-sm">{{ attribute.name }}</label>
                     <Dropdown
                         v-model="state.selectedAttributes[attribute.code]"
                         :filter="true"
                         :options="attribute.options"
                         optionLabel="name"
+                        optionValue="id"
                         :placeholder="`${info.texts.select_attribute} ${attribute.name}`"
                         class="w-full"
                     />
@@ -666,13 +688,10 @@ onMounted(() => {
                 v-if="state.loadingProduct"
                 class="flex justify-center items-center h-[616px]"
             >
-                <ProgressSpinner
-                    style="width: 50px; height: 50px"
-                    strokeWidth="4"
-                    class="fill-surface-0 dark:fill-surface-800"
-                    animationDuration=".5s"
-                    aria-label="Custom ProgressSpinner"
-                />
+                <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-indigo-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                </svg>
             </div>
             <div v-if="!state.loadingProduct && state.product" class="grid grid-cols-1 gap-2">
                 <div id="viewer" class="rounded-lg">
@@ -759,7 +778,7 @@ onMounted(() => {
                                 </div>
                             </div>
                             <div id="model" class="text-center" style="display:none;">
-                                {{ Object.values(state.selectedAttributes).reduce((acc, x) => `${acc} ${x.name}`, '') }}
+                                {{ Object.values(state.selectedAttributes).reduce((acc, x) => `${acc} ${state.attributes.find(y => y.id == x)?.name || ''}`, '') }}
                             </div>
                         </div>
                         <div v-show="state.view == 'Images'" data-html2canvas-ignore="true">
@@ -904,43 +923,8 @@ onMounted(() => {
                 v-if="!state.loadingProduct && !state.product"
                 class="w-full flex flex-col items-center justify-center h-[522px]"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    version="1.1"
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 512 540"
-                    style="enable-background: new 0 0 512 512"
-                    xml:space="preserve"
-                    class="w-1/2 md:w-1/5"
-                >
-                    <g>
-                        <path
-                            d="M196.3,111.7c12.4,0,22.5-10.1,22.5-22.5s-10.1-22.5-22.5-22.5s-22.5,10.1-22.5,22.5S183.9,111.7,196.3,111.7z M196.3,81.7   c4.1,0,7.5,3.4,7.5,7.5s-3.4,7.5-7.5,7.5s-7.5-3.4-7.5-7.5S192.1,81.7,196.3,81.7z"
-                        />
-                        <path
-                            d="M221.9,119.2c0,12.4,10.1,22.5,22.5,22.5s22.5-10.1,22.5-22.5s-10.1-22.5-22.5-22.5S221.9,106.8,221.9,119.2z M244.4,111.7   c4.1,0,7.5,3.4,7.5,7.5s-3.4,7.5-7.5,7.5s-7.5-3.4-7.5-7.5S240.3,111.7,244.4,111.7z"
-                        />
-                        <circle cx="244.4" cy="77.1" r="10.8" />
-                        <circle cx="244.4" cy="156.7" r="7.5" />
-                        <path
-                            d="M196.3,171.7c12.4,0,22.5-10.1,22.5-22.5s-10.1-22.5-22.5-22.5s-22.5,10.1-22.5,22.5S183.9,171.7,196.3,171.7z    M196.3,141.7c4.1,0,7.5,3.4,7.5,7.5s-3.4,7.5-7.5,7.5s-7.5-3.4-7.5-7.5S192.1,141.7,196.3,141.7z"
-                        />
-                        <path
-                            d="M256,248.5c-20,0-36.2,16.3-36.2,36.2S236,321,256,321s36.2-16.3,36.2-36.2S276,248.5,256,248.5z M256,306   c-11.7,0-21.2-9.5-21.2-21.2s9.5-21.2,21.2-21.2c11.7,0,21.2,9.5,21.2,21.2S267.7,306,256,306z"
-                        />
-                        <rect x="142.5" y="107.8" width="15" height="15" />
-                        <path
-                            d="M298.1,71.7c0-18.9-15.3-34.2-34.2-34.2h-87.2c-18.9,0-34.2,15.3-34.2,34.2v21.1h15V71.7c0-10.6,8.6-19.2,19.2-19.2h87.2   c10.6,0,19.2,8.6,19.2,19.2v87.2c0,10.6-8.6,19.2-19.2,19.2h-87.2c-10.6,0-19.2-8.6-19.2-19.2v-21.1h-15v21.1   c0,18.9,15.3,34.2,34.2,34.2h87.2c18.9,0,34.2-15.3,34.2-34.2V71.7z"
-                        />
-                        <path
-                            d="M348.9,7.5H163.1c-27.9,0-50.6,22.7-50.6,50.6v395.8c0,27.9,22.7,50.6,50.6,50.6h185.7c27.9,0,50.6-22.7,50.6-50.6v-11.1   h-15v11.1c0,19.6-16,35.6-35.6,35.6H163.1c-19.6,0-35.6-16-35.6-35.6V58.1c0-19.6,16-35.6,35.6-35.6h185.7   c19.6,0,35.6,16,35.6,35.6v339.7h15V58.1C399.5,30.2,376.8,7.5,348.9,7.5z"
-                        />
-                        <rect x="384.5" y="412.8" width="15" height="15" />
-                    </g>
-                </svg>
-                <div class="mt-2">{{info.texts.custom_your_cover}}</div>
+                <EmptyState />
+                <div class="mt-2 text-gray-600 text-center">{{info.texts.custom_your_cover}}</div>
             </div>
         </div>
     </div>

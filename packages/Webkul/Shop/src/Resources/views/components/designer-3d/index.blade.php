@@ -1,8 +1,9 @@
-@props(['type', 'options'])
+@props(['attributeFamily3d', 'attributes3d', 'options'])
 
 @php
     $props = json_encode([
-        'type' => $type,
+        'attributeFamily3d' => $attributeFamily3d,
+        'attributes3d' => $attributes3d,
         'coverBackColors' => array_map(function($n) {
             static $i = 0;
             return ['id' => ++$i, 'color' => $n];
@@ -20,6 +21,7 @@
             'add_item_to_cart' => route('shop.api.checkout.cart.store_design')
         ],
         'texts' => [
+            'family_not_found' => trans('shop::app.design3d.family_not_found'),
             'custom_your_cover' => trans('shop::app.design3d.custom_your_cover'),
             'select_attribute' => trans('shop::app.design3d.select_attribute'),
             'restart_values' => trans('shop::app.design3d.restart_values'),

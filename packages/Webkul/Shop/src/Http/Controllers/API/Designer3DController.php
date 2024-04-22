@@ -33,8 +33,8 @@ class Designer3DController extends APIController
      */
     public function get_families_attributes(): JsonResource
     {
-        $type = request()->query('type');
-        $familiesAttributes3D = $this->attributeFamilyRepository->getFamilyAttributes3D($type);
+        $code = request()->query('code');
+        $familiesAttributes3D = $this->attributeFamilyRepository->getFamilyAttributes3D($code);
         return FamilyAttributeResource::collection($familiesAttributes3D);
     }
 
