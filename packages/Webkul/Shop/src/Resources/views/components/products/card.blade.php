@@ -23,8 +23,8 @@
                     </div>
                     <div class="flex-auto ml-3 justify-evenly">
                         <div class="mb-4">
-                            <h2 class="flex-auto font-medium line-clamp-3 mb-3" v-text="product.name" />
-                            <h2 class="flex-auto font-medium text-indigo-500" v-html="product.price_html" />
+                            <h2 class="flex-auto line-clamp-3 mb-3" v-text="product.name" />
+                            <h2 class="flex-auto text-indigo-500" v-html="product.price_html" />
                         </div>
                     </div>
                 </div>
