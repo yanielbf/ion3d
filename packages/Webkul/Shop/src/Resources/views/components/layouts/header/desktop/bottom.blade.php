@@ -20,13 +20,6 @@
             >
         </a>
 
-        <a
-            href="{{ route('shop.designer3d.index') }}"
-            class="py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5"
-        >
-            @lang('shop::app.components.layouts.header.customize')
-        </a>
-
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.logo.after') !!}
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.category.before') !!}
@@ -94,10 +87,16 @@
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.after') !!}
 
         <!-- Right Navigation Links -->
-        <div class="flex gap-x-8 mt-1.5 max-lg:gap-x-8 max-[1100px]:gap-x-6">
+        <div class="flex items-center gap-x-8 mt-1.5 max-lg:gap-x-8 max-[1100px]:gap-x-6">
 
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.compare.before') !!}
-
+            <a
+                href="{{ route('shop.designer3d.index') }}"
+                class="py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5"
+            >
+                @lang('shop::app.components.layouts.header.customize')
+            </a>
+            
             <!-- Compare -->
             @if(core()->getConfigData('general.content.shop.compare_option'))
                 <a

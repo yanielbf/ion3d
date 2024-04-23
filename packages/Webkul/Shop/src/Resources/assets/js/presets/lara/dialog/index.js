@@ -2,6 +2,7 @@ export default {
     root: ({ state }) => ({
         class: [
             // Shape
+            'bg-white',
             'rounded-lg',
             'shadow-lg',
             'border-0',
@@ -34,7 +35,7 @@ export default {
     header: {
         class: [
             // Flexbox and Alignment
-            'flex items-center justify-between',
+            'flex items-center justify-center',
             'shrink-0',
 
             // Spacing

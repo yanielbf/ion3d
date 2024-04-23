@@ -172,9 +172,14 @@ class AttributeFamilyRepository extends Repository
      */
     public function getFamilyAttributes3D($code)
     {
-        return $this->model->where([
-            ['status', 1],
-            ['code', $code],
-        ])->get();
+        $criteria = [['status', 1]];
+        
+        if(isset($code)) {
+            $criteria[] = ['code', 'like', '3d_%'];
+        } else {
+            $criteria[] = ['code', $code];
+        }
+        
+        return $this->model->where($criteria)->get();
     }
 }

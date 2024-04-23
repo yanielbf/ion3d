@@ -2,6 +2,8 @@
 import { inject, onMounted, toRaw, watch, reactive, ref, computed } from "vue";
 import Dropdown from "primevue/dropdown";
 import InputText from "primevue/inputtext";
+import Dialog from 'primevue/dialog';
+import Button from 'primevue/button';
 import * as THREE from "three";
 import { TresCanvas } from "@tresjs/core";
 import { useGLTF, OrbitControls } from "@tresjs/cientos";
@@ -56,6 +58,7 @@ const state = reactive({
     text: "",
     textSize: 20,
     quantity: 1,
+    visible: false,
 });
 
 const screenShot = ref();
@@ -92,17 +95,20 @@ function handleCreateHash() {
     return hash.toString(16);
 }
 
+function handleSelectFamily(family) {
+    state.selectedFamilyAttribute = family;
+    state.visible = false;
+}
+
 function handleGetFamiliesAttributes() {
     axios
         .get(`${props.info.urls.get_families_attributes}?code=${props.info.attributeFamily3d}`)
         .then((response) => {
-            if(response.data.data.length) {
-                state.familyAttributes = response.data.data;
-                state.selectedFamilyAttribute =
-                    state.familyAttributes.length && state.familyAttributes[0];
+            state.familyAttributes = response.data.data;
+            if(props.info.attributeFamily3d) {
+                state.selectedFamilyAttribute = state.familyAttributes.length && state.familyAttributes[0];
             } else {
-                state.loading = false;
-                state.error = props.info.texts.family_not_found;
+                state.visible = true;
             }
         })
         .catch((error) => {
@@ -859,10 +865,10 @@ onMounted(() => {
                     </div>
                     <div class="border-t py-6 grid grid-cols-1 md:grid-cols-2">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
-                            <div class="grid grid-cols-3 gap-2">
+                            <div class="grid grid-cols-3 gap-2 items-center">
                                 <button
                                     @click="handleChangeQuantity('-')"
-                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                    class="mb-2 text-white bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 text-sm px-5  py-3 focus:outline-none flex gap-2 items-center justify-center"
                                 >
                                     -
                                 </button>
@@ -872,7 +878,7 @@ onMounted(() => {
                                 />
                                 <button
                                     @click="handleChangeQuantity('+')"
-                                    class="mb-2 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
+                                    class="mb-2 text-white bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 text-sm px-5 py-3 focus:outline-none flex gap-2 items-center justify-center"
                                 >
                                     +
                                 </button>
@@ -886,16 +892,16 @@ onMounted(() => {
                                 }}
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center">
                             <button
                                 @click="handleRestart"
-                                class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-3 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
+                                class="text-white bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 text-sm px-5 py-3 focus:outline-none flex gap-2 items-center justify-center"
                             >
                                 <span>{{info.texts.restart_values}}</span>
                             </button>
                             <button
                                 @click="handleAddtoCart(false)"
-                                class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
+                                class="text-white bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 text-sm px-5 py-3 focus:outline-none flex gap-2 items-center justify-center"
                             >
                                 <i
                                     v-if="state.loadingAddCart"
@@ -906,7 +912,7 @@ onMounted(() => {
                             </button>
                             <button
                                 @click="handleAddtoCart(true)"
-                                class="text-white bg-slate-700 hover:bg-slate-800 rounded-lg text-sm px-5 py-2.5 focus:outline-none flex gap-2 items-center justify-center"
+                                class="text-white bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 text-sm px-5 py-3 focus:outline-none flex gap-2 items-center justify-center"
                             >
                                 <i
                                     v-if="state.loadingBuyNow"
@@ -928,4 +934,9 @@ onMounted(() => {
             </div>
         </div>
     </div>
+    <Dialog v-model:visible="state.visible" :closable="false" :closeOnEscape="false" modal header="Selecciona un tipo de producto" :style="{ width: '25rem' }">
+        <div @click="handleSelectFamily(family)" class="border py-2 px-2 rounded-full mb-2 cursor-pointer bg-gray-700 hover:bg-indigo-500 text-white text-center transition-all duration-700" v-for="family in state.familyAttributes" :key="family.code">
+            {{ family.name}}
+        </div>
+    </Dialog>
 </template>

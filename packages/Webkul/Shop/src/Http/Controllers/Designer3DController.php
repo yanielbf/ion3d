@@ -27,7 +27,7 @@ class Designer3DController extends Controller
      */
     public function index()
     {
-        $attributeFamily = request()->query('attribute_family') ?? '3d_phone_cover';
+        $attributeFamily = request()->query('attribute_family');
         $attributes = request()->query('attributes') ?? [];
         
         $values = [];
