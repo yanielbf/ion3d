@@ -567,6 +567,8 @@ return [
     'design3d' => [
         'family_not_found' => 'El tipo de producto que desea personalizar no existe.',
         'custom_your_cover' => 'Personaliza tu producto',
+        'or' => 'o',
+        'change_family' => 'Selecciona otro tipo de producto',
         'select_attribute' => 'Seleccione un',
         'restart_values' => 'Restablecer valores',
         'add_to_cart_finish' => 'Agregar y comprar',

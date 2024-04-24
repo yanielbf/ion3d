@@ -118,6 +118,7 @@ function handleGetFamiliesAttributes() {
 
 function handleGetAttributes() {
     if (state.selectedFamilyAttribute) {
+        state.loading = true;
         axios
             .get(
                 `${props.info.urls.get_attributes_by_family}?familyId=${state.selectedFamilyAttribute.id}`
@@ -687,6 +688,7 @@ onMounted(() => {
                         optionValue="id"
                         :placeholder="`${info.texts.select_attribute} ${attribute.name}`"
                         class="w-full"
+                        showClear
                     />
                 </div>
             </div>
@@ -883,7 +885,7 @@ onMounted(() => {
                                     +
                                 </button>
                             </div>
-                            <div class="text-lg font-medium mb-3">
+                            <div class="text-lg font-medium">
                                 {{
                                     `${
                                         state.product.prices.final.price *
@@ -930,7 +932,9 @@ onMounted(() => {
                 class="w-full flex flex-col items-center justify-center h-[522px]"
             >
                 <EmptyState />
-                <div class="mt-2 text-gray-600 text-center">{{info.texts.custom_your_cover}}</div>
+                <div class="mt-2 text-gray-600 text-center mb-1">{{info.texts.custom_your_cover}}</div>
+                <div v-if="state.familyAttributes.length > 1" class="mt-2 text-gray-600 text-center mb-1">{{info.texts.or}}</div>
+                <div @click="state.visible = true" v-if="state.familyAttributes.length > 1" class="mt-2 py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5">{{info.texts.change_family}}</div>
             </div>
         </div>
     </div>

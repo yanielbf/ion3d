@@ -23,6 +23,8 @@
         'texts' => [
             'family_not_found' => trans('shop::app.design3d.family_not_found'),
             'custom_your_cover' => trans('shop::app.design3d.custom_your_cover'),
+            'or' => trans('shop::app.design3d.or'),
+            'change_family' => trans('shop::app.design3d.change_family'),
             'select_attribute' => trans('shop::app.design3d.select_attribute'),
             'restart_values' => trans('shop::app.design3d.restart_values'),
             'add_to_cart_finish' => trans('shop::app.design3d.add_to_cart_finish'),
