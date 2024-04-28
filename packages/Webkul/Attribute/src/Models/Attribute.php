@@ -102,7 +102,7 @@ class Attribute extends TranslatableModel implements AttributeContract
         }
 
         if ($this->type == 'file') {
-            $retVal = core()->getConfigData('catalog.products.attribute.file_attribute_upload_size') ?? '20048';
+            $retVal = core()->getConfigData('catalog.products.attribute.file_attribute_upload_size') ?? '90048';
 
             if ($retVal) {
                 $validations[] = 'size:'.$retVal;
@@ -110,7 +110,7 @@ class Attribute extends TranslatableModel implements AttributeContract
         }
 
         if ($this->type == 'image') {
-            $retVal = core()->getConfigData('catalog.products.attribute.image_attribute_upload_size') ?? '20048';
+            $retVal = core()->getConfigData('catalog.products.attribute.image_attribute_upload_size') ?? '90048';
 
             if ($retVal) {
                 $validations[] = 'size:'.$retVal.', mimes: ["image/bmp", "image/jpeg", "image/jpg", "image/png", "image/webp"]';

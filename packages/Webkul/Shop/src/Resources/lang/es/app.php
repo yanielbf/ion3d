@@ -331,7 +331,7 @@ return [
                 'bagisto'           => 'Bagisto',
                 'cart'              => 'Carrito',
                 'compare'           => 'Comparar',
-                'dropdown-text'     => 'Gestionar carrito, pedidos y lista de deseos',
+                'dropdown-text'     => 'Gestionar carrito y pedidos',
                 'logout'            => 'Cerrar sesión',
                 'no-category-found' => 'No se encontró categoría.',
                 'orders'            => 'Pedidos',
