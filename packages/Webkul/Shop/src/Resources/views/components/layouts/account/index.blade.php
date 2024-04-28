@@ -5,7 +5,7 @@
     </x-slot>
 
     <!-- Page Content -->
-    <div class="container px-[60px] max-lg:px-8 max-sm:px-4 mb-16">
+    <div class="container px-[60px] max-lg:px-8 max-sm:px-4 md:mb-16 mb-8">
         <x-shop::layouts.account.breadcrumb />
 
         <div class="flex gap-10 items-start mt-8 max-lg:gap-5 max-md:grid">

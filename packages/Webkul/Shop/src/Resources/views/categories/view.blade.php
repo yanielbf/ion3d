@@ -61,8 +61,8 @@
             type="text/x-template" 
             id="v-category-template"
         >
-            <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
-                <div class="flex gap-10 items-start md:mt-10 max-lg:gap-5">
+            <div class="container px-[60px] max-lg:px-8 max-sm:px-4 md:mb-16 mb-8">
+                <div class="grid md:grid-cols-[400px_auto] grid-cols-1 gap-10 items-start md:mt-10 max-lg:gap-5">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')
 
@@ -119,7 +119,7 @@
                         <div v-else class="mt-8">
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
-                                <div class="grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-sm:justify-items-center max-sm:gap-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-sm:justify-items-center max-sm:gap-4">
                                     <x-shop::shimmer.products.cards.grid count="12" />
                                 </div>
                             </template>
@@ -129,7 +129,7 @@
                             <!-- Product Card Listing -->
                             <template v-else>
                                 <template v-if="products.length">
-                                    <div class="grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-sm:justify-items-center max-sm:gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-sm:justify-items-center max-sm:gap-4">
                                         <x-shop::products.card
                                             ::mode="'grid'"
                                             v-for="product in products"

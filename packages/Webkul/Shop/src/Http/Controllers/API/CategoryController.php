@@ -58,7 +58,7 @@ class CategoryController extends APIController
      */
     public function getAttributes(): JsonResource
     {
-        if (! request('category_id')) {
+        if (!request('category_id')) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
 
             return AttributeResource::collection($filterableAttributes);
@@ -66,7 +66,7 @@ class CategoryController extends APIController
 
         $category = $this->categoryRepository->findOrFail(request('category_id'));
 
-        if (empty($filterableAttributes = $category->filterableAttributes)) {
+        if (empty($filterableAttributes = $category->filterableAttributes()->where('is_filterable', 1)->orderBy('position', 'ASC')->get())) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
         }
 

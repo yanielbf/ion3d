@@ -261,18 +261,18 @@
             methods: {
                 getFilters() {
                     this.$axios.get('{{ route("shop.api.categories.attributes") }}', {
-                            params: { 
-                                category_id: "{{ isset($category) ? $category->id : ''  }}",
-                            }
-                        })
-                        .then((response) => {
-                            this.isLoading = false;
+                        params: { 
+                            category_id: "{{ isset($category) ? $category->id : ''  }}",
+                        }
+                    })
+                    .then((response) => {
+                        this.isLoading = false;
 
-                            this.filters.available = response.data.data;
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
+                        this.filters.available = response.data.data;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
                 },
 
                 setFilters() {

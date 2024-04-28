@@ -23,7 +23,7 @@
 	</div>
 
     <!-- Compare Component -->
-    <div class="container px-[60px] max-lg:px-8 max-sm:px-4 mt-8">
+    <div class="container px-[60px] max-lg:px-8 max-sm:px-4 mt-8 md:mb-16 mb-8">
         <v-compare>
             <!---- Shimmer Effect -->
             <x-shop::shimmer.compare :attributeCount="count($comparableAttributes)" />

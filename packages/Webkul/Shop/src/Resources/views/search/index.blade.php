@@ -19,7 +19,7 @@
         {{ $title }}
     </x-slot>
 
-    <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
+    <div class="container px-[60px] max-lg:px-8 max-sm:px-4 md:mb-16 mb-8">
         @if (request()->has('image-search'))
             @include('shop::search.images.results')
         @endif
@@ -41,7 +41,7 @@
             type="text/x-template" 
             id="v-search-template"
         >
-            <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
+            <div class="container px-[60px] max-lg:px-8 max-sm:px-4 md:mb-16 mb-8">
                 <div class="flex gap-10 items-start md:mt-10 max-lg:gap-5">
                     <!-- Product Listing Filters -->
                     @include('shop::categories.filters')

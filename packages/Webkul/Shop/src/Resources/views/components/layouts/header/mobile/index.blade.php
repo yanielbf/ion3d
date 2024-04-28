@@ -66,11 +66,18 @@
                     </div>
 
                     <!-- Mobile category view -->
-                    <v-mobile-category></v-mobile-category>
+                    {{-- <v-mobile-category></v-mobile-category> --}}
+
+                    <a
+                        href="{{ route('shop.designer3d.index') }}"
+                        class="w-full block py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5"
+                    >
+                        @lang('shop::app.components.layouts.header.customize')
+                    </a>
 
                     <!-- Localization & Currency Section -->
                     <div class="absolute w-full flex bottom-0 left-0 bg-white shadow-lg p-4 gap-x-5 justify-between items-center mb-4">
-                        <x-shop::dropdown position="top-left">
+                        {{-- <x-shop::dropdown position="top-left">
                             <!-- Dropdown Toggler -->
                             <x-slot:toggle>
                                 <div class="w-full flex gap-2.5 justify-between items-center cursor-pointer" role="button">
@@ -89,7 +96,7 @@
                             <x-slot:content class="!p-0">
                                 <v-currency-switcher></v-currency-switcher>
                             </x-slot>
-                        </x-shop::dropdown>
+                        </x-shop::dropdown> --}}
 
                         <x-shop::dropdown position="top-right">
                             <x-slot:toggle>
@@ -122,7 +129,7 @@
 
                             <!-- Dropdown Content -->
                             <x-slot:content class="!p-0">
-                                <v-locale-switcher></v-locale-switcher>
+                                {{-- <v-locale-switcher></v-locale-switcher> --}}
                             </x-slot>
                         </x-shop::dropdown>
                     </div>

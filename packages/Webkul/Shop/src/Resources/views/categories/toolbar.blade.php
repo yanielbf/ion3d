@@ -20,7 +20,7 @@
                 <x-shop::dropdown position="bottom-left">
                     <x-slot:toggle>
                         <!-- Dropdown Toggler -->
-                        <button class="flex justify-between items-center gap-4 max-w-[200px] w-full p-3.5 rounded-lg bg-white border border-[#E9E9E9] text-base transition-all hover:border-gray-400 focus:border-gray-400 max-md:pr-2.5 max-md:pl-2.5 max-md:border-0 max-md:w-[110px] cursor-pointer">
+                        <button class="flex justify-between items-center gap-4 max-w-[400px] w-full p-3.5 rounded-lg bg-white border border-[#E9E9E9] text-base transition-all hover:border-gray-400 focus:border-gray-400 max-md:pr-2.5 max-md:pl-2.5 max-md:border-0 max-md:w-[110px] cursor-pointer">
                             @{{ sortLabel ?? "@lang('shop::app.products.sort-by.title')" }}
 
                             <span
