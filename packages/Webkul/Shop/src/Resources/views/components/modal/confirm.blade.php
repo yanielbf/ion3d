@@ -58,7 +58,7 @@
                                             @{{ options.btnDisagree }}
                                         </button>
 
-                                        <button type="button" class="primary-button" @click="agree">
+                                        <button type="button" class="primary-button bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0" @click="agree">
                                             @{{ options.btnAgree }} 
                                         </button>
                                     </div>

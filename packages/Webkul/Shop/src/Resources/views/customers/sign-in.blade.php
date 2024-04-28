@@ -40,7 +40,7 @@
         <div
             class="w-full max-w-[870px] m-auto px-[90px] p-16 border border-[#E9E9E9] rounded-xl max-md:px-8 max-md:py-8"
         >
-            <h1 class="text-4xl font-dmserif max-sm:text-2xl">
+            <h1 class="text-4xl max-sm:text-2xl">
                 @lang('shop::app.customers.login-form.page-title')
             </h1>
 
@@ -63,7 +63,7 @@
 
                         <x-shop::form.control-group.control
                             type="email"
-                            class="!p-[20px_25px] rounded-lg"
+                            class="rounded-lg"
                             name="email"
                             rules="required|email"
                             value=""
@@ -84,7 +84,7 @@
 
                         <x-shop::form.control-group.control
                             type="password"
-                            class="!p-[20px_25px] rounded-lg"
+                            class="rounded-lg"
                             id="password"
                             name="password"
                             rules="required|min:6"
@@ -142,7 +142,7 @@
                     <!-- Submit Button -->
                     <div class="flex gap-9 flex-wrap mt-8 items-center">
                         <button
-                            class="primary-button block w-full max-w-[374px] py-4 px-11 m-0 ltr:ml-0 rtl:mr-0 mx-auto rounded-2xl text-base text-center"
+                            class="primary-button block w-full max-w-[374px] py-4 px-11 m-0 ltr:ml-0 rtl:mr-0 mx-auto bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0 text-base text-center"
                             type="submit"
                         >
                             @lang('shop::app.customers.login-form.button-title')

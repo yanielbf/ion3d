@@ -4,7 +4,7 @@
 		@lang('shop::app.checkout.success.thanks')
     </x-slot>
 
-	<div class="container mt-8 px-[60px] max-lg:px-8">
+	<div class="container mt-8 px-[60px] max-lg:px-8 mb-16">
 		<div class="grid gap-y-5 place-items-center">
 			{{ view_render_event('bagisto.shop.checkout.success.image.before', ['order' => $order]) }}
 

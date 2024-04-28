@@ -107,7 +107,7 @@
                             <template v-else>
                                 <x-shop::button
                                     type="button"
-                                    class="primary-button w-max py-3 px-11 bg-navyBlue rounded-2xl max-sm:text-sm max-sm:px-6 max-sm:mb-10"
+                                    class="primary-button w-max py-3 px-11 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full max-sm:text-sm max-sm:px-6 max-sm:mb-10 border-0"
                                     :title="trans('shop::app.checkout.onepage.summary.place-order')"
                                     ::disabled="isPlacingOrder"
                                     ::loading="isPlacingOrder"

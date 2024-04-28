@@ -179,7 +179,7 @@
                 @guest('customer')
                     <x-slot:content>
                         <div class="grid gap-2.5">
-                            <p class="text-xl font-dmserif">
+                            <p class="text-xl">
                                 @lang('shop::app.components.layouts.header.welcome-guest')
                             </p>
 
@@ -195,14 +195,14 @@
 
                             <a
                                 href="{{ route('shop.customer.session.create') }}"
-                                class="primary-button block w-max px-7 mx-auto m-0 ltr:ml-0 rtl:mr-0 rounded-2xl text-base text-center"
+                                class="primary-button block w-max px-7 h-[40px] mx-auto m-0 ltr:ml-0 rtl:mr-0 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0 text-base text-center"
                             >
                                 @lang('shop::app.components.layouts.header.sign-in')
                             </a>
 
                             <a
                                 href="{{ route('shop.customers.register.index') }}"
-                                class="secondary-button block w-max m-0 ltr:ml-0 rtl:mr-0 mx-auto px-7 border-2 rounded-2xl text-base text-center"
+                                class="secondary-button block w-max m-0 h-[40px] ltr:ml-0 rtl:mr-0 mx-auto px-7 border-2 rounded-full text-base text-center"
                             >
                                 @lang('shop::app.components.layouts.header.sign-up')
                             </a>
@@ -216,8 +216,8 @@
                 @auth('customer')
                     <x-slot:content class="!p-0">
                         <div class="grid gap-2.5 p-5 pb-0">
-                            <p class="text-xl font-dmserif">
-                                @lang('shop::app.components.layouts.header.welcome')’
+                            <p class="text-xl">
+                                @lang('shop::app.components.layouts.header.welcome')
                                 {{ auth()->guard('customer')->user()->first_name }}
                             </p>
 
@@ -245,14 +245,14 @@
                                 @lang('shop::app.components.layouts.header.orders')
                             </a>
 
-                            @if (core()->getConfigData('general.content.shop.wishlist_option'))
+                            {{-- @if (core()->getConfigData('general.content.shop.wishlist_option'))
                                 <a
                                     class="px-5 py-2 text-base hover:bg-gray-100 cursor-pointer"
                                     href="{{ route('shop.customers.account.wishlist.index') }}"
                                 >
                                     @lang('shop::app.components.layouts.header.wishlist')
                                 </a>
-                            @endif
+                            @endif --}}
 
                             <!--Customers logout-->
                             @auth('customer')

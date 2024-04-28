@@ -48,10 +48,6 @@
                     </p>
                 </div>
 
-                <p class="text-base">
-                    @lang('shop::app.checkout.cart.mini-cart.offer-on-orders')
-                </p>
-
                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.header.after') !!}
             </x-slot>
 
@@ -89,7 +85,6 @@
 
                                 <a  class="max-w-4/5" :href="`{{ route('shop.product_or_category.index', '') }}/${item.product_url_key}`">
                                     <p
-                                        class="text-base font-medium"
                                         v-text="item.name"
                                     >
                                     </p>
@@ -99,7 +94,6 @@
 
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.price.before') !!}
                                 <p
-                                    class="text-lg"
                                     v-text="item.formatted_price"
                                 >
                                 </p>
@@ -146,7 +140,9 @@
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.product_details.after') !!}
                             </div>
                             <div v-if="item.additional.designs" v-for="(key, index) in Object.keys(item.additional.designs)" @class(['flex gap-2 justify-between items-center'])>
-                                <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" v-text="'Diseño ' + (index + 1)" @class(['bg-slate-500 rounded-xl px-2 py-1 text-sm text-white cursor-pointer'])></a>
+                                <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" @class(['bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full px-4 py-1 text-sm text-white cursor-pointer'])>
+                                    @lang('shop::app.checkout.cart.mini-cart.design') <span v-text="index + 1"></span>
+                                </a>
                                 <x-shop::quantity-changer
                                     class="gap-x-2.5 max-w-[150px] max-h-9 py-1.5 px-3.5 rounded-[54px]"
                                     name="quantity"
@@ -267,7 +263,7 @@
 
                         <a
                             href="{{ route('shop.checkout.onepage.index') }}"
-                            class="block w-full mx-auto py-4 px-11 bg-navyBlue rounded-2xl text-white text-base font-medium text-center cursor-pointer max-sm:px-5"
+                            class="bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 block w-full mx-auto py-3 px-11 text-white text-center cursor-pointer max-sm:px-5"
                         >
                             @lang('shop::app.checkout.cart.mini-cart.continue-to-checkout')
                         </a>

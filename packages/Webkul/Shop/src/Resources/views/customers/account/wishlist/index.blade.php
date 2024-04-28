@@ -144,13 +144,13 @@
                                                 <x-shop::quantity-changer
                                                     name="quantity"
                                                     ::value="item.options.quantity ?? 1"
-                                                    class="flex gap-x-2.5 items-center max-h-10 py-1.5 px-3.5 border border-navyBlue  rounded-[54px]"
+                                                    class="flex gap-x-2.5 items-center max-h-10 py-1.5 px-3.5 border border-navyBlue rounded-[54px]"
                                                     @change="setItemQuantity($event, item)"
                                                 />
 
                                                 <!--Wishlist Item Move-to-cart-->
                                                 <x-shop::button
-                                                    class="primary-button w-max max-h-10 py-1.5 px-6 rounded-2xl text-base text-center"
+                                                    class="primary-button w-max max-h-10 py-1.5 px-6 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0 text-base text-center"
                                                     :title="trans('shop::app.customers.account.wishlist.move-to-cart')"
                                                     ::loading="isMovingToCart[item.id]"
                                                     ::disabled="isMovingToCart[item.id]"

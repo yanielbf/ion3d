@@ -291,7 +291,7 @@
                 {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
 
                 <x-shop::button
-                    class="primary-button px-8 py-2.5 whitespace-nowrap"
+                    class="primary-button px-8 py-2.5 whitespace-nowrap bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0"
                     :title="trans('shop::app.components.products.card.add-to-cart')"
                     ::loading="isAddingToCart"
                     ::disabled="! product.is_saleable || isAddingToCart"

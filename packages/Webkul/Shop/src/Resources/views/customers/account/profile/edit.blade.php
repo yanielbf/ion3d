@@ -243,7 +243,7 @@
 
         <button
             type="submit"
-            class="primary-button block m-0 w-max py-3 px-11 rounded-2xl text-base text-center"
+            class="primary-button block m-0 w-max py-3 px-11 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0 text-base text-center"
         >
             @lang('shop::app.customers.account.profile.save')
         </button>

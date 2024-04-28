@@ -246,7 +246,7 @@
                         <!-- Proceed Button -->
                         <div class="flex justify-end mt-4">
                             <x-shop::button
-                                class="primary-button py-3 px-11 rounded-2xl"
+                                class="primary-button py-3 px-11 bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 border-0"
                                 :title="trans('shop::app.checkout.onepage.address.proceed')"
                                 ::loading="isStoring"
                                 ::disabled="isStoring"
@@ -315,7 +315,7 @@
                         <!-- Save Button -->
                         <div class="flex justify-end mt-4">
                             <x-shop::button
-                                class="primary-button py-3 px-11 rounded-2xl"
+                                class="primary-button py-3 px-11 bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 border-0"
                                 :title="trans('shop::app.checkout.onepage.address.save')"
                                 ::loading="isStoring"
                                 ::disabled="isStoring"

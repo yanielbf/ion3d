@@ -108,7 +108,7 @@
 
         <a
             href="{{ route('shop.checkout.onepage.index') }}"
-            class="primary-button place-self-end py-3 mt-4 px-11 rounded-2xl"
+            class="primary-button place-self-end py-3 mt-4 px-11 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0"
         >
             @lang('shop::app.checkout.cart.summary.proceed-to-checkout')
         </a>

@@ -120,7 +120,7 @@
 
                         <!-- Load More Button -->
                         <button
-                            class="secondary-button block mx-auto w-max py-3 mt-[60px] px-11 rounded-2xl text-base text-center"
+                            class="secondary-button block mx-auto w-max py-3 mt-[60px] px-11 rounded-full text-base text-center"
                             @click="loadMoreProducts"
                             v-if="links.next"
                         >

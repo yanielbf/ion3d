@@ -54,7 +54,6 @@
                                 <x-shop::form.control-group class="!mb-0">
                                     <x-shop::form.control-group.control
                                         type="text"
-                                        class="py-5 px-6"
                                         name="code"
                                         rules="required"
                                         :placeholder="trans('shop::app.checkout.cart.coupon.enter-your-code')"
@@ -82,7 +81,7 @@
                                     </div>
 
                                     <x-shop::button
-                                        class="primary-button flex-auto max-w-none py-3 px-11 rounded-2xl"
+                                        class="primary-button flex-auto max-w-none py-3 px-11 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0"
                                         :title="trans('shop::app.checkout.cart.coupon.button-title')"
                                         ::loading="isStoring"
                                         ::disabled="isStoring"

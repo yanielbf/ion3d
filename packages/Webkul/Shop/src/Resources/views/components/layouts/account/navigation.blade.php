@@ -36,7 +36,7 @@
 
     <!-- Account Navigation Menus -->
     @foreach ($menu->items as $menuItem)
-        <div class="max-md:border max-md:border-t-0 max-md:border-r max-md:border-l-[1px] max-md:border-b max-md:border-[#E9E9E9]   max-md:rounded-md">
+        <div class="max-md:border max-md:border-t-0 max-md:border-r max-md:border-l-[1px] max-md:border-b max-md:border-[#E9E9E9] max-md:rounded-md">
             <v-account-navigation>
                 <!-- Account Navigation Toggler -->
                 <div class="max-md:flex max-md:gap-x-4 max-md:justify-between max-md:items-center pb-5 max-md:bg-gray-100 max-md:px-6 max-md:py-5 max-md:rounded-tl-[6px] max-md:rounded-tr-[6px] accordian-toggle md:pointer-events-none select-none">
@@ -57,7 +57,7 @@
                         <a href="{{ $subMenuItem['url'] }}">
                             <div class="flex justify-between px-6 py-5 border-t border-[#E9E9E9] hover:bg-[#f3f4f682] cursor-pointer {{ request()->routeIs($subMenuItem['route']) ? 'bg-gray-100' : '' }}">
                                 <p class="flex gap-x-4 items-center text-lg font-medium">
-                                    <span class="{{ $subMenuItem['icon'] }}  text-2xl"></span>
+                                    <span class="{{ $subMenuItem['icon'] }} text-2xl"></span>
 
                                     @lang($subMenuItem['name'])
                                 </p>

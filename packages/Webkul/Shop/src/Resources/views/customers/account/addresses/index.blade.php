@@ -17,7 +17,7 @@
 
         <a
             href="{{ route('shop.customers.account.addresses.create') }}"
-            class="secondary-button flex gap-x-2.5 items-center py-3 px-5 border-[#E9E9E9] font-normal"
+            class="secondary-button py-2 px-8 border-[#E9E9E9] font-normal rounded-full"
         >
             <span class="icon-location text-2xl"></span>
 
@@ -143,7 +143,7 @@
                 title=""
             >
             
-            <p class="text-xl">
+            <p>
                 @lang('shop::app.customers.account.addresses.empty-address')
             </p>
         </div>    

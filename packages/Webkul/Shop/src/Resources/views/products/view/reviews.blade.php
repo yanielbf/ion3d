@@ -125,7 +125,7 @@
 
                             <div class="flex gap-4 justify-start max-sm:flex-wrap mt-4 max-sm:justify-center max-sm:mb-5 max-xl:mb-5">
                                 <button
-                                    class="primary-button w-full max-w-[374px] py-4 px-11 rounded-2xl text-center"
+                                    class="primary-button w-full max-w-[374px] py-4 px-11 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0 text-center"
                                     type='submit'
                                 >
                                     @lang('shop::app.products.view.reviews.submit-review')
@@ -133,7 +133,7 @@
                                 
                                 <button
                                     type="button"
-                                    class="secondary-button items-center px-8 py-2.5 rounded-2xl max-sm:w-full max-sm:max-w-[374px]"
+                                    class="secondary-button items-center px-8 py-2.5 rounded-full max-sm:w-full max-sm:max-w-[374px]"
                                     @click="canReview = false"
                                 >
                                     @lang('shop::app.products.view.reviews.cancel')
@@ -292,7 +292,7 @@
                 </p>
 
                 <button
-                    class="secondary-button min-h-[34px] mt-2.5 px-2 py-1 rounded-lg text-sm"
+                    class="secondary-button min-h-[34px] mt-2.5 px-2 py-1 rounded-full text-sm"
                     @click="translate"
                 >
                     <!-- Spinner -->

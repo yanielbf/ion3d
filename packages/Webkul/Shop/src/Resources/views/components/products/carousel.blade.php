@@ -1,5 +1,5 @@
 @php
- if($isCustomizable) {
+ if(isset($isCustomizable)) {
     $navigationLink = route('shop.designer3d.index');
     $textNavigationLink = __('shop::app.components.products.carousel.customize-product');
  } else {
@@ -10,7 +10,7 @@
 
 <v-products-carousel
     title="{{ $title }}"
-    is-customizable="{{ $isCustomizable }}"
+    is-customizable="{{ isset($isCustomizable) }}"
     src="{{ $src }}"
     navigation-link="{{ $navigationLink ?? '' }}"
     text-navigation-link="{{ $textNavigationLink ?? '' }}"

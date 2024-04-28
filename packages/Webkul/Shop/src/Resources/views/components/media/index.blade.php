@@ -47,7 +47,7 @@
                 >
                     <label 
                         for="file-input"
-                        class="primary-button block w-max m-0 mx-auto py-3 px-11 rounded-2xl text-base text-center"
+                        class="primary-button block w-max m-0 mx-auto py-3 px-11 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full border-0 text-base text-center"
                     >
                         @lang('shop::app.components.media.add-attachments')
                     </label>

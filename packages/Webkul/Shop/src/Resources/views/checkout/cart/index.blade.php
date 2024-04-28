@@ -346,7 +346,9 @@
                                         <p class="text-base font-medium mb-3" v-text="item.name" />
                                         <div v-for="(key, index) in Object.keys(item.additional.designs)" @class(['flex gap-2 justify-between items-center mb-4'])>
                                             <div @class(['flex gap-2 items-center'])>
-                                                <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" v-text="'Diseño ' + (index + 1)" @class(['bg-slate-500 rounded-xl px-2 py-1 text-sm text-white cursor-pointer'])></a>
+                                                <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" @class(['bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full px-4 py-1 text-sm text-white cursor-pointer'])>
+                                                    @lang('shop::app.checkout.cart.mini-cart.design') <span v-text="index + 1"></span>
+                                                </a>
                                                 <x-shop::quantity-changer
                                                     class="gap-x-2.5 max-w-[150px] max-h-9 py-1.5 px-3.5 rounded-[54px]"
                                                     name="quantity"
@@ -371,11 +373,11 @@
                             {!! view_render_event('bagisto.shop.checkout.cart.controls.before') !!}
         
                             <!-- Cart Item Actions -->
-                            <div class="flex flex-wrap gap-8 justify-end">
+                            <div class="flex flex-wrap gap-4 justify-end">
                                 {!! view_render_event('bagisto.shop.checkout.cart.continue_shopping.before') !!}
 
                                 <a
-                                    class="secondary-button max-h-[55px] rounded-2xl"
+                                    class="secondary-button max-h-[50px] rounded-full"
                                     href="{{ route('shop.home.index') }}"
                                 >
                                     @lang('shop::app.checkout.cart.index.continue-shopping')
@@ -386,7 +388,7 @@
                                 {!! view_render_event('bagisto.shop.checkout.cart.update_cart.before') !!}
 
                                 <x-shop::button
-                                    class="secondary-button max-h-[55px] rounded-2xl"
+                                    class="secondary-button max-h-[50px] rounded-full"
                                     :title="trans('shop::app.checkout.cart.index.update-cart')"
                                     ::loading="isStoring"
                                     ::disabled="isStoring"

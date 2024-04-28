@@ -74,3 +74,7 @@ Breadcrumbs::for('shop.customer.addresses.edit', function (BreadcrumbTrail $trai
 
     $trail->push(trans('shop::app.customer.account.address.edit.page-title'), route('shop.customer.addresses.edit', $id));
 });
+
+Breadcrumbs::for('shop.designer3d.index', function (BreadcrumbTrail $trail, $id) {
+    $trail->parent('shop.home.index');
+});

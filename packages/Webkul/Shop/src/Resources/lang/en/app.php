@@ -712,6 +712,7 @@ return [
                 'shopping-cart'        => 'Shopping Cart',
                 'subtotal'             => 'Subtotal',
                 'view-cart'            => 'View Cart',
+                'design'               => 'Design',
             ],
 
             'summary' => [

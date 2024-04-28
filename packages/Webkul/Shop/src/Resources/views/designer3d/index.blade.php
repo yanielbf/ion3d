@@ -16,7 +16,7 @@
     <x-slot:title>
         {{  $channel->home_seo['meta_title'] ?? '' }}
     </x-slot>
-    
+
     <x-shop::designer-3d
         :attribute-family-3d="$attribute_family_3d"
         :attributes-3d="$attributes_3d"

@@ -793,12 +793,12 @@ onMounted(() => {
                             <img :src="state.product.images[0].medium_image_url" />
                         </div>
                     </div>
-                    <div class="py-6 border-t grid" :class="{'grid-cols-[1fr_4fr_1fr]': info.enableScreenText, 'grid-cols-1': !info.enableScreenText}">
+                    <div class="py-6 border-t grid md:grid-cols-[1fr_4fr_1fr] grid-cols-1">
                         <div class="flex justify-start items-center">
                             <div
                                 @click="handleChangeSettingView"
                                 class="cursor-pointer"
-                                v-if="info.enableScreenText"
+                                v-if="info.enableScreenText" 
                             >
                                 <span
                                     class="pi pi-arrow-circle-left text-slate-700 hover:text-slate-500"
@@ -834,7 +834,7 @@ onMounted(() => {
                                     @input="handleText"
                                 />
                             </div>
-                            <div class="mb-5 items-center gap-6 w-1/2">
+                            <div class="mb-5 items-center gap-6 w-full md:w-1/2">
                                 <div class="mb-2">{{info.texts.text_size}}</div>
                                 <div class="flex flex-wrap gap-3">
                                     <div
@@ -844,7 +844,7 @@ onMounted(() => {
                                             'bg-red-400 text-white':
                                                 item === state.textSize,
                                         }"
-                                        class="cursor-pointer rounded-xl px-2 py-1 flex justify-center items-center bg-gray-300"
+                                        class="cursor-pointer rounded-full px-4 py-1 flex justify-center items-center bg-gray-300"
                                         @click="handleChangeSize(item)"
                                     >
                                         {{ fontSize[item] }}
@@ -856,7 +856,7 @@ onMounted(() => {
                             <div
                                 @click="handleChangeSettingView"
                                 class="cursor-pointer"
-                                v-if="info.enableScreenText"
+                                v-if="info.enableScreenText" 
                             >
                                 <span
                                     class="pi pi-arrow-circle-right text-slate-700 hover:text-slate-500"
@@ -865,6 +865,26 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
+                    <div class="flex gap-2 justify-center mb-3 md:hidden" v-if="!info.enableScreenText">
+                        <div
+                            @click="handleChangeSettingView"
+                            class="cursor-pointer"
+                        >
+                            <span
+                                class="pi pi-arrow-circle-left text-slate-700 hover:text-slate-500"
+                                style="font-size: 2rem"
+                            ></span>
+                        </div>
+                        <div
+                            @click="handleChangeSettingView"
+                            class="cursor-pointer"
+                        >
+                            <span
+                                class="pi pi-arrow-circle-right text-slate-700 hover:text-slate-500"
+                                style="font-size: 2rem"
+                            ></span>
+                        </div>
+                    </div> 
                     <div class="border-t py-6 grid grid-cols-1 md:grid-cols-2">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center">
                             <div class="grid grid-cols-3 gap-2 items-center">
