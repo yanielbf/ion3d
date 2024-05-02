@@ -58,8 +58,6 @@ class ProductController extends Controller
 
         $families = $this->attributeFamilyRepository->all();
 
-        //dd($families);
-
         return view('admin::catalog.products.index', compact('families'));
     }
 

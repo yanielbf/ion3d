@@ -86,6 +86,7 @@ import VueKonva from 'vue-konva';
 import PrimeVue from 'primevue/config';
 import Lara from './presets/lara';
 import Designer3D from './components/Designer3D.vue';
+import Show2DViewModal from './components/Show2DViewModal.vue';
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import { CoFacebookF, CoInstagram, CoTiktok, CoTelegram, CoYoutube } from "oh-vue-icons/icons/co";
 import 'primeicons/primeicons.css'
@@ -105,6 +106,7 @@ addIcons(CoFacebookF, CoInstagram, CoTiktok, CoTelegram, CoYoutube);
 app.use(PrimeVue, { unstyled: true, pt: Lara });
 
 app.component('v-designer-3d', Designer3D);
+app.component('v-show-2d-view', Show2DViewModal);
 app.component("v-icon", OhVueIcon);
 
 /**

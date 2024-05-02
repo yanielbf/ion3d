@@ -312,6 +312,8 @@ async function init3d() {
             draco: true,
         });
 
+        console.log('Nodes:', nodes);
+
         const keys = Object.keys(nodes).filter(
             (key) => ![1, 2].includes(key.toString().length) && key !== "Scene"
         );
@@ -703,7 +705,7 @@ onMounted(() => {
             </div>
             <div v-if="!state.loadingProduct && state.product" class="grid grid-cols-1 gap-2">
                 <div id="viewer" class="rounded-lg">
-                    <div ref="screenShot">
+                    <div>
                         <div
                             v-show="state.view == '3D'"
                             data-html2canvas-ignore="true"
@@ -739,15 +741,16 @@ onMounted(() => {
                                 class="w-full h-[500px] pt-10 pb-5 flex justify-center items-center"
                             >
                                 <div
+                                    ref="screenShot"
                                     :class="{
                                         [`border-[${state.borderColorSelected.color}]`]: true,
                                         [`bg-[${state.backColorSelected.color}]`]: true,
                                     }"
                                     class="w-[70%] md:w-1/3 max-w-[240px] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
                                 >
-                                    <div class="flex justify-end">
+                                    <div class="flex justify-start">
                                         <div
-                                            class="w-[40%] h-[75%] mt-3 rounded-lg border-white bg-white mr-3"
+                                            class="w-[40%] h-[75%] mt-3 ml-3 rounded-lg border-white bg-white"
                                         ></div>
                                     </div>
                                     <div

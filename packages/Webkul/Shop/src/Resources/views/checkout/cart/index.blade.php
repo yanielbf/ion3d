@@ -346,9 +346,10 @@
                                         <p class="text-base font-medium mb-3" v-text="item.name" />
                                         <div v-for="(key, index) in Object.keys(item.additional.designs)" @class(['flex gap-2 justify-between items-center mb-4'])>
                                             <div @class(['flex gap-2 items-center'])>
-                                                <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" @class(['bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full px-4 py-1 text-sm text-white cursor-pointer'])>
-                                                    @lang('shop::app.checkout.cart.mini-cart.design') <span v-text="index + 1"></span>
-                                                </a>
+                                                <v-show-2d-view
+                                                    :index="index + 1"
+                                                    :imageSrc="`/storage/covers/${item.additional.designs[key].filename}`"
+                                                />
                                                 <x-shop::quantity-changer
                                                     class="gap-x-2.5 max-w-[150px] max-h-9 py-1.5 px-3.5 rounded-[54px]"
                                                     name="quantity"

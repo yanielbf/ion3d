@@ -130,7 +130,9 @@ class AttributeRepository extends Repository
      */
     public function getFilterableAttributes()
     {
-        return $this->model->with(['options', 'options.translations'])->where('is_filterable', 1)->orderBy('position', 'ASC')->get();
+        return $this->model->with(['options' => function ($option) {
+            return $option->where('is_enabled', 1);
+        }, 'options.translations'])->where('is_filterable', 1)->orderBy('position', 'ASC')->get();
     }
 
     /**

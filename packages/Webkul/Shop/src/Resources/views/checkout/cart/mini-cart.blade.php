@@ -7,6 +7,10 @@
     ></span>
 </v-mini-cart>
 
+@php
+    $text = trans('shop::app.design3d.loading_modal_3d');
+@endphp
+
 @pushOnce('scripts')
     <script
         type="text/x-template"
@@ -139,23 +143,26 @@
 
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.product_details.after') !!}
                             </div>
-                            <div v-if="item.additional.designs" v-for="(key, index) in Object.keys(item.additional.designs)" @class(['flex gap-2 justify-between items-center'])>
-                                <a target='_blank' :href="`/storage/covers/${item.additional.designs[key].filename}`" @class(['bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full px-4 py-1 text-sm text-white cursor-pointer'])>
-                                    @lang('shop::app.checkout.cart.mini-cart.design') <span v-text="index + 1"></span>
-                                </a>
-                                <x-shop::quantity-changer
-                                    class="gap-x-2.5 max-w-[150px] max-h-9 py-1.5 px-3.5 rounded-[54px]"
-                                    name="quantity"
-                                    ::value="item.additional.designs[key].quantity"
-                                    @change="updateItemDesign($event, item, item.additional.designs[key].hash)"
-                                />
-                                <button
-                                    type="button"
-                                    class="text-[#0A49A7]"
-                                    @click="updateItemDesign(0, item, item.additional.designs[key].hash)"
-                                >
-                                    @lang('shop::app.checkout.cart.mini-cart.remove')
-                                </button>
+                            <div v-if="item.additional.designs" v-for="(key, index) in Object.keys(item.additional.designs)">
+                                <div @class(['flex gap-2 justify-between items-center'])>
+                                    <v-show-2d-view
+                                        :index="index + 1"
+                                        :imageSrc="`/storage/covers/${item.additional.designs[key].filename}`"
+                                    />
+                                    <x-shop::quantity-changer
+                                        class="gap-x-2.5 max-w-[150px] max-h-9 py-1.5 px-3.5 rounded-[54px]"
+                                        name="quantity"
+                                        ::value="item.additional.designs[key].quantity"
+                                        @change="updateItemDesign($event, item, item.additional.designs[key].hash)"
+                                    />
+                                    <button
+                                        type="button"
+                                        class="text-[#0A49A7]"
+                                        @click="updateItemDesign(0, item, item.additional.designs[key].hash)"
+                                    >
+                                        @lang('shop::app.checkout.cart.mini-cart.remove')
+                                    </button>
+                                </div>
                             </div>
                             <div v-else class="flex gap-5 items-center flex-wrap">
                                 {!! view_render_event('bagisto.shop.checkout.mini-cart.drawer.content.quantity_changer.before') !!}
@@ -288,11 +295,9 @@
     <script type="module">
         app.component("v-mini-cart", {
             template: '#v-mini-cart-template',
-
             data() {
                 return  {
                     cart: null,
-
                     isLoading:false,
                 }
             },

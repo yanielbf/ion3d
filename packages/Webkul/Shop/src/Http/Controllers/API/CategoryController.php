@@ -69,7 +69,7 @@ class CategoryController extends APIController
         if (empty($filterableAttributes = $category->filterableAttributes()->where('is_filterable', 1)->orderBy('position', 'ASC')->get())) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
         }
-
+        //$category->filterableAttributes()->where('is_filterable', 1)->orderBy('position', 'ASC')->ddRawSql();
         return AttributeResource::collection($filterableAttributes);
     }
 

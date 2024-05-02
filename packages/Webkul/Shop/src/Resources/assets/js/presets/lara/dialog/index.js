@@ -52,7 +52,7 @@ export default {
         ]
     },
     title: {
-        class: ['font-bold text-lg']
+        class: ['font-bold text-lg w-full']
     },
     icons: {
         class: ['flex items-center']
