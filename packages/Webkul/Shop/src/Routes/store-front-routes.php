@@ -26,21 +26,21 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
      */
     Route::get('/', [HomeController::class, 'index'])
         ->name('shop.home.index')
-        ->middleware(['cacheResponse', 'cookie-consent']);
+        ->middleware(['cacheResponse']);
 
     /**
      * CMS pages.
      */
     Route::get('page/{slug}', [PageController::class, 'view'])
         ->name('shop.cms.page')
-        ->middleware(['cacheResponse', 'cookie-consent']);
+        ->middleware(['cacheResponse']);
 
     /**
      * Store front home.
      */
     Route::get('/designer3d', [Designer3DController::class, 'index'])
         ->name('shop.designer3d.index')
-        ->middleware(['cacheResponse', 'cookie-consent']);
+        ->middleware(['cacheResponse']);
 
     /**
      * Store front search.

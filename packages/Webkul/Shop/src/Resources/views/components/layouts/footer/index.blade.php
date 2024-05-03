@@ -31,8 +31,8 @@
             >
           </a>
           <div class="mt-6 flex items-center justify-between w-full max-w-xl mx-auto flex-col 2xl:flex-col 2xl:items-start">
-            <ul class="mb-6 md:mb-0">
-                <li class="flex">
+            <ul class="mb-6 md:mb-0 flex flex-col gap-3">
+                <li class="flex items-center">
                     <div class="flex h-10 w-10 items-center justify-center rounded bg-gray-700 text-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -43,11 +43,11 @@
                             </path>
                         </svg>
                     </div>
-                    <div class="ml-4 mb-4">
+                    <div class="ml-4">
                         <p class="text-gray-600 text-sm">{{$customization?->options['settings']['address']}}</p>
                     </div>
                 </li>
-                <li class="flex">
+                <li class="flex items-center">
                     <div class="flex h-10 w-10 items-center justify-center rounded bg-gray-700 text-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -59,12 +59,12 @@
                             <path d="M15 3a6 6 0 0 1 6 6"></path>
                         </svg>
                     </div>
-                    <div class="ml-4 mb-4">
+                    <div class="ml-4">
                         <p class="text-gray-600 text-sm">{{$customization?->options['settings']['phone']}}</p>
                         <p class="text-gray-600 text-sm">{{$customization?->options['settings']['email']}}</p>
                     </div>
                 </li>
-                <li class="flex">
+                <li class="flex items-center">
                     <div class="flex h-10 w-10 items-center justify-center rounded bg-gray-700 text-gray-50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -73,7 +73,7 @@
                             <path d="M12 7v5l3 3"></path>
                         </svg>
                     </div>
-                    <div class="ml-4 mb-4">
+                    <div class="ml-4">
                         @php
                             $hours = explode(';', $customization?->options['settings']['hours']);
                         @endphp
