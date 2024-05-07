@@ -11,7 +11,7 @@
     >
         <div class="flex flex-col">
             <div class="bg-white border rounded-3xl p-4">
-                <div class="grid grid-cols-1 md:grid-cols-[1.2fr_2fr]">
+                <div class="grid grid-cols-1 md:grid-cols-[1.2fr_2fr] cursor-pointer" @click="goToProduct(product)">
                     <div class="h-full w-full lg:mb-0 mb-3">
                         <x-shop::media.images.lazy
                             class="w-full object-scale-down lg:object-cover lg:h-36 rounded-2xl border"
@@ -334,9 +334,6 @@
                 },
 
                 addToCompare(productId) {
-                    /**
-                     * This will handle for customers.
-                     */
                     if (this.isCustomer) {
                         this.$axios.post('{{ route("shop.api.compare.store") }}', {
                                 'product_id': productId
@@ -443,6 +440,10 @@
                         url+=`&attributes[]=${key}-${product.attributes_values_3d[key]}`;
                     });
                     window.location.href = url;
+                },
+
+                goToProduct(product) {
+                    window.location.href = product.sku;
                 },
 
                 handleCreateHash(codeCover) {

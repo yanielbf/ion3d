@@ -801,7 +801,7 @@ onMounted(() => {
                             <div
                                 @click="handleChangeSettingView"
                                 class="cursor-pointer"
-                                v-if="!info.enableScreenText" 
+                                v-if="info.enableScreenText" 
                             >
                                 <span
                                     class="pi pi-arrow-circle-left text-slate-700 hover:text-slate-500"
