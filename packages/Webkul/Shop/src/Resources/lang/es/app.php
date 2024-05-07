@@ -345,6 +345,8 @@ return [
                 'welcome-guest'     => 'Bienvenido, Invitado',
                 'wishlist'          => 'Lista de deseos',
                 'customize'         => 'Perzonaliza ahora',
+                'sign-login'        => 'Regístrate o inicia sesión',
+                'hello'             => 'Hola',
             ],
     
             'footer' => [
@@ -565,6 +567,7 @@ return [
     ],
 
     'design3d' => [
+        'designer3d' => 'Diseñador 3D',
         'family_not_found' => 'El tipo de producto que desea personalizar no existe.',
         'custom_your_cover' => 'Personaliza tu producto',
         'or' => 'o',
@@ -732,6 +735,7 @@ return [
                 'postcode'         => 'Código postal',
                 'proceed'          => 'Continuar',
                 'same-as-billing'  => '¿Usar la misma dirección para el envío?',
+                'accept-terms'      => '¿Está de acuerdo con nuestros términos y condiciones?',
                 'save-address'     => 'Guardar en la libreta de direcciones',
                 'save'             => 'Guardar',
                 'select-country'   => 'Seleccionar país',

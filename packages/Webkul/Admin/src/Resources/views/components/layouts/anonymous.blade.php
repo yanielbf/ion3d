@@ -69,9 +69,7 @@
 
     @stack('scripts')
 
-    <script type="text/javascript">
-        {!! core()->getConfigData('general.content.custom_scripts.custom_javascript') !!}
-    </script>
+    {!! core()->getConfigData('general.content.custom_scripts.custom_javascript') !!}
 </body>
 
 </html>

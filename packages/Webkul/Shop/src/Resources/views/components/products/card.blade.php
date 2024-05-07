@@ -273,7 +273,7 @@
 
                 {!! view_render_event('bagisto.shop.components.products.card.price.after') !!}
 
-                <p class="text-sm text-[#6E6E6E]" v-if="! product.avg_ratings">
+                <p class="text-sm text-[#6E6E6E]" v-if="!product.avg_ratings">
                     @lang('shop::app.components.products.card.review-description')
                 </p>
 

@@ -68,14 +68,15 @@
             methods: {
                 increase() {
                     this.$emit('change', ++this.quantity);
+                    this.$emitter.emit('quantity-change', this.quantity);
                 },
 
                 decrease() {
-                    // if (this.quantity > 1) {
-                    //     this.quantity -= 1;
-                    // }
-                    this.quantity -= 1;
-                    this.$emit('change', this.quantity);
+                    if (this.quantity > 1) {
+                        this.quantity -= 1;
+                        this.$emit('change', this.quantity);
+                        this.$emitter.emit('quantity-change', this.quantity);
+                    }
                 },
             }
         });

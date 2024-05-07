@@ -345,6 +345,8 @@ return [
                 'welcome-guest'     => 'Welcome Guest',
                 'wishlist'          => 'Wishlist',
                 'customize'         => 'Customize now',
+                'sign-login'         => 'Sign up or Login',
+                'hello'             => 'Hello',
             ],
 
             'footer' => [
@@ -565,6 +567,7 @@ return [
     ],
 
     'design3d' => [
+        'designer3d' => 'Designer 3D',
         'family_not_found' => 'The type of product you want to customize does not exist.',
         'custom_your_cover' => 'Customize your product',
         'or' => 'or',
@@ -743,6 +746,7 @@ return [
                 'postcode'         => 'Zip/Postcode',
                 'proceed'          => 'Proceed',
                 'same-as-billing'  => 'Use same address for shipping?',
+                'accept-terms'      => 'Do you agree with our terms and conditions?',
                 'save-address'     => 'Save this to address book',
                 'save'             => 'Save',
                 'select-country'   => 'Select Country',

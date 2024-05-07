@@ -52,7 +52,7 @@
             <!-- Confirm Modal Blade Component -->
             <x-shop::modal.confirm />
 
-            <div class="grid grid-rows-[90px,auto,80px] md:grid-rows-[140px,auto,80px] grid-cols-[120px,auto] min-h-screen">
+            <div class="grid grid-rows-[90px,auto,80px,50px] md:grid-rows-[80px,auto,80px,50px] grid-cols-[120px,auto] min-h-screen">
                 @if ($hasHeader)
                     <div class="col-span-2 row-span-1">
                         <x-shop::layouts.header />
@@ -69,6 +69,7 @@
                 @if ($hasFooter)
                     <div class="col-span-2 row-span-1">
                         <x-shop::layouts.footer />
+                        <a href="#" class="block pdcc-open-modal text-center w-full col-span-3 p-2 border-t bg-gray-100 cursor-pointer">Cookies</a>
                     </div>
                 @endif
             </div>

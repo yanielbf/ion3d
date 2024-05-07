@@ -50,7 +50,7 @@
                                 href="{{ route('shop.customer.session.create') }}"
                                 class="flex text-base font-medium"
                             >
-                                @lang('Sign up or Login')
+                                @lang('shop::app.components.layouts.header.sign-login')
 
                                 <i class="icon-double-arrow text-2xl ltr:ml-2.5 rtl:mr-2.5"></i>
                             </a>
@@ -58,7 +58,7 @@
 
                         @auth('customer')
                             <div class="flex flex-col gap-2.5 justify-between">
-                                <p class="text-2xl font-mediums">Hello! {{ auth()->user()?->first_name }}</p>
+                                <p class="text-2xl font-mediums"> @lang('shop::app.components.layouts.header.hello') {{ auth()->user()?->first_name }}</p>
 
                                 <p class="text-[#6E6E6E] ">{{ auth()->user()?->email }}</p>
                             </div>
@@ -129,7 +129,7 @@
 
                             <!-- Dropdown Content -->
                             <x-slot:content class="!p-0">
-                                {{-- <v-locale-switcher></v-locale-switcher> --}}
+                                <v-locale-switcher></v-locale-switcher>
                             </x-slot>
                         </x-shop::dropdown>
                     </div>

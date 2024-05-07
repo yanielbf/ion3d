@@ -71,7 +71,7 @@
                     <div
                         class="overflow-y-auto"
                         id="steps-container"
-                    >
+                    >   
                         <!-- Included Addresses Blade File -->
                         <template v-if="['address', 'shipping', 'payment', 'review'].includes(currentStep)">
                             @include('shop::checkout.onepage.address')
@@ -85,6 +85,30 @@
                         <!-- Included Payment Methods Blade File -->
                         <template v-if="['payment', 'review'].includes(currentStep)">
                             @include('shop::checkout.onepage.payment')
+
+                            <x-shop::form.control-group
+                                class="flex items-center gap-2.5 !mb-0"
+                                v-if="cart.have_stockable_items"
+                            >
+                                <x-shop::form.control-group.control
+                                    type="checkbox"
+                                    name="billing.use_for_shipping"
+                                    id="use_for_accept_terms"
+                                    for="use_for_accept_terms"
+                                    value="1"
+                                    @change="acceptTerms = !acceptTerms"
+                                    ::checked="!!acceptTerms"
+                                />
+
+                                <a
+                                    target="_blank"
+                                    href="/page/terms-conditions"
+                                    class="text-base max-sm:text-xs ltr:pl-0 rtl:pr-0 select-none cursor-pointer text-indigo-500 hover:text-indigo-400"
+                                    for="use_for_accept_terms"
+                                >
+                                    @lang('shop::app.checkout.onepage.address.accept-terms')
+                                </a>
+                            </x-shop::form.control-group>
                         </template>
                     </div>
 
@@ -94,7 +118,7 @@
 
                         <div
                             class="flex justify-end"
-                            v-if="canPlaceOrder"
+                            v-if="canPlaceOrder & acceptTerms"
                         >
                             <template v-if="cart.payment_method == 'paypal_smart_button'">
                                 {!! view_render_event('bagisto.shop.checkout.onepage.summary.paypal_smart_button.before') !!}
@@ -139,6 +163,8 @@
                         paymentMethods: null,
 
                         canPlaceOrder: false,
+
+                        acceptTerms: false,
                     }
                 },
 
@@ -158,7 +184,6 @@
                             })
                             .catch(error => {});
                     },
-
                     stepForward(step) {
                         this.currentStep = step;
 

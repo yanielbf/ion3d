@@ -80,8 +80,8 @@ class ProductsCategoriesProxyController extends Controller
             }
 
             visitor()->visit($product);
-            return redirect('/');
-            // return view('shop::products.view', compact('product'));
+            // return redirect('/');
+            return view('shop::products.view', compact('product'));
         }
 
         /**

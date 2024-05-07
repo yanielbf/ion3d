@@ -28,7 +28,7 @@
 
     @isset($content)
         <template v-slot:content>
-            <div {{ $content->attributes->merge(['class' => 'px-4 py-2.5 border-b dark:border-gray-800']) }}>
+            <div {{ $content->attributes->merge(['class' => 'px-4 py-2.5 border-b dark:border-gray-800 overflow h-[500px]']) }}>
                 {{ $content }}
             </div>
         </template>

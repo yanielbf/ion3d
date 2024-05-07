@@ -96,3 +96,15 @@ Breadcrumbs::for('product', function (BreadcrumbTrail $trail, $entity) {
     $trail->parent('home');
     $trail->push($entity->name, route('shop.product_or_category.index', $entity->url_key));
 });
+
+// Home > Category
+Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $entity) {
+    $trail->parent('home');
+    $trail->push($entity->name, route('shop.product_or_category.index', $entity->url));
+});
+
+// Home > Design 3D
+Breadcrumbs::for('design3d', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(trans('shop::app.design3d.designer3d'));
+});

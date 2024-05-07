@@ -1,11 +1,13 @@
 @php
- if(isset($isCustomizable)) {
-    $navigationLink = route('shop.designer3d.index');
-    $textNavigationLink = __('shop::app.components.products.carousel.customize-product');
- } else {
-    $navigationLink = route('shop.search.index');
-    $textNavigationLink = __('shop::app.components.products.carousel.view-all');
- }
+//  if(isset($isCustomizable)) {
+//     $navigationLink = route('shop.designer3d.index');
+//     $textNavigationLink = __('shop::app.components.products.carousel.customize-product');
+//  } else {
+//     $navigationLink = route('shop.search.index');
+//     $textNavigationLink = __('shop::app.components.products.carousel.view-all');
+//  }
+$navigationLink = route('shop.designer3d.index');
+$textNavigationLink = __('shop::app.components.products.carousel.customize-product');
 @endphp
 
 <v-products-carousel

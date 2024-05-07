@@ -105,7 +105,7 @@ function handleGetFamiliesAttributes() {
         .get(`${props.info.urls.get_families_attributes}?code=${props.info.attributeFamily3d}`)
         .then((response) => {
             state.familyAttributes = response.data.data;
-            if(props.info.attributeFamily3d) {
+            if(state.familyAttributes.length == 1 || props.info.attributeFamily3d) {
                 state.selectedFamilyAttribute = state.familyAttributes.length && state.familyAttributes[0];
             } else {
                 state.visible = true;
@@ -724,7 +724,7 @@ onMounted(() => {
                                     <TresPerspectiveCamera
                                         :position="[3, 2, -210]"
                                     />
-                                    <OrbitControls :enableZoom="false" />
+                                    <OrbitControls :enableZoom="true" :min-distance="1" :max-distance="200" />
                                     <Suspense>
                                         <primitive :object="scene" />
                                     </Suspense>
@@ -801,7 +801,7 @@ onMounted(() => {
                             <div
                                 @click="handleChangeSettingView"
                                 class="cursor-pointer"
-                                v-if="info.enableScreenText" 
+                                v-if="!info.enableScreenText" 
                             >
                                 <span
                                     class="pi pi-arrow-circle-left text-slate-700 hover:text-slate-500"

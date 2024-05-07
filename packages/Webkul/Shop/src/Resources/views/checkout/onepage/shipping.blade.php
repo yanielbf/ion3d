@@ -17,7 +17,7 @@
         id="v-shipping-methods-template"
     >
         <div class="mb-7">
-            <template v-if="! methods">
+            <template v-if="!methods">
                 <!-- Shipping Method Shimmer Effect -->
                 <x-shop::shimmer.checkout.onepage.shipping-method />
             </template>

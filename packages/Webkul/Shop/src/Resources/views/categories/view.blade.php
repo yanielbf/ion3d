@@ -19,6 +19,14 @@
 
     {!! view_render_event('bagisto.shop.categories.view.banner_path.before') !!}
 
+    <!-- Breadcrumbs -->
+    <div class="flex justify-center max-lg:hidden">
+        <x-shop::breadcrumbs
+            name="category"
+            :entity="$category"
+        />
+    </div>
+
     <!-- Hero Image -->
     @if ($category->banner_path)
         <div class="container mt-8 px-[60px] max-lg:px-8 max-sm:px-4">

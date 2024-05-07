@@ -69,7 +69,7 @@
     </v-product>
 
     <!-- Information Section -->
-    <div class="1180:mt-20">
+    <div class="1180:mt-20 mb-20">
         <x-shop::tabs position="center">
             <!-- Description Tab -->
             {!! view_render_event('bagisto.shop.products.view.description.before', ['product' => $product]) !!}
@@ -80,7 +80,7 @@
                 :is-selected="true"
             >
                 <div class="container mt-[60px] max-1180:px-5">
-                    <p class="text-[#6E6E6E] text-lg max-1180:text-sm">
+                    <p class="text-[#6E6E6E] max-1180:text-sm">
                         {!! $product->description !!}
                     </p>
                 </div>
@@ -137,13 +137,13 @@
             @endif
 
             <!-- Reviews Tab -->
-            <x-shop::tabs.item
+            {{-- <x-shop::tabs.item
                 class="container mt-[60px] !p-0 max-1180:hidden"
                 :title="trans('shop::app.products.view.review')"
                 :is-selected="false"
             >
                 @include('shop::products.view.reviews')
-            </x-shop::tabs.item>
+            </x-shop::tabs.item> --}}
         </x-shop::tabs>
     </div>
 
@@ -270,6 +270,7 @@
                         type="hidden" 
                         name="quantity" 
                         :value="qty"
+                        ref="qty"
                     >
 
                     <div class="container px-[60px] max-1180:px-0">
@@ -285,39 +286,9 @@
                                     <h1 class="text-3xl font-medium max-sm:text-xl">
                                         {{ $product->name }}
                                     </h1>
-
-                                    @if (core()->getConfigData('general.content.shop.wishlist_option'))
-                                        <div
-                                            class="flex items-center justify-center min-w-[46px] min-h-[46px] max-h-[46px] bg-white border border-black rounded-full text-2xl transition-all hover:opacity-[0.8] cursor-pointer"
-                                            role="button"
-                                            aria-label="@lang('shop::app.products.view.add-to-wishlist')"
-                                            tabindex="0"
-                                            :class="isWishlist ? 'icon-heart-fill' : 'icon-heart'"
-                                            @click="addToWishlist"
-                                        >
-                                        </div>
-                                    @endif
                                 </div>
 
                                 {!! view_render_event('bagisto.shop.products.name.after', ['product' => $product]) !!}
-
-                                <!-- Rating -->
-                                {!! view_render_event('bagisto.shop.products.rating.before', ['product' => $product]) !!}
-
-                                <div class="flex gap-4 items-center mt-4">
-                                    <x-shop::products.star-rating 
-                                        :value="$avgRatings"
-                                        :is-editable=false
-                                    />
-
-                                    <div class="flex gap-4 items-center">
-                                        <p class="text-[#6E6E6E] text-sm">
-                                            ({{ $product->approved_reviews->count() }} @lang('reviews'))
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {!! view_render_event('bagisto.shop.products.rating.after', ['product' => $product]) !!}
 
                                 <!-- Pricing -->
                                 {!! view_render_event('bagisto.shop.products.price.before', ['product' => $product]) !!}
@@ -349,7 +320,7 @@
 
                                 {!! view_render_event('bagisto.shop.products.short_description.before', ['product' => $product]) !!}
 
-                                <p class="mt-6 text-lg text-[#6E6E6E] max-sm:text-sm max-sm:mt-4">
+                                <p class="mt-6 text-[#6E6E6E] max-sm:text-sm max-sm:mt-4">
                                     {!! $product->short_description !!}
                                 </p>
 
@@ -365,15 +336,16 @@
 
 
                                 <!-- Product Actions and Qunatity Box -->
-                                <div class="flex gap-4 max-w-[470px] mt-8">
+                                <div class="flex gap-4 mt-8">
 
                                     {!! view_render_event('bagisto.shop.products.view.quantity.before', ['product' => $product]) !!}
 
                                     @if ($product->getTypeInstance()->showQuantityBox())
                                         <x-shop::quantity-changer
+                                            v-if="!isLoading && product"
                                             name="quantity"
                                             value="1"
-                                            class="gap-x-4 py-4 px-7 rounded-xl"
+                                            class="gap-x-4 py-2 px-7 rounded-xl"
                                         />
                                     @endif
 
@@ -382,15 +354,26 @@
                                     <!-- Add To Cart Button -->
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
 
-                                    <x-shop::button
-                                        type="submit"
-                                        class="secondary-button w-full max-w-full"
-                                        button-type="secondary-button"
-                                        :loading="false"
-                                        :title="trans('shop::app.products.view.add-to-cart')"
-                                        :disabled="! $product->isSaleable(1)"
-                                        ::loading="isStoring.addToCart"
-                                    />
+                                    <div
+                                        v-if="!isLoading && product"
+                                        class="cursor-pointer text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
+                                        :loading="isAddingToCart"
+                                        @click="addToCart"
+                                    >
+                                        <i
+                                            v-if="isAddingToCart"
+                                            class="pi pi-spin pi-spinner flex justify-center items-center mr-2"
+                                            style="font-size: 1rem"
+                                        />
+                                        @lang('shop::app.components.products.card.buy')
+                                    </div>
+                                    <div
+                                        v-if="!isLoading && product && product.customizable"
+                                        class="cursor-pointer text-center w-full px-5 py-2 shadow-sm tracking-wider bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700"
+                                        @click="goToDesigner"
+                                    >
+                                        @lang('shop::app.components.products.card.customize')
+                                    </div>
 
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.after', ['product' => $product]) !!}
                                 </div>
@@ -453,51 +436,115 @@
 
                 data() {
                     return {
+                        product: null,
                         isWishlist: Boolean("{{ (boolean) auth()->guard()->user()?->wishlist_items->where('channel_id', core()->getCurrentChannel()->id)->where('product_id', $product->id)->count() }}"),
-
                         isCustomer: '{{ auth()->guard('customer')->check() }}',
-
                         is_buy_now: 0,
-
                         isStoring: {
                             addToCart: false,
-
                             buyNow: false,
                         },
+                        isLoading: true,
+                        isAddingToCart: false,
+                        quantity: 1
                     }
                 },
-
+                mounted() {
+                    this.getProduct();
+                    this.$emitter.on('quantity-change', (qty) => {
+                        this.quantity = qty;
+                    })
+                },
                 methods: {
-                    addToCart(params) {
-                        const operation = this.is_buy_now ? 'buyNow' : 'addToCart';
+                    getProduct() {
+                        this.$axios.get("{{ route('shop.api.products.index') }}")
+                        .then(response => {
+                            this.product = response.data.data.find(x => x.id == this.productId);
+                        }).catch(error => {
+                            console.log(error);
+                        }).finally(() => {
+                            this.isLoading = false;
+                        });
+                    },
 
-                        this.isStoring[operation] = true;
+                    // addToCart(params) {
+                    //     const operation = this.is_buy_now ? 'buyNow' : 'addToCart';
 
-                        let formData = new FormData(this.$refs.formData);
+                    //     this.isStoring[operation] = true;
 
-                        this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                }
-                            })
+                    //     let formData = new FormData(this.$refs.formData);
+
+                    //     this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
+                    //             headers: {
+                    //                 'Content-Type': 'multipart/form-data'
+                    //             }
+                    //         })
+                    //         .then(response => {
+                    //             if (response.data.message) {
+                    //                 this.$emitter.emit('update-mini-cart', response.data.data);
+
+                    //                 this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+
+                    //                 if (response.data.redirect) {
+                    //                     window.location.href= response.data.redirect;
+                    //                 }
+                    //             } else {
+                    //                 this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                    //             }
+
+                    //             this.isStoring[operation] = false;
+                    //         })
+                    //         .catch(error => {
+                    //             this.isStoring[operation] = false;
+                    //         });
+                    // },
+
+                    addToCart() {
+                        let url = '{{ route("shop.api.checkout.cart.store") }}';
+                        let hash = this.handleCreateHash(`product_${this.product.id}_back_1_83BE01_side_1_057EB5_text__fontSize_20.png`);
+                        let data = {
+                            quantity: this.quantity,
+                            product_id: this.product.id,
+                        }
+                        if(this.product.customizable) {
+                            url = '{{ route("shop.api.checkout.cart.store_design") }}';
+                            data = {
+                                quantity: this.quantity,
+                                product_id: this.product.id,
+                                image: null,
+                                hash: hash,
+                                design: {
+                                    [hash]: {
+                                        filename: `default.png`,
+                                        quantity: this.quantity,
+                                    },
+                                },
+                            }
+                        }
+                        this.isAddingToCart = true;
+                        this.$axios.post(url, data)
                             .then(response => {
                                 if (response.data.message) {
-                                    this.$emitter.emit('update-mini-cart', response.data.data);
-
+                                    this.$emitter.emit('update-mini-cart', response.data.data );
                                     this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
-
-                                    if (response.data.redirect) {
-                                        window.location.href= response.data.redirect;
-                                    }
                                 } else {
                                     this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
                                 }
-
-                                this.isStoring[operation] = false;
                             })
                             .catch(error => {
-                                this.isStoring[operation] = false;
+                                this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
+                            }).finally(() => {
+                                this.isAddingToCart = false;
                             });
+                    },
+
+                    goToDesigner() {
+                        const attributes = '';
+                        let url = '{{ route("shop.designer3d.index") }}?attribute_family=' + this.product.attribute_family;
+                        Object.keys(this.product.attributes_values_3d).forEach(key => {
+                            url+=`&attributes[]=${key}-${this.product.attributes_values_3d[key]}`;
+                        });
+                        window.location.href = url;
                     },
 
                     addToWishlist() {
@@ -507,7 +554,6 @@
                                 })
                                 .then(response => {
                                     this.isWishlist = ! this.isWishlist;
-
                                     this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
                                 })
                                 .catch(error => {});
@@ -579,6 +625,14 @@
 
                         return value;
                     },
+
+                    handleCreateHash(codeCover) {
+                        let hash = 0;
+                        for (let i = 0; i < codeCover.length; i++) {
+                            hash += codeCover.charCodeAt(i);
+                        }
+                        return hash.toString(16);
+                    }
                 },
             });
         </script>
