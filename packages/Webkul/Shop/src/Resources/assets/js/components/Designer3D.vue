@@ -81,6 +81,16 @@ const codeCover = computed(
         }_fontSize_${state.textSize}`
 );
 
+const price = computed(() => {
+    if(state.product && state.product.prices.final)
+        return `${state.product.prices.final.price * state.quantity} ${props.info.currency}`;
+    else if(state.product && state.product.prices.regular)
+        return `${state.product.prices.regular.price * state.quantity} ${props.info.currency}`;
+    else {
+        return `0 ${props.info.currency}`;
+    }
+})
+
 // General
 function handleCreateHash() {
     let hash = 0;
@@ -156,6 +166,7 @@ function handleGetProduct() {
             .get(url)
             .then((response) => {
                 state.product = response.data?.data;
+                console.log(state.product)
             })
             .catch((error) => {
                 state.errorProduct = error;
@@ -327,6 +338,7 @@ async function init3d() {
         ) {
             console.log(state.pieces);
             console.log(materials);
+            state.loading3D = false;
             throw new Exception(
                 "El objecto glb no esta en el formato esperado"
             );
@@ -344,10 +356,10 @@ async function init3d() {
         });
 
         scene.add(group);
+        state.loading3D = false;
     } catch (error) {
-        console.log(error);
+        console.log("No se pudo cargar el modelo 3D", error);
         state.error3D = "No se pudo cargar el modelo 3D";
-    } finally {
         state.loading3D = false;
     }
 }
@@ -910,10 +922,7 @@ onMounted(() => {
                             </div>
                             <div class="text-lg font-medium">
                                 {{
-                                    `${
-                                        state.product.prices.final.price *
-                                        state.quantity
-                                    } ${info.currency}`
+                                    price
                                 }}
                             </div>
                         </div>

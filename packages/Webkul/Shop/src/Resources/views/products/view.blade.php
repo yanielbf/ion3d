@@ -355,10 +355,10 @@
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
 
                                     <div
-                                        v-if="!isLoading && product"
-                                        class="cursor-pointer text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
+                                        v-if="!isLoading && product && product.customizable"
+                                        class="cursor-pointer flex gap-2 text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
                                         :loading="isAddingToCart"
-                                        @click="addToCart"
+                                        @click="addToCartCustomizable"
                                     >
                                         <i
                                             v-if="isAddingToCart"
@@ -380,7 +380,8 @@
 
                                 <!-- Buy Now Button -->
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
-
+								
+								<div v-if="!product.customizable">
                                 @if (core()->getConfigData('catalog.products.storefront.buy_now_button_display'))
                                     <x-shop::button
                                         type="submit"
@@ -392,13 +393,14 @@
                                         @click="is_buy_now=1;"
                                     />
                                 @endif
+								</div>
 
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}
 
                                 {!! view_render_event('bagisto.shop.products.view.additional_actions.before', ['product' => $product]) !!}
 
                                 <!-- Share Buttons -->
-                                <div class="flex gap-9 mt-10 max-sm:flex-wrap max-sm:justify-center">
+                                <div class="flex mt-10 max-sm:flex-wrap max-sm:justify-center">
                                     {!! view_render_event('bagisto.shop.products.view.compare.before', ['product' => $product]) !!}
 
                                     <div
@@ -467,39 +469,39 @@
                         });
                     },
 
-                    // addToCart(params) {
-                    //     const operation = this.is_buy_now ? 'buyNow' : 'addToCart';
+                    addToCart(params) {
+                         const operation = this.is_buy_now ? 'buyNow' : 'addToCart';
 
-                    //     this.isStoring[operation] = true;
+                         this.isStoring[operation] = true;
 
-                    //     let formData = new FormData(this.$refs.formData);
+                         let formData = new FormData(this.$refs.formData);
 
-                    //     this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
-                    //             headers: {
-                    //                 'Content-Type': 'multipart/form-data'
-                    //             }
-                    //         })
-                    //         .then(response => {
-                    //             if (response.data.message) {
-                    //                 this.$emitter.emit('update-mini-cart', response.data.data);
+                         this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', formData, {
+                                 headers: {
+                                     'Content-Type': 'multipart/form-data'
+                                 }
+                             })
+                             .then(response => {
+                                 if (response.data.message) {
+                                     this.$emitter.emit('update-mini-cart', response.data.data);
 
-                    //                 this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                                     this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
-                    //                 if (response.data.redirect) {
-                    //                     window.location.href= response.data.redirect;
-                    //                 }
-                    //             } else {
-                    //                 this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
-                    //             }
+                                     if (response.data.redirect) {
+                                         window.location.href= response.data.redirect;
+                                     }
+                                 } else {
+                                     this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
+                                 }
 
-                    //             this.isStoring[operation] = false;
-                    //         })
-                    //         .catch(error => {
-                    //             this.isStoring[operation] = false;
-                    //         });
-                    // },
+                                 this.isStoring[operation] = false;
+                             })
+                             .catch(error => {
+                                 this.isStoring[operation] = false;
+                             });
+                     },
 
-                    addToCart() {
+                    addToCartCustomizable() {
                         let url = '{{ route("shop.api.checkout.cart.store") }}';
                         let hash = this.handleCreateHash(`product_${this.product.id}_back_1_83BE01_side_1_057EB5_text__fontSize_20.png`);
                         let data = {

@@ -40,10 +40,11 @@ class ProductResource extends JsonResource
                 $carry[strval($item->id)] = $item->code;
                 return $carry;
             }, []);
-            
-            foreach ($attributes as $key => $value) {
+			
+			foreach ($attributes as $key => $value) {
                 $aux = $this->attribute_values->firstWhere('attribute_id', $key);
-                $attributesValues[$value] = $aux['integer_value'];
+				if(isset($aux))
+                	$attributesValues[$value] = $aux['integer_value'];
             }
         }
 
