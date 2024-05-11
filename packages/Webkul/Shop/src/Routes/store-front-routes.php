@@ -11,6 +11,7 @@ use Webkul\Shop\Http\Controllers\SearchController;
 use Webkul\Shop\Http\Controllers\SubscriptionController;
 use Webkul\Shop\Http\Controllers\ContactController;
 use Spatie\Honeypot\ProtectAgainstSpam;
+use Illuminate\Support\Facades\DB;
 
 Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
 
@@ -83,5 +84,19 @@ Route::group(['middleware' => ['locale', 'theme', 'currency']], function () {
         Route::get('product/{id}/{attribute_id}', 'download')->defaults('_config', [
             'view' => 'shop.products.index',
         ])->name('shop.product.file.download');
+    });
+
+    Route::get('/restore/data-delete', function() {
+        $defaultLocale = config('app.locale');
+
+        DB::table('attribute_families')->insert([
+            [
+                'id'              => 1,
+                'code'            => 'default',
+                'name'            => trans('installer::app.seeders.attribute.attribute-families.default', [], $defaultLocale),
+                'status'          => 0,
+                'is_user_defined' => 1,
+            ],
+        ]);
     });
 });

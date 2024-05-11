@@ -174,7 +174,7 @@
                 </x-slot>
 
                 <x-slot:content>
-                    <div class="container mb-4 max-1180:px-5">
+                    <div class="container my-4 max-1180:px-5">
                         <div class="grid gap-4 grid-cols-[auto_1fr] max-w-max text-[#6E6E6E] text-lg max-1180:text-sm">
                             @foreach ($customAttributeValues as $customAttributeValue)
                                 @if (! empty($customAttributeValue['value']))
@@ -217,7 +217,7 @@
         @endif
 
         <!-- Reviews Accordion -->
-        <x-shop::accordion class="bg-gray-100" :is-active="false">
+        <!--x-shop::accordion class="bg-gray-100" :is-active="false">
             <x-slot:header>
                 <p class="text-base font-medium 1180:hidden">
                     @lang('shop::app.products.view.review')
@@ -227,7 +227,7 @@
             <x-slot:content>
                 @include('shop::products.view.reviews')
             </x-slot>
-        </x-shop::accordion>
+        </x-shop::accordion -->
     </div>
 
     <!-- Featured Products -->

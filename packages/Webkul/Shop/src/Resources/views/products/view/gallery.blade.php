@@ -61,7 +61,7 @@
 
                 <!-- Media shimmer Effect -->
                 <div
-                    class="max-w-[560px] max-h-[610px]"
+                    class="w-full md:max-w-[560px] max-h-[610px]"
                     v-show="isMediaLoading"
                 >
                     <div class="min-w-[560px] min-h-[607px] bg-[#E9E9E9] rounded-xl shimmer"></div>
@@ -72,7 +72,7 @@
                     v-show="!isMediaLoading"
                 >
                     <img
-                        class="min-w-[450px] rounded-xl" 
+                        class="w-full md:min-w-[450px] rounded-xl" 
                         :src="baseFile.path" 
                         v-if="baseFile.type == 'image'"
                         alt="{{ $product->name }}"
