@@ -213,7 +213,7 @@
       </div>
       <!--Grid-->
       <div class="px-6 lg:px-3 py-3 border-t border-gray-200">
-        <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-1 md:gap-4">
+        <div class="grid grid-cols-1 text-center gap-1 md:gap-4">
             <span class="text-sm text-gray-500 ">@lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])</span>
             {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
             <!-- News Letter subscription -->

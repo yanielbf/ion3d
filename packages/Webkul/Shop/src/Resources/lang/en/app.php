@@ -449,7 +449,7 @@ return [
             'card' => [
                 'customize'                   => 'Personalizar',
                 'buy'                         => 'Comprar',
-                'add-to-cart'                 => 'Add To Cart',
+                'add-to-cart'                 => 'I want it',
                 'add-to-compare'              => 'Add To Compare',
                 'add-to-compare-success'      => 'Item added successfully to compare list.',
                 'add-to-wishlist'             => 'Add To Wishlist',
@@ -545,7 +545,7 @@ return [
                 'write-a-review'   => 'Write a Review',
             ],
 
-            'add-to-cart'            => 'Add To Cart',
+            'add-to-cart'            => 'I want it',
             'add-to-compare'         => 'Product added in compare.',
             'add-to-wishlist'        => 'Add To Wishlist',
             'additional-information' => 'Additional Information',
@@ -569,9 +569,10 @@ return [
     'design3d' => [
         'designer3d' => 'Designer 3D',
         'family_not_found' => 'The type of product you want to customize does not exist.',
+        'not_product_found' => 'Product not found',
         'custom_your_cover' => 'Customize your product',
         'or' => 'or',
-        'change_family' => 'Select another producto type',
+        'change_family' => 'Select another product type',
         'select_attribute' => 'Select a',
         'restart_values' => 'Reset values',
         'add_to_cart_finish' => 'Add and purchase',
@@ -650,7 +651,7 @@ return [
             'illegal'                   => 'Quantity cannot be lesser than one.',
             'inactive'                  => 'The item has been deactivated and subsequently removed from the cart.',
             'inventory-warning'         => 'The requested quantity is not available, please try again later.',
-            'item-add-to-cart'          => 'Item Added Successfully',
+            'item-add-to-cart'          => 'Item added successfully',
             'minimum-order-message'     => 'Minimum order amount is :amount',
             'missing-fields'            => 'Some required fields missing for this product.',
             'missing-options'           => 'Options are missing for this product.',

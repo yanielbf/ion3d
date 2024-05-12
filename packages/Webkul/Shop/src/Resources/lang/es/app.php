@@ -439,7 +439,7 @@ return [
     
             'confirm' => [
                 'agree-btn'    => 'Aceptar',
-                'disagree-btn' => 'No estar de acuerdo',
+                'disagree-btn' => 'No estoy de acuerdo',
                 'message'      => '¿Estás seguro de que quieres realizar esta acción?',
                 'title'        => '¿Estás seguro?',
             ],
@@ -449,7 +449,7 @@ return [
             'card' => [
                 'customize'              => 'Personalizar',
                 'buy'                    => 'Comprar',
-                'add-to-cart'            => 'Agregar al carrito',
+                'add-to-cart'            => 'Lo quiero',
                 'add-to-compare'         => 'Agregar a comparar',
                 'add-to-compare-success' => 'Elemento añadido correctamente a la lista de comparación.',
                 'add-to-wishlist'        => 'Agregar a la lista de deseos',
@@ -545,7 +545,7 @@ return [
                 'write-a-review'   => 'Escribir una reseña',
             ],
     
-            'add-to-cart'            => 'Agregar al carrito',
+            'add-to-cart'            => 'Lo quiero',
             'add-to-compare'         => 'Producto añadido a la lista de comparación.',
             'add-to-wishlist'        => 'Agregar a la lista de deseos',
             'additional-information' => 'Información adicional',
@@ -569,13 +569,14 @@ return [
     'design3d' => [
         'designer3d' => 'Diseñador 3D',
         'family_not_found' => 'El tipo de producto que desea personalizar no existe.',
+        'not_product_found' => 'Producto no encontrado',
         'custom_your_cover' => 'Personaliza tu producto',
         'or' => 'o',
         'change_family' => 'Selecciona otro tipo de producto',
         'select_attribute' => 'Seleccione un',
         'restart_values' => 'Restablecer valores',
         'add_to_cart_finish' => 'Agregar y comprar',
-        'add_to_cart' => 'Agregar al carrito',
+        'add_to_cart' => 'Lo quiero',
         'back_piece' => 'Parte trasera',
         'side_piece' => 'Borde',
         'text_print' => 'Texto',

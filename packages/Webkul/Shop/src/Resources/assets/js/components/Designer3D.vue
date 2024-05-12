@@ -926,7 +926,7 @@ onMounted(() => {
                                 }}
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 items-right h-[50px]">
                             <button
                                 @click="handleRestart"
                                 class="text-white bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 text-sm px-5 py-3 focus:outline-none flex gap-2 items-center justify-center"
@@ -942,9 +942,9 @@ onMounted(() => {
                                     class="pi pi-spin pi-spinner"
                                     style="font-size: 1rem"
                                 />
-                                <span>{{info.texts.add_to_cart}}</span>
+                                <span v-if="!state.loadingAddCart">{{info.texts.add_to_cart}}</span>
                             </button>
-                            <button
+                            <!-- <button
                                 @click="handleAddtoCart(true)"
                                 class="text-white bg-gray-700 hover:bg-indigo-500 rounded-full transition-all duration-700 text-sm px-5 py-3 focus:outline-none flex gap-2 items-center justify-center"
                             >
@@ -953,8 +953,8 @@ onMounted(() => {
                                     class="pi pi-spin pi-spinner"
                                     style="font-size: 1rem"
                                 />
-                                <span>{{info.texts.add_to_cart_finish}}</span>
-                            </button>
+                                <span v-if="!state.loadingBuyNow">{{info.texts.add_to_cart_finish}}</span>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -964,9 +964,9 @@ onMounted(() => {
                 class="w-full flex flex-col items-center justify-center h-[522px]"
             >
                 <EmptyState />
-                <div class="mt-2 text-gray-600 text-center mb-1">{{info.texts.custom_your_cover}}</div>
-                <div v-if="state.familyAttributes.length > 1" class="mt-2 text-gray-600 text-center mb-1">{{info.texts.or}}</div>
-                <div @click="state.visible = true" v-if="state.familyAttributes.length > 1" class="mt-2 py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5">{{info.texts.change_family}}</div>
+                <div v-if="!Object.keys(state.selectedAttributes).every((x) => state.selectedAttributes[x])" class="mt-2 text-gray-600 text-center mb-1">{{info.texts.custom_your_cover}}</div>
+                <div v-if="Object.keys(state.selectedAttributes).every((x) => state.selectedAttributes[x])" class="mt-2 text-gray-600 text-center mb-1">{{info.texts.not_product_found}}</div>
+                <div v-if="state.familyAttributes.length > 1" @click="state.visible = true" class="mt-2 py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5">{{info.texts.change_family}}</div>
             </div>
         </div>
     </div>

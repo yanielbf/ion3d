@@ -355,7 +355,7 @@
                                     {!! view_render_event('bagisto.shop.products.view.add_to_cart.before', ['product' => $product]) !!}
 
                                     <div
-                                        v-if="!isLoading && product && product.customizable"
+                                        v-if="product && product.customizable && !isLoading"
                                         class="cursor-pointer flex gap-2 text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
                                         :loading="isAddingToCart"
                                         @click="addToCartCustomizable"
@@ -365,10 +365,10 @@
                                             class="pi pi-spin pi-spinner flex justify-center items-center mr-2"
                                             style="font-size: 1rem"
                                         />
-                                        @lang('shop::app.components.products.card.buy')
+                                        <span v-if="!isAddingToCart">@lang('shop::app.components.products.card.buy')</span>
                                     </div>
                                     <div
-                                        v-if="!isLoading && product && product.customizable"
+                                        v-if="product && product.customizable && !isLoading"
                                         class="cursor-pointer text-center w-full px-5 py-2 shadow-sm tracking-wider bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700"
                                         @click="goToDesigner"
                                     >
@@ -381,18 +381,28 @@
                                 <!-- Buy Now Button -->
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.before', ['product' => $product]) !!}
 								
-								<div v-if="!product.customizable">
-                                @if (core()->getConfigData('catalog.products.storefront.buy_now_button_display'))
+								<div v-if="product && !product.customizable" class="mt-8 flex gap-3 h-[45px] items-center">
                                     <x-shop::button
                                         type="submit"
-                                        class="primary-button w-full max-w-[470px] mt-5"
+                                        class="primary-button w-full text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
                                         button-type="secondary-button"
-                                        :title="trans('shop::app.products.view.buy-now')"
+                                        :loading="false"
+                                        :title="trans('shop::app.products.view.add-to-cart')"
                                         :disabled="! $product->isSaleable(1)"
-                                        ::loading="isStoring.buyNow"
-                                        @click="is_buy_now=1;"
+                                        ::loading="isStoring.addToCart"
                                     />
-                                @endif
+
+                                    @if (core()->getConfigData('catalog.products.storefront.buy_now_button_display'))
+                                        <x-shop::button
+                                            type="submit"
+                                            class="primary-button w-full text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
+                                            button-type="secondary-button"
+                                            :title="trans('shop::app.products.view.buy-now')"
+                                            :disabled="! $product->isSaleable(1)"
+                                            ::loading="isStoring.buyNow"
+                                            @click="is_buy_now=1;"
+                                        />
+                                    @endif
 								</div>
 
                                 {!! view_render_event('bagisto.shop.products.view.buy_now.after', ['product' => $product]) !!}

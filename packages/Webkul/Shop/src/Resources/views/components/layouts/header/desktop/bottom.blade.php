@@ -50,7 +50,7 @@
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.before') !!}
 
         <!-- Search Bar Container -->
-        {{-- <div class="relative w-full">
+        <div class="relative w-full">
             <form
                 action="{{ route('shop.search.index') }}"
                 class="flex items-center max-w-[445px]"
@@ -82,7 +82,7 @@
                     @include('shop::search.images.index')
                 @endif
             </form>
-        </div> --}}
+        </div>
 
         {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.search_bar.after') !!}
 
@@ -92,7 +92,7 @@
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.bottom.compare.before') !!}
             <a
                 href="{{ route('shop.designer3d.index') }}"
-                class="py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5"
+                class="py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5 w-[200px]"
             >
                 @lang('shop::app.components.layouts.header.customize')
             </a>

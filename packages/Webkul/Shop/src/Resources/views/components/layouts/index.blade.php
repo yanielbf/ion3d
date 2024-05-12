@@ -78,7 +78,7 @@
                 <x-shop::layouts.footer />
             @endif
 
-            <a href="#" class="pdcc-open-modal text-center block p-2 border-t bg-gray-100 cursor-pointer">Cookies</a>
+            <a href="#" class="pdcc-open-modal text-center block p-2 border-t bg-gray-100 cursor-pointer rounded-l-lg absolute right-0 top-20">Cookies</a>
         </div>
 
         {!! view_render_event('bagisto.shop.layout.body.after') !!}

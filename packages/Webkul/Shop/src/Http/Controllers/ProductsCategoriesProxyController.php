@@ -70,6 +70,10 @@ class ProductsCategoriesProxyController extends Controller
 
         $product = $this->productRepository->findBySlug($slugOrURLKey);
 
+        if ($product->customizable) {
+            return redirect()->to('/');
+        }
+
         if ($product) {
             if (
                 ! $product->url_key
@@ -80,7 +84,6 @@ class ProductsCategoriesProxyController extends Controller
             }
 
             visitor()->visit($product);
-            // return redirect('/');
             return view('shop::products.view', compact('product'));
         }
 

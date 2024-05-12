@@ -270,6 +270,7 @@ class ProductRepository extends Repository
             'status'               => 1,
             'visible_individually' => 1,
             'url_key'              => null,
+            'customizable'         => 0
         ], request()->input());
 
         if (!empty($params['query'])) {
@@ -286,7 +287,6 @@ class ProductRepository extends Repository
             'reviews',
         ])->scopeQuery(function ($query) use ($params) {
             $prefix = DB::getTablePrefix();
-
             $qb = $query->distinct()
                 ->select('products.*')
                 ->leftJoin('products as variants', DB::raw('COALESCE('.$prefix.'variants.parent_id, '.$prefix.'variants.id)'), '=', 'products.id')
@@ -331,6 +331,7 @@ class ProductRepository extends Repository
                 'status',
                 'visible_individually',
                 'url_key',
+                'customizable'
             ]);
 
             /**
@@ -356,6 +357,8 @@ class ProductRepository extends Repository
                     } else {
                         $qb->where($alias.'.text_value', 'like', '%'.urldecode($params['url_key']).'%');
                     }
+                } elseif ($attribute->code == 'customizable') {
+                    $qb->where($alias.'.'.$attribute->column_name, 0);
                 } else {
                     if (is_null($params[$attribute->code])) {
                         continue;

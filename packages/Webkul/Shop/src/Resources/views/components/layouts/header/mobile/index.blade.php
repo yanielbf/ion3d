@@ -70,7 +70,7 @@
 
                     <a
                         href="{{ route('shop.designer3d.index') }}"
-                        class="w-full block py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5"
+                        class="block py-2 px-4 bg-gray-700 hover:bg-indigo-800 transition-all duration-700 rounded-full shadow-xs text-white text-sm text-center cursor-pointer max-sm:px-5"
                     >
                         @lang('shop::app.components.layouts.header.customize')
                     </a>
@@ -291,7 +291,7 @@
     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.before') !!}
 
     <!-- Serach Catalog Form -->
-    {{-- <form action="{{ route('shop.search.index') }}" class="flex items-center w-full">
+    <form action="{{ route('shop.search.index') }}" class="flex items-center w-full">
         <label 
             for="organic-search" 
             class="sr-only"
@@ -317,7 +317,7 @@
                 @include('shop::search.images.index')
             @endif
         </div>
-    </form> --}}
+    </form>
 
     {!! view_render_event('bagisto.shop.components.layouts.header.mobile.search.after') !!}
 </div>

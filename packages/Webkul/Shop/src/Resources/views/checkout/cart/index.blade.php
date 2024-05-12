@@ -158,8 +158,7 @@
                             >
                                 <div
                                     v-if="!item.additional.designs"
-                                    class="grid gap-y-6" 
-                                    v-for="item in cart?.items"
+                                    class="grid gap-y-6"
                                 >
                                     <div class="flex gap-x-2.5 justify-between flex-wrap pb-5 border-b border-[#E9E9E9]">
                                         <div class="flex gap-x-5">
@@ -466,6 +465,7 @@
                         this.$axios.get('{{ route('shop.api.checkout.cart.index') }}')
                             .then(response => {
                                 this.cart = response.data.data;
+                                console.log(this.cart)
 
                                 this.isLoading = false;
 

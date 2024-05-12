@@ -29,19 +29,13 @@
                     </div>
                 </div>
                 <div class="flex p-2 mt-3 border-t border-gray-200"></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm font-medium">
-                    <x-shop::button
-                        class="text-center w-full px-5 py-2 shadow-sm tracking-wider bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700"
-                        :title="trans('shop::app.components.products.card.customize')"
-                        v-if="product.customizable"
-                        @click="goToDesigner(product)"
-                    />
+                <div class="grid grid-cols-1 gap-3 text-sm font-medium">
                     <x-shop::button
                         class="text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
-                        :title="trans('shop::app.components.products.card.buy')"
+                        :title="trans('shop::app.components.products.card.add-to-cart')"
                         ::loading="isAddingToCart"
                         ::disabled="!product.is_saleable || isAddingToCart"
-                        @click="addToCart()"
+                        @click="addToCart"
                     />
                 </div>
             </div>
@@ -387,7 +381,8 @@
                     return JSON.parse(value);
                 },
 
-                addToCart() {
+                addToCart(e) {
+                    e.stopPropagation();
                     let url = '{{ route("shop.api.checkout.cart.store") }}';
                     let hash = this.handleCreateHash(`product_${this.product.id}_back_1_83BE01_side_1_057EB5_text__fontSize_20.png`);
                     let data = {
@@ -429,7 +424,7 @@
                         .catch(error => {
                             this.isAddingToCart = false;
 
-                            this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
+                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
                         });
                 },
 

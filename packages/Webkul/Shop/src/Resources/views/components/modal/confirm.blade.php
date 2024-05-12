@@ -53,8 +53,8 @@
                                         @{{ message }}
                                     </div>
 
-                                    <div class="flex gap-2.5 justify-end">
-                                        <button type="button" class="secondary-button" @click="disagree">
+                                    <div class="flex gap-2.5 justify-end h-[45px]">
+                                        <button type="button" class="secondary-button bg-white border text-gray-600 rounded-full hover:bg-gray-100 transition-all duration-700" @click="disagree">
                                             @{{ options.btnDisagree }}
                                         </button>
 
