@@ -209,7 +209,9 @@ class ProductRepository extends Repository
      */
     public function getOneFromDatabaseByAttributes()
     {
-        $params = request()->input();
+        $params = array_merge([
+            'customizable'         => 1
+        ], request()->input());
 
         $query = $this->with([
             'images',
@@ -252,6 +254,9 @@ class ProductRepository extends Repository
 
             return $qb;
         });
+
+        // $query->dumpRawSql();
+
         return $query->first();
     }
 
@@ -377,6 +382,7 @@ class ProductRepository extends Repository
                 'status',
                 'visible_individually',
                 'url_key',
+                'customizable'
             ]);
 
             /**
@@ -441,6 +447,8 @@ class ProductRepository extends Repository
         });
 
         $limit = $this->getPerPageLimit($params);
+
+        // $query->dumpRawSql();
 
         return $query->paginate($limit);
     }

@@ -70,7 +70,7 @@ class ProductsCategoriesProxyController extends Controller
 
         $product = $this->productRepository->findBySlug($slugOrURLKey);
 
-        if ($product->customizable) {
+        if (isset($product) && $product->customizable) {
             return redirect()->to('/');
         }
 

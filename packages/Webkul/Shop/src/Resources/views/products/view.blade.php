@@ -158,7 +158,7 @@
             </x-slot>
 
             <x-slot:content>
-                <div class="text-[#7D7D7D] text-lg max-1180:text-sm mb-5">
+                <div class="text-[#7D7D7D] max-1180:text-sm mb-5">
                     {!! $product->description !!}
                 </div>
             </x-slot>
@@ -273,8 +273,8 @@
                         ref="qty"
                     >
 
-                    <div class="container px-[60px] max-1180:px-0">
-                        <div class="flex gap-9 mt-12 max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-6">
+                    <div class="container !px-[20px] max-1180:px-0">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-9 mt-12 max-1180:flex-wrap max-lg:mt-0 max-sm:gap-y-6">
                             <!-- Gallery Blade Inclusion -->
                             @include('shop::products.view.gallery')
 
@@ -356,7 +356,7 @@
 
                                     <div
                                         v-if="product && product.customizable && !isLoading"
-                                        class="cursor-pointer flex gap-2 text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
+                                        class="cursor-pointer flex gap-2 text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700 h-[39px]"
                                         :loading="isAddingToCart"
                                         @click="addToCartCustomizable"
                                     >
@@ -384,7 +384,7 @@
 								<div v-if="product && !product.customizable" class="mt-8 flex gap-3 h-[45px] items-center">
                                     <x-shop::button
                                         type="submit"
-                                        class="primary-button w-full text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
+                                        class="primary-button w-full text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700 h-[39px]"
                                         button-type="secondary-button"
                                         :loading="false"
                                         :title="trans('shop::app.products.view.add-to-cart')"

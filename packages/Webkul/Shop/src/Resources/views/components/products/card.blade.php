@@ -31,7 +31,7 @@
                 <div class="flex p-2 mt-3 border-t border-gray-200"></div>
                 <div class="grid grid-cols-1 gap-3 text-sm font-medium">
                     <x-shop::button
-                        class="text-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
+                        class="flex justify-center w-full px-5 py-2 shadow-sm tracking-wider text-white rounded-full bg-gray-700 hover:bg-indigo-800 transition-all duration-700"
                         :title="trans('shop::app.components.products.card.add-to-cart')"
                         ::loading="isAddingToCart"
                         ::disabled="!product.is_saleable || isAddingToCart"
@@ -123,7 +123,7 @@
 
                         <button
                             class="absolute bottom-4 left-1/2 py-3 px-11 bg-white rounded-xl text-navyBlue text-xs w-max font-medium cursor-pointer -translate-x-1/2 translate-y-14 group-hover:translate-y-0 transition-all duration-300 max-sm:translate-y-2.5 max-sm:group-hover:translate-y-2.5 max-lg:translate-y-2.5 max-sm:px-7 max-sm:py-2"
-                            :disabled="! product.is_saleable || isAddingToCart"
+                            :disabled="!product.is_saleable || isAddingToCart"
                             @click="addToCart()"
                         >
                             @lang('shop::app.components.products.card.add-to-cart')

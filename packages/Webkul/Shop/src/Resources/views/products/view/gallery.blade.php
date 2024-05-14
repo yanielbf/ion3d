@@ -8,7 +8,7 @@
         id="v-product-gallery-template"
     >
         <div>
-            <div class="flex gap-8 h-max sticky top-8 max-1180:hidden">
+            <div class="flex flex-col md:flex-row gap-8 h-max sticky top-8 max-1180:hidden">
                 <!-- Product Image Slider -->
                 <div class="flex-24 justify-center place-content-start h-509 overflow-x-hidden overflow-y-auto flex gap-2.5 max-w-[100px] min-w-[100px] flex-wrap">
                     <span
@@ -64,7 +64,7 @@
                     class="w-full md:max-w-[560px] max-h-[610px]"
                     v-show="isMediaLoading"
                 >
-                    <div class="min-w-[560px] min-h-[607px] bg-[#E9E9E9] rounded-xl shimmer"></div>
+                    <div class="w-full min-h-[607px] bg-[#E9E9E9] rounded-xl shimmer"></div>
                 </div>
 
                 <div
@@ -147,7 +147,7 @@
 
                     this.baseFile.type = 'image';
 
-                    this.baseFile.path = this.media.images[0].large_image_url;
+                    //this.baseFile.path = this.media.images[0].large_image_url;
                 } else if (this.media.videos.length) {
                     this.activeIndex = 'video_0';
 
