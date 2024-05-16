@@ -58,6 +58,10 @@ class CategoryRepository extends Repository
                     break;
             }
         }
+		
+		if(isset($params['sort'])) {
+			$queryBuilder->orderBy('position', $params['sort']);
+		}
 
         return $queryBuilder->paginate($params['limit'] ?? 10);
     }
@@ -133,7 +137,7 @@ class CategoryRepository extends Repository
      */
     public function getCategoryTree($id = null)
     {
-        return $id
+		return $id
             ? $this->model::orderBy('position', 'ASC')->where('id', '!=', $id)->get()->toTree()
             : $this->model::orderBy('position', 'ASC')->get()->toTree();
     }
@@ -146,7 +150,7 @@ class CategoryRepository extends Repository
      */
     public function getCategoryTreeWithoutDescendant($id = null)
     {
-        return $id
+		return $id
             ? $this->model::orderBy('position', 'ASC')->where('id', '!=', $id)->whereNotDescendantOf($id)->get()->toTree()
             : $this->model::orderBy('position', 'ASC')->get()->toTree();
     }
@@ -179,7 +183,7 @@ class CategoryRepository extends Repository
      */
     public function getVisibleCategoryTree($id = null)
     {
-        return $id
+		return $id
             ? $this->model::orderBy('position', 'ASC')->where('status', 1)->descendantsAndSelf($id)->toTree($id)
             : $this->model::orderBy('position', 'ASC')->where('status', 1)->get()->toTree();
     }

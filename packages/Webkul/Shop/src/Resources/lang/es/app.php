@@ -449,7 +449,7 @@ return [
             'card' => [
                 'customize'              => 'Personalizar',
                 'buy'                    => 'Comprar',
-                'add-to-cart'            => 'Lo quiero',
+                'add-to-cart'            => 'Agregar al carrito',
                 'add-to-compare'         => 'Agregar a comparar',
                 'add-to-compare-success' => 'Elemento añadido correctamente a la lista de comparación.',
                 'add-to-wishlist'        => 'Agregar a la lista de deseos',
@@ -545,7 +545,7 @@ return [
                 'write-a-review'   => 'Escribir una reseña',
             ],
     
-            'add-to-cart'            => 'Lo quiero',
+            'add-to-cart'            => 'Agregar al carrito',
             'add-to-compare'         => 'Producto añadido a la lista de comparación.',
             'add-to-wishlist'        => 'Agregar a la lista de deseos',
             'additional-information' => 'Información adicional',
@@ -576,7 +576,7 @@ return [
         'select_attribute' => 'Seleccione un',
         'restart_values' => 'Restablecer valores',
         'add_to_cart_finish' => 'Agregar y comprar',
-        'add_to_cart' => 'Lo quiero',
+        'add_to_cart' => 'Agregar al carrito',
         'back_piece' => 'Parte trasera',
         'side_piece' => 'Borde',
         'text_print' => 'Texto',

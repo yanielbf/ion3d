@@ -10,7 +10,7 @@
         <div>
             <div class="flex flex-col md:flex-row gap-8 h-max sticky top-8 max-1180:hidden">
                 <!-- Product Image Slider -->
-                <div class="flex-24 justify-center place-content-start h-509 overflow-x-hidden overflow-y-auto flex gap-2.5 max-w-[100px] min-w-[100px] flex-wrap">
+                <div class="">
                     <span
                         class="icon-arrow-up text-2xl cursor-pointer"
                         role="button"
@@ -21,9 +21,9 @@
                     >
                     </span>
 
-                    <div
+                    <div    
                         ref="swiperContainer"
-                        class="flex flex-col max-h-[540px] gap-2.5 [&>*]:flex-[0] overflow-auto scroll-smooth scrollbar-hide"
+                        class="flex flex-row md:flex-col mt-5 md:mt-0 max-h-[540px] gap-2.5 [&>*]:flex-[0] overflow-auto scroll-smooth scrollbar-hide"
                     >
                         <img 
                             :class="`min-w-[100px] max-h-[100px] rounded-xl border transparent cursor-pointer ${activeIndex === `image_${index}` ? 'border border-navyBlue pointer-events-none' : 'border-white'}`"
@@ -147,7 +147,7 @@
 
                     this.baseFile.type = 'image';
 
-                    //this.baseFile.path = this.media.images[0].large_image_url;
+                    this.baseFile.path = this.media.images[0].large_image_url;
                 } else if (this.media.videos.length) {
                     this.activeIndex = 'video_0';
 

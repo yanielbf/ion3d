@@ -340,14 +340,12 @@
 
                                     {!! view_render_event('bagisto.shop.products.view.quantity.before', ['product' => $product]) !!}
 
-                                    @if ($product->getTypeInstance()->showQuantityBox())
-                                        <x-shop::quantity-changer
-                                            v-if="!isLoading && product"
-                                            name="quantity"
-                                            value="1"
-                                            class="gap-x-4 py-2 px-7 rounded-xl"
-                                        />
-                                    @endif
+                                    <x-shop::quantity-changer
+                                        v-if="!isLoading && product"
+                                        name="quantity"
+                                        value="1"
+                                        class="gap-x-4 py-2 px-7 rounded-xl"
+                                    />
 
                                     {!! view_render_event('bagisto.shop.products.view.quantity.after', ['product' => $product]) !!}
 
@@ -469,7 +467,7 @@
                 },
                 methods: {
                     getProduct() {
-                        this.$axios.get("{{ route('shop.api.products.index') }}")
+                        this.$axios.get("{{ route('shop.api.products.index') }}?limit=1000")
                         .then(response => {
                             this.product = response.data.data.find(x => x.id == this.productId);
                         }).catch(error => {

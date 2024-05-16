@@ -449,7 +449,7 @@ return [
             'card' => [
                 'customize'                   => 'Personalizar',
                 'buy'                         => 'Comprar',
-                'add-to-cart'                 => 'I want it',
+                'add-to-cart'                 => 'Add to cart',
                 'add-to-compare'              => 'Add To Compare',
                 'add-to-compare-success'      => 'Item added successfully to compare list.',
                 'add-to-wishlist'             => 'Add To Wishlist',
@@ -545,7 +545,7 @@ return [
                 'write-a-review'   => 'Write a Review',
             ],
 
-            'add-to-cart'            => 'I want it',
+            'add-to-cart'            => 'Add to cart',
             'add-to-compare'         => 'Product added in compare.',
             'add-to-wishlist'        => 'Add To Wishlist',
             'additional-information' => 'Additional Information',
