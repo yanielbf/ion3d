@@ -69,7 +69,7 @@
     </v-product>
 
     <!-- Information Section -->
-    <div class="1180:mt-20 mb-20">
+    <div class="md:mt-5 mb-5">
         <x-shop::tabs position="center">
             <!-- Description Tab -->
             {!! view_render_event('bagisto.shop.products.view.description.before', ['product' => $product]) !!}

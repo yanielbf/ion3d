@@ -166,7 +166,6 @@ function handleGetProduct() {
             .get(url)
             .then((response) => {
                 state.product = response.data?.data;
-                console.log(state.product)
             })
             .catch((error) => {
                 state.errorProduct = error;
@@ -672,7 +671,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="container mt-0 md:mt-2 px-[60px] max-lg:px-8">
+    <div class="container mt-16 md:mt-2 px-[60px] max-lg:px-8">
         <div
             v-if="state.loading"
             class="flex justify-center items-center h-[616px]"
@@ -754,10 +753,7 @@ onMounted(() => {
                             >
                                 <div
                                     ref="screenShot"
-                                    :class="{
-                                        [`border-[${state.borderColorSelected.color}]`]: true,
-                                        [`bg-[${state.backColorSelected.color}]`]: true,
-                                    }"
+                                    :style="{background: state.backColorSelected.color, borderColor: state.borderColorSelected.color, boxShadow: '#eee 0px 0px 0px 2px'}"
                                     class="w-[70%] md:w-1/3 max-w-[240px] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
                                 >
                                     <div class="flex justify-start">
@@ -808,7 +804,7 @@ onMounted(() => {
                             <img :src="state.product.images[0].medium_image_url" />
                         </div>
                     </div>
-                    <div class="py-6 border-t grid md:grid-cols-[1fr_4fr_1fr] grid-cols-1">
+                    <div class="py-6 border-t grid grid-cols-[1fr_4fr_1fr]">
                         <div class="flex justify-start items-center">
                             <div
                                 @click="handleChangeSettingView"

@@ -14,7 +14,7 @@
     >
         <div>
             <div
-                class="flex gap-8 justify-center pt-5 bg-[#F5F5F5] max-1180:hidden"
+                class="gap-8 justify-center pt-5 bg-[#F5F5F5] hidden md:flex"
                 :style="positionStyles"
             >
                 <div
