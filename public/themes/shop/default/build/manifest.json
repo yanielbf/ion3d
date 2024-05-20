@@ -20,7 +20,7 @@
     "src": "node_modules/primeicons/fonts/primeicons.woff2"
   },
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-8b44bf31.css",
+    "file": "assets/app-2d863c95.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -115,7 +115,7 @@
     "css": [
       "assets/app-3f263ce1.css"
     ],
-    "file": "assets/app-518197aa.js",
+    "file": "assets/app-e08a3015.js",
     "isEntry": true,
     "src": "src/Resources/assets/js/app.js"
   }
