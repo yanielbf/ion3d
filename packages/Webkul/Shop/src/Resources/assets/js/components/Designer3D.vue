@@ -671,7 +671,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="container mt-16 md:mt-2 px-[60px] max-lg:px-8">
+    <div class="container mb-20 md:mb-0 mt-16 md:mt-2 px-[60px] max-lg:px-8">
         <div
             v-if="state.loading"
             class="flex justify-center items-center h-[616px]"
