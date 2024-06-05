@@ -324,11 +324,9 @@ async function init3d() {
 
         console.log('Nodes:', nodes);
 
-        const keys = Object.keys(nodes).filter(
-            (key) => ![1, 2].includes(key.toString().length) && key !== "Scene"
-        );
-
-        state.pieces = Object.fromEntries(keys.map((key) => [key, nodes[key]]));
+        state.pieces = Object.fromEntries(Object.keys(nodes).filter(
+            (key) => nodes[key].type === "Mesh"
+        ).map((key) => [key, nodes[key]]));
         state.materials = materials;
 
         if (
@@ -339,7 +337,7 @@ async function init3d() {
             console.log(materials);
             state.loading3D = false;
             throw new Exception(
-                "El objecto glb no esta en el formato esperado"
+                "El objecto glb no esta en el formato esperado. Tiene que tener 2 elemntos mesh"
             );
         }
 
