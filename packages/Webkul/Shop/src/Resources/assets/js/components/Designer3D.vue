@@ -91,6 +91,14 @@ const price = computed(() => {
     }
 })
 
+const backgroundColor = computed(() => {
+    return colorsPieces(state.backColorSelected.color).color
+})
+
+const color = computed(() => {
+    return colorsPieces(state.borderColorSelected.color).color
+})
+
 // General
 function handleCreateHash() {
     let hash = 0;
@@ -378,6 +386,15 @@ function handleStageMouseDown(e) {
     const name = e.target.name();
     selectedShapeName = name;
     handleUpdateTransformer();
+}
+
+function colorsPieces (color) {
+    const pieces = color.split('_');
+    return {
+        category: pieces[0],
+        name: pieces[1],
+        color: pieces[2],
+    }
 }
 
 function handleTransformEnd(e) {
@@ -751,17 +768,18 @@ onMounted(() => {
                             >
                                 <div
                                     ref="screenShot"
-                                    :style="{background: state.backColorSelected.color, borderColor: state.borderColorSelected.color, boxShadow: '#eee 0px 0px 0px 2px'}"
-                                    class="w-[70%] md:w-1/3 max-w-[240px] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 p-1 border-8"
+                                    :style="{borderColor: colorsPieces(state.borderColorSelected.color).color, boxShadow: '#eee 0px 0px 0px 2px'}"
+                                    class="w-[70%] md:w-1/3 max-w-[240px] h-full rounded-xl grid grid-rows-[30%_1fr] grid-cols-1 border-8"
                                 >
-                                    <div class="flex justify-start">
+                                    <div class="flex justify-start" :style="{background: colorsPieces(state.backColorSelected.color).color}">
                                         <div
-                                            class="w-[40%] h-[75%] mt-3 ml-3 rounded-lg border-white bg-white"
+                                            class="w-[40%] h-[75%] mt-3 ml-3 border-white bg-white rounded-lg"
                                         ></div>
                                     </div>
                                     <div
-                                        class="w-full rounded -pb-4"
+                                        class="w-full -pb-4"
                                         ref="container"
+                                        :style="{background: colorsPieces(state.backColorSelected.color).color}"
                                     >
                                         <v-stage
                                             ref="stage"
@@ -802,7 +820,7 @@ onMounted(() => {
                             <img :src="state.product.images[0].medium_image_url" />
                         </div>
                     </div>
-                    <div class="py-6 border-t grid grid-cols-[1fr_4fr_1fr]">
+                    <div class="py-6 border-t grid grid-cols-[1fr_15fr_1fr]">
                         <div class="flex justify-start items-center">
                             <div
                                 @click="handleChangeSettingView"
@@ -817,7 +835,7 @@ onMounted(() => {
                         </div>
                         <div
                             v-show="state.activeSetting === 0"
-                            class="flex flex-col justify-center items-center"
+                            class="flex flex-col justify-center"
                         >
                             <ColorSelector
                                 :label="info.texts.back_piece"

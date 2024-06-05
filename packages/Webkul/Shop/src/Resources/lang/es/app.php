@@ -344,7 +344,7 @@ return [
                 'welcome'           => 'Bienvenido',
                 'welcome-guest'     => 'Bienvenido, Invitado',
                 'wishlist'          => 'Lista de deseos',
-                'customize'         => 'Perzonaliza ahora',
+                'customize'         => 'Personaliza ahora',
                 'sign-login'        => 'Regístrate o inicia sesión',
                 'hello'             => 'Hola',
             ],

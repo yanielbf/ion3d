@@ -89,7 +89,9 @@ import Designer3D from './components/Designer3D.vue';
 import Show2DViewModal from './components/Show2DViewModal.vue';
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import { CoFacebookF, CoInstagram, CoTiktok, CoTelegram, CoYoutube } from "oh-vue-icons/icons/co";
+import FloatingVue from 'floating-vue'
 import 'primeicons/primeicons.css'
+import 'floating-vue/dist/style.css'
 
 addIcons(CoFacebookF, CoInstagram, CoTiktok, CoTelegram, CoYoutube);
 
@@ -100,7 +102,8 @@ addIcons(CoFacebookF, CoInstagram, CoTiktok, CoTelegram, CoYoutube);
     VeeValidate, 
     Flatpickr,
     Tres,
-    VueKonva
+    VueKonva,
+    FloatingVue
 ].forEach((plugin) => app.use(plugin));
 
 app.use(PrimeVue, { unstyled: true, pt: Lara });

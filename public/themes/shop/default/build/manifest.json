@@ -20,7 +20,7 @@
     "src": "node_modules/primeicons/fonts/primeicons.woff2"
   },
   "src/Resources/assets/css/app.css": {
-    "file": "assets/app-2d863c95.css",
+    "file": "assets/app-db2cdb11.css",
     "isEntry": true,
     "src": "src/Resources/assets/css/app.css"
   },
@@ -101,7 +101,7 @@
     "src": "src/Resources/assets/images/wishlist.png"
   },
   "src/Resources/assets/js/app.css": {
-    "file": "assets/app-3f263ce1.css",
+    "file": "assets/app-3c246a9b.css",
     "src": "src/Resources/assets/js/app.css"
   },
   "src/Resources/assets/js/app.js": {
@@ -113,9 +113,9 @@
       "assets/primeicons-36c54cec.svg"
     ],
     "css": [
-      "assets/app-3f263ce1.css"
+      "assets/app-3c246a9b.css"
     ],
-    "file": "assets/app-8df705ea.js",
+    "file": "assets/app-2e616e96.js",
     "isEntry": true,
     "src": "src/Resources/assets/js/app.js"
   }

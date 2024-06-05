@@ -19,6 +19,7 @@
     "@vee-validate/i18n": "^4.9.1",
     "@vee-validate/rules": "^4.9.1",
     "@vitejs/plugin-vue": "^4.2.3",
+    "floating-vue": "^5.2.2",
     "html2canvas": "^1.4.1",
     "konva": "^9.3.6",
     "mitt": "^3.0.0",
