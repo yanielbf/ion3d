@@ -352,9 +352,9 @@ async function init3d() {
         Object.keys(state.pieces).forEach((key, index) => {
             const material = Object.values(materials)[index];
             if (index == 0) {
-                material.color.set(state.borderColorSelected.color);
+                material.color.set(colorsPieces(state.borderColorSelected.color).color);
             } else {
-                material.color.set(state.backColorSelected.color);
+                material.color.set(colorsPieces(state.backColorSelected.color).color);
             }
             state.pieces[key].material = material;
             group.add(toRaw(state.pieces[key]));
@@ -663,7 +663,7 @@ watch(
 watch(
     () => state.backColorSelected,
     () => {
-        handleChangeColor(1, state.backColorSelected)
+        handleChangeColor(1, colorsPieces(state.backColorSelected.color))
     },
     {
         deep: true,
@@ -673,7 +673,7 @@ watch(
 watch(
     () => state.borderColorSelected,
     () => {
-        handleChangeColor(0, state.borderColorSelected)
+        handleChangeColor(0, colorsPieces(state.borderColorSelected.color))
     },
     {
         deep: true,
